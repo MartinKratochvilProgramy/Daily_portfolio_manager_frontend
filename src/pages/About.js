@@ -34,7 +34,7 @@ export default function About() {
                     alt="GitHub_logo"
                     />
                 <a 
-                    href="https://github.com/MartinKratochvilProgramy/Portfolio_management" 
+                    href="https://github.com/MartinKratochvilProgramy" 
                     className='text-blue-600 underline underline-offset-4'
                     target="_blank" 
                     rel="noopener noreferrer"
