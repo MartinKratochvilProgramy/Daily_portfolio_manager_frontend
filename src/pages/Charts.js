@@ -13,7 +13,7 @@ export default function Charts() {
    
     useEffect(() => {
         // get net worth history on load
-        fetch(`http://localhost:4000/stocks_history`, {
+        fetch(`https://dailyportfoliomanager.herokuapp.com/stocks_history`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export default function Charts() {
         })
     
         // get stocks on load
-        fetch(`http://localhost:4000/stocks`, {
+        fetch(`https://dailyportfoliomanager.herokuapp.com/stocks`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
