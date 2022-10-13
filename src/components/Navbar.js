@@ -4,7 +4,7 @@ import { useNavigate  } from 'react-router-dom';
 
 export default function Navbar({ active }) {
 
-    const [, setCredentials] = useContext(CredentialsContext);
+    const [credentials, setCredentials] = useContext(CredentialsContext);
     
     const navigate = useNavigate();
 
@@ -20,7 +20,11 @@ export default function Navbar({ active }) {
   return (
     <div>
         <nav className="bg-white border-gray-200 px-2 sm:px-4 rounded dark:bg-gray-900">
-            <div className="flex justify-end items-center w-auto order-1" id="navbar-search">
+            <div className="flex justify-between items-center w-auto order-1" id="navbar-search">
+
+                <div className='text-white font-medium hidden sm:block'>
+                    {credentials.username}
+                </div>
 
                 <ul className="flex flex-row justify-end  items-center p-1 rounded-lg border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-white dark:bg-gray-900 dark:border-gray-700">
                     <li>
