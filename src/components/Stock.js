@@ -14,7 +14,7 @@ export default function Stock({ stock, deleteStock }) {
     if (!expanded) {
       const ticker = stock.ticker;
       
-      fetch(`http://localhost:4000/stock_purchases`, {
+      fetch(`https://dailyportfoliomanager.herokuapp.com/stock_purchases`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

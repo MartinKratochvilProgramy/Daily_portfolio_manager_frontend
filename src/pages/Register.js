@@ -24,7 +24,7 @@ export default function Register() {
     e.preventDefault();
 
     if(!registerInputError(username, password)) {
-      fetch(`http://localhost:4000/register`, {
+      fetch(`https://dailyportfoliomanager.herokuapp.com/register`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
