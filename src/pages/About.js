@@ -25,7 +25,7 @@ export default function About() {
                 section, where the amount of money you invested is displayed. 
             </p>
             <p className='max-w-[60%] text-xl'>
-                This app is intended for the 'Bogglehead' type investor who likes to invest regurarly over longer periods of time.
+                This app is intended for the 'Bogglehead' type investor who likes to invest regularly over longer periods of time.
             </p>
             <p className='flex flex-row space-x-2 max-w-[60%] text-xl pt-24 pb-8'>
                 <img 
