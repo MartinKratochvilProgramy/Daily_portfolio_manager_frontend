@@ -213,6 +213,12 @@ export default function Charts() {
             useResizeHandler
             className="w-[80%] h-[80%]"
         />
+        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0'>
+            RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
+        </h1>
+        <div className='font-semibold'>
+            How much in % has your portfolio changed since it's inception
+        </div>
         <Plot
             data={relativeChangeData}
             layout={relativeChangeLayout}
