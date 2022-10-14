@@ -18,14 +18,14 @@ export default function About() {
             </p>
             <p className='max-w-[60%] text-xl'>
                 Every day the server looks for previous close price for each stock in your portfolio and updates current net-worth.
-                Financials (net-worth history and pie chart of all your stocks) are displayed under the <a href="/charts" className='text-blue-600 underline underline-offset-4'>Charts</a> section.
+                Financials (net-worth history, relative % change and pie chart of all your stocks) are displayed under the <a href="/charts" className='text-blue-600 underline underline-offset-4'>Charts</a> section.
             </p>
             <p className='max-w-[60%] text-xl'>
                 To get a rough idea about how much you invest and what is your discipline when investing, refer to the <a href="/investments" className='text-blue-600 underline underline-offset-4'>Investments </a>
                 section, where the amount of money you invested is displayed. 
             </p>
             <p className='max-w-[60%] text-xl'>
-                This app is intended for the 'Bogglehead' type investor who likes to invest regularly over longer periods of time.
+                This app is intended for the 'Bogglehead' type investor who likes to invest regurarly over longer periods of time.
             </p>
             <p className='flex flex-row space-x-2 max-w-[60%] text-xl pt-24 pb-8'>
                 <img 
