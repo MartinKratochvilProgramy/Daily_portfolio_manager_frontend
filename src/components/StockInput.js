@@ -11,7 +11,7 @@ export default function StockInput({ setStocks }) {
   const persist = (newStock) => {
     // hit the endpoint and write to db
     // returns the new stocks array
-    fetch(`https://dailyportfoliomanager.herokuapp.com/stock_add`, {
+    fetch(`http://localhost:4000/stock_add`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

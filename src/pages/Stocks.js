@@ -11,7 +11,7 @@ export default function Stocks() {
 
   useEffect(() => {
       // get stocks on load
-      fetch(`https://dailyportfoliomanager.herokuapp.com/stocks`, {
+      fetch(`http://localhost:4000/stocks`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",

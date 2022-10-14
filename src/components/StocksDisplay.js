@@ -8,7 +8,7 @@ export default function Stocks({ stocks, setStocks }) {
 
   const persist = (newStocks) => {
     // hit the endpoint and write to db
-    fetch(`https://dailyportfoliomanager.herokuapp.com/stock_remove`, {
+    fetch(`http://localhost:4000/stock_remove`, {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

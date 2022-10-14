@@ -5,15 +5,16 @@ import { CredentialsContext } from '../App';
 import { handleErrors } from './Login';
 
 export default function Charts() {
-    const [stocksHistory, setStocksHistory] = useState([]);
     const [stocks, setStocks] = useState([]);
+    const [stocksHistory, setStocksHistory] = useState([]);
+    const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
     const [currentNetWorth, setCurrentNetWorth] = useState(null);
     const [credentials,] = useContext(CredentialsContext);
 
    
     useEffect(() => {
         // get net worth history on load
-        fetch(`https://dailyportfoliomanager.herokuapp.com/stocks_history`, {
+        fetch(`http://localhost:4000/stocks_history`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +32,7 @@ export default function Charts() {
         })
     
         // get stocks on load
-        fetch(`https://dailyportfoliomanager.herokuapp.com/stocks`, {
+        fetch(`http://localhost:4000/stocks`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -41,9 +42,24 @@ export default function Charts() {
             .then(handleErrors)
             .then((response ) => response.json())
             .then((stocks) => setStocks(stocks))
-            .catch((error) => {
-            console.log(error);
-        })
+                .catch((error) => {
+                console.log(error);
+            })
+    
+        // get relative change on load
+        fetch(`http://localhost:4000/relative_change`, {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Basic ${credentials.username}:${credentials.password}`,
+            },
+            })
+            .then(handleErrors)
+            .then((response ) => response.json())
+            .then((stocks) => setRelativeChangeHistory(stocks))
+                .catch((error) => {
+                console.log(error);
+            })
 
     }, [credentials]);
 
@@ -77,23 +93,72 @@ export default function Charts() {
             title: false,
             autosize: true
         } ;
-        const netWorthHistory = [];
-        const changesHistory = [];
+        const netWorthHistory_x = [];
+        const netWorthHistory_y = [];
         stocksHistory.forEach(stock => {
-            netWorthHistory.push(stock.netWorth)
-            changesHistory.push(stock.date)
+            netWorthHistory_x.push(stock.date)
+            netWorthHistory_y.push(stock.netWorth)
         });
     
         const historyData = [
             {
-                x: changesHistory,
-                y: netWorthHistory,
+                x: netWorthHistory_x,
+                y: netWorthHistory_y,
                 type: 'scatter',
                 mode: 'lines+markers',
                 marker: {color: '#1C64F2'},
             },
         ]
         return {historyData, historyLayout}
+    }
+
+    function initRelativeChangeChart() {
+        const relativeChangeLayout =  {
+            xaxis: {
+                title: {
+                    text: 'Time',
+                    font: {
+                      size: 18,
+                      color: 'black'
+                    }
+                  }
+            },
+            yaxis: {
+                title: {
+                    text: 'Relative change [%]',
+                    font: {
+                      size: 18,
+                      color: 'black'
+                    }
+                  }
+            },
+            margin: {
+                l: 100,
+                r: 20,
+                b: 60,
+                t: 20,
+                pad: 5
+              }, 
+            title: false,
+            autosize: true
+        } ;
+        const relativeChange_x = [];
+        const relativeChange_y = [];
+        relativeChangeHistory.forEach(time => {
+            relativeChange_y.push(time.relativeChange)
+            relativeChange_x.push(time.date)
+        });
+    
+        const relativeChangeData = [
+            {
+                x: relativeChange_x,
+                y: relativeChange_y,
+                type: 'scatter',
+                mode: 'lines+markers',
+                marker: {color: '#13a829'},
+            },
+        ]
+        return {relativeChangeData, relativeChangeLayout}
     }
 
     function initPieChart() {
@@ -130,6 +195,7 @@ export default function Charts() {
     }
 
     const {historyData, historyLayout} = initHistoryChart();        
+    const {relativeChangeData, relativeChangeLayout} = initRelativeChangeChart();        
     const {pieData, pieLayout} = initPieChart();  
     
   return (
@@ -144,6 +210,12 @@ export default function Charts() {
         <Plot
             data={historyData}
             layout={historyLayout}
+            useResizeHandler
+            className="w-[80%] h-[80%]"
+        />
+        <Plot
+            data={relativeChangeData}
+            layout={relativeChangeLayout}
             useResizeHandler
             className="w-[80%] h-[80%]"
         />

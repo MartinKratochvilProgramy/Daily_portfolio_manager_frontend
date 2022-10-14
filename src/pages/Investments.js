@@ -11,7 +11,7 @@ export default function Investments() {
   
     useEffect(() => {
       // get net worth history on load
-      fetch(`https://dailyportfoliomanager.herokuapp.com/investments_history`, {
+      fetch(`http://localhost:4000/investments_history`, {
           method: 'GET',
           headers: {
               "Content-Type": "application/json",

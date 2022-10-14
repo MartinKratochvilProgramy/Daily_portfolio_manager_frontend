@@ -29,7 +29,7 @@ export default function Login() {
     e.preventDefault();
 
     if (!loginInputError(username, password)) {
-      fetch(`https://dailyportfoliomanager.herokuapp.com/login`, {
+      fetch(`http://localhost:4000/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
