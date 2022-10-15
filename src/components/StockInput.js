@@ -73,7 +73,7 @@ export default function StockInput({ setStocks }) {
         onSubmit={addStock} 
         className="flex flex-col space-y-4 items-center">   
           <label htmlFor ="add-stock" className="sr-only">Add stock</label>
-          <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0'>
+          <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ADD NEW <span className='text-blue-600'>STOCK</span>
           </h1>
           <div className="relative flex flex-row w-8/12 md:w-8/12 h-full">

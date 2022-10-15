@@ -1,10 +1,11 @@
 import React, { useContext } from 'react';
-import { CredentialsContext } from '../App';
+import { CredentialsContext, ThemeContext } from '../App';
 import { useNavigate  } from 'react-router-dom';
 
 export default function Navbar({ active }) {
 
     const [credentials, setCredentials] = useContext(CredentialsContext);
+    const [, setTheme] = useContext(ThemeContext);
     
     const navigate = useNavigate();
 
@@ -15,7 +16,19 @@ export default function Navbar({ active }) {
     }
 
     function toggleTheme () {
-
+        if (
+            localStorage.getItem('color-theme') === 'light' ||
+            (!('color-theme' in localStorage) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+            ) {
+                setTheme('dark');
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                setTheme('light');
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            }
     }
 
     const activeStyles = "block p-2 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-700 bg-transparent";
@@ -29,6 +42,7 @@ export default function Navbar({ active }) {
                 {credentials.username}
                 <button
                     className='mx-4 bg-white text-black px-2 py-1 rounded'
+                    onClick={toggleTheme}
                 >Toggle theme</button>
             </div>
 

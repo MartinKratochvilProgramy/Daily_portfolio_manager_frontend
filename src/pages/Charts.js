@@ -1,16 +1,28 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import { CredentialsContext } from '../App';
+import { CredentialsContext, ThemeContext } from '../App';
 import { handleErrors } from './Login';
+import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 
 export default function Charts() {
+    const [chartTheme, setChartTheme] = useState({});
     const [stocks, setStocks] = useState([]);
     const [stocksHistory, setStocksHistory] = useState([]);
     const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
     const [currentNetWorth, setCurrentNetWorth] = useState(null);
     const [credentials,] = useContext(CredentialsContext);
+    const [theme,] = useContext(ThemeContext);
 
+    useEffect(() => {
+        if (theme === 'light' || theme === "") {
+            document.documentElement.classList.add('light');
+            setChartTheme(chartThemeLight);
+        } else {
+            document.documentElement.classList.add('dark');
+            setChartTheme(chartThemeDark);
+        }
+    }, [theme]);
    
     useEffect(() => {
         // get net worth history on load
@@ -70,28 +82,36 @@ export default function Charts() {
                     text: 'Time',
                     font: {
                       size: 18,
-                      color: 'black'
+                      color: chartTheme.color
                     }
-                  }
+                  },
+                color: chartTheme.color,
+                tickcolor: chartTheme.tickcolor,
+                gridcolor: chartTheme.gridcolor
             },
             yaxis: {
                 title: {
                     text: 'Net worth [$]',
                     font: {
                       size: 18,
-                      color: 'black'
+                      color: chartTheme.color
                     }
-                  }
+                  },
+                color: chartTheme.color,
+                tickcolor: chartTheme.tickcolor,
+                gridcolor: chartTheme.gridcolor
             },
             margin: {
                 l: 100,
                 r: 20,
-                b: 60,
+                b: 80,
                 t: 20,
                 pad: 5
               }, 
             title: false,
-            autosize: true
+            autosize: true,
+            plot_bgcolor: chartTheme.plot_bgcolor,
+            paper_bgcolor: chartTheme.paper_bgcolor
         } ;
         const netWorthHistory_x = [];
         const netWorthHistory_y = [];
@@ -106,7 +126,7 @@ export default function Charts() {
                 y: netWorthHistory_y,
                 type: 'scatter',
                 mode: 'lines+markers',
-                marker: {color: '#1C64F2'},
+                marker: {color: 'rgb(37, 99, 235)'},
             },
         ]
         return {historyData, historyLayout}
@@ -119,28 +139,36 @@ export default function Charts() {
                     text: 'Time',
                     font: {
                       size: 18,
-                      color: 'black'
+                      color: chartTheme.color
                     }
-                  }
+                  },
+                color: chartTheme.color,
+                tickcolor: chartTheme.tickcolor,
+                gridcolor: chartTheme.gridcolor
             },
             yaxis: {
                 title: {
                     text: 'Relative change [%]',
                     font: {
                       size: 18,
-                      color: 'black'
+                      color: chartTheme.color
                     }
-                  }
+                  },
+                color: chartTheme.color,
+                tickcolor: chartTheme.tickcolor,
+                gridcolor: chartTheme.gridcolor
             },
             margin: {
                 l: 100,
                 r: 20,
-                b: 60,
+                b: 80,
                 t: 20,
                 pad: 5
               }, 
             title: false,
-            autosize: true
+            autosize: true,
+            plot_bgcolor: chartTheme.plot_bgcolor,
+            paper_bgcolor: chartTheme.paper_bgcolor
         } ;
         const relativeChange_x = [];
         const relativeChange_y = [];
@@ -169,7 +197,13 @@ export default function Charts() {
                 b: 20,
                 t: 20,
                 pad: 5
-              }, title: false
+              }, 
+              title: false,
+              plot_bgcolor: chartTheme.plot_bgcolor,
+              paper_bgcolor: chartTheme.paper_bgcolor,
+              font: {
+                color: chartTheme.color
+              }
         } ;
         const stockTickers = [];
         const stockFractions = [];
@@ -199,12 +233,12 @@ export default function Charts() {
     const {pieData, pieLayout} = initPieChart();  
     
   return (
-    <div className='bg-white dark:bg-gray-900'>
+    <div className='bg-white dark:bg-gray-800'>
       <Navbar active={"charts"}/>
-        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0'>
+        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             NET <span className='text-blue-600'>WORTH</span> HISTORY
         </h1>
-        <div className='font-semibold'>
+        <div className='font-semibold text-black dark:text-white'>
             Total: <span className='text-blue-600'>{currentNetWorth}</span> $
         </div>
         <Plot
@@ -213,10 +247,10 @@ export default function Charts() {
             useResizeHandler
             className="w-[80%] h-[80%]"
         />
-        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0'>
+        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
-        <div className='font-semibold'>
+        <div className='font-semibold text-black dark:text-white'>
             How much in % has your portfolio changed since it's inception
         </div>
         <Plot
@@ -225,7 +259,7 @@ export default function Charts() {
             useResizeHandler
             className="w-[80%] h-[80%]"
         />
-        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0'>
+        <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
         </h1>
         <Plot

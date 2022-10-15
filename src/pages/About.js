@@ -1,11 +1,20 @@
-import React from 'react';
-
+import React, { useEffect, useContext } from 'react';
+import { ThemeContext } from '../App';
 import Navbar from '../components/Navbar';
 
 export default function About() {
+    const [theme,] = useContext(ThemeContext);
+
+    useEffect(() => {
+        if (theme === 'light' || theme === "") {
+            document.documentElement.classList.add('light');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    }, [theme]);
   
     return (
-    <div>
+    <div className='text-black dark:text-white'>
         <Navbar active={"about"}/>
         <div className='flex flex-col justify-center items-center space-y-16'>
             <h1 className='text-3xl font-semibold mt-8'>
@@ -28,11 +37,19 @@ export default function About() {
                 This app is intended for the 'Bogglehead' type investor who likes to invest regularly over longer periods of time.
             </p>
             <p className='flex flex-row space-x-2 max-w-[60%] text-xl pt-24 pb-8'>
+                {theme === 'light' ? 
                 <img 
                     className=''
                     src={require("../img/GitHub-Mark-32px.png")} 
                     alt="GitHub_logo"
                     />
+                    : 
+                <img 
+                    className=''
+                    src={require("../img/GitHub-Mark-Light-32px.png")} 
+                    alt="GitHub_logo"
+                    />
+                }
                 <a 
                     href="https://github.com/MartinKratochvilProgramy" 
                     className='text-blue-600 underline underline-offset-4'
