@@ -35,10 +35,10 @@ export default function Navbar({ active }) {
     const nonActiveStyles = "block p-2 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 hover:text-white text-gray-300 border-gray-700";
 
   return (
-    <nav className="border-gray-200 px-1 sm:px-4 bg-gray-900">
+    <nav className="border-gray-200 px-0 sm:px-4 bg-gray-900">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-auto order-1" id="navbar-search">
 
-            <div className='flex w-full sm:w-auto my-1 justify-between items-center text-white space-x-4'>
+            <div className='flex w-full sm:w-auto py-4 justify-between items-center text-white space-x-4'>
                 <div className='pb-[2px]'>
                     {credentials.username}
                 </div>
