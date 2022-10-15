@@ -9,8 +9,9 @@ export default function Charts() {
     const [chartTheme, setChartTheme] = useState({});
     const [stocks, setStocks] = useState([]);
     const [stocksHistory, setStocksHistory] = useState([]);
+    const [currentNetWorth, setCurrentNetWorth] = useState(0);
     const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
-    const [currentNetWorth, setCurrentNetWorth] = useState(null);
+    const [currentRelativeChange, setCurrentRelativeChange] = useState(0);
     const [credentials,] = useContext(CredentialsContext);
     const [theme,] = useContext(ThemeContext);
 
@@ -36,8 +37,8 @@ export default function Charts() {
             .then(handleErrors)
             .then((response ) => response.json())
             .then((stocks) => {
-                setStocksHistory(stocks)
-                setCurrentNetWorth(stocks[stocks.length - 1].netWorth)
+                setStocksHistory(stocks);
+                setCurrentNetWorth(stocks[stocks.length - 1].netWorth);
             })
             .catch((error) => {
             console.log( error);
@@ -68,7 +69,10 @@ export default function Charts() {
             })
             .then(handleErrors)
             .then((response ) => response.json())
-            .then((stocks) => setRelativeChangeHistory(stocks))
+            .then((relativeChange) => {
+                setRelativeChangeHistory(relativeChange);
+                setCurrentRelativeChange(relativeChange[relativeChange.length - 1].relativeChange);
+            })
                 .catch((error) => {
                 console.log(error);
             })
@@ -251,7 +255,7 @@ export default function Charts() {
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
-            How much in % has your portfolio changed since it's inception
+            Since its creation, your portfolio has changed: <span className='text-blue-600'>{currentRelativeChange.toFixed(2)} %</span>
         </div>
         <Plot
             data={relativeChangeData}
