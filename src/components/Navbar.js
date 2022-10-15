@@ -57,7 +57,7 @@ export default function Navbar({ active }) {
                 </div>
             </div>
 
-            <ul className="flex flex-row justify-end items-center w-full sm:w-auto p-0 sm:p-1 border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-gray-900">
+            <ul className="flex flex-row justify-around items-center w-full sm:w-auto p-0 sm:p-1 border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-gray-900">
                 <li>
                     <a href="/stocks" className={active === "stocks" ? activeStyles : nonActiveStyles}>
                         Stocks
