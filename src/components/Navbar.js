@@ -14,18 +14,25 @@ export default function Navbar({ active }) {
         navigate("/");
     }
 
-    const activeStyles = "block p-2 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-700 dark:text-white";
-    const nonActiveStyles = "block p-2 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 dark:hover:text-white dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:hover:bg-transparent dark:border-gray-700";
+    function toggleTheme () {
+
+    }
+
+    const activeStyles = "block p-2 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-700 bg-transparent";
+    const nonActiveStyles = "block p-2 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 hover:text-white text-gray-300 border-gray-700";
 
   return (
-    <nav className="bg-white border-gray-200 px-2 sm:px-4 dark:bg-gray-900">
+    <nav className="border-gray-200 px-2 sm:px-4 bg-gray-900">
         <div className="flex justify-between items-center w-auto order-1" id="navbar-search">
 
             <div className='text-white font-medium hidden sm:block'>
                 {credentials.username}
+                <button
+                    className='mx-4 bg-white text-black px-2 py-1 rounded'
+                >Toggle theme</button>
             </div>
 
-            <ul className="flex flex-row justify-end  items-center p-1-lg border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-white dark:bg-gray-900 dark:border-gray-700">
+            <ul className="flex flex-row justify-end  items-center p-1-lg border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-gray-900">
                 <li>
                     <a href="/stocks" className={active === "stocks" ? activeStyles : nonActiveStyles}>
                         Stocks
