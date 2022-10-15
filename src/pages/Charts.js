@@ -255,7 +255,7 @@ export default function Charts() {
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
-            Since its creation, your portfolio has changed: <span className='text-blue-600'>{currentRelativeChange.toFixed(2)} %</span>
+            Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange.toFixed(2)} %</span>
         </div>
         <Plot
             data={relativeChangeData}
