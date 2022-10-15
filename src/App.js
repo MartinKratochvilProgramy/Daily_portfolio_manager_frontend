@@ -4,7 +4,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Register, Login, Stocks, Charts, Investments, About } from './pages';
 
 export const CredentialsContext = React.createContext();
@@ -15,6 +15,15 @@ function App() {
   const theme = localStorage.getItem('color-theme');
   const credentialsState = useState(user);
   const themeState = useState(theme);
+
+  
+  useEffect(() => {
+      if (theme === 'light' || theme === "") {
+          document.documentElement.classList.add('light');
+      } else {
+          document.documentElement.classList.add('dark');
+      }
+  }, [theme]);
 
 
   return (

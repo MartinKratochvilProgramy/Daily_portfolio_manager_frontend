@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { CredentialsContext, ThemeContext } from '../App';
+import { CredentialsContext } from '../App';
 import StockInput from '../components/StockInput';
 import StocksDisplay from '../components/StocksDisplay';
 import Navbar from '../components/Navbar';
@@ -8,15 +8,6 @@ import { handleErrors } from './Login';
 export default function Stocks() {
   const [stocks, setStocks] = useState([])
   const [credentials, ] = useContext(CredentialsContext);
-  const [theme,] = useContext(ThemeContext);
-
-  useEffect(() => {
-    if (theme === 'light' || theme === "") {
-        document.documentElement.classList.add('light');
-    } else {
-        document.documentElement.classList.add('dark');
-    }
-}, [theme]);
 
   useEffect(() => {
       // get stocks on load

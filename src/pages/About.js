@@ -1,18 +1,10 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext } from 'react';
 import { ThemeContext } from '../App';
 import Navbar from '../components/Navbar';
 
 export default function About() {
     const [theme,] = useContext(ThemeContext);
-
-    useEffect(() => {
-        if (theme === 'light' || theme === "") {
-            document.documentElement.classList.add('light');
-        } else {
-            document.documentElement.classList.add('dark');
-        }
-    }, [theme]);
-  
+ 
     return (
     <div className='text-black dark:text-white'>
         <Navbar active={"about"}/>

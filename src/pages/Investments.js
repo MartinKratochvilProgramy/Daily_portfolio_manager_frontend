@@ -13,10 +13,8 @@ export default function Investments() {
 
   useEffect(() => {
     if (theme === 'light' || theme === "") {
-        document.documentElement.classList.add('light');
         setChartTheme(chartThemeLight);
     } else {
-        document.documentElement.classList.add('dark');
         setChartTheme(chartThemeDark);
     }
   }, [theme]);
