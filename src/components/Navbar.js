@@ -38,7 +38,7 @@ export default function Navbar({ active }) {
     <nav className="border-gray-200 px-0 sm:px-4 bg-gray-900">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-auto order-1" id="navbar-search">
 
-            <div className='flex w-full sm:w-auto py-4 justify-between items-center text-white space-x-4'>
+            <div className='flex w-full sm:w-auto py-1 px-2 justify-between items-center text-white space-x-4'>
                 <div className='pb-[2px]'>
                     {credentials.username}
                 </div>
