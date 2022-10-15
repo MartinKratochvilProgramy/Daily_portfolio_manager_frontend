@@ -245,7 +245,7 @@ export default function Charts() {
             data={historyData}
             layout={historyLayout}
             useResizeHandler
-            className="w-[100%] h-[100%] sm:w-[80%] sm:h-[80%]"
+            className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
         />
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
@@ -257,7 +257,7 @@ export default function Charts() {
             data={relativeChangeData}
             layout={relativeChangeLayout}
             useResizeHandler
-            className="w-[100%] h-[100%] sm:w-[80%] sm:h-[80%]"
+            className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
         />
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
@@ -266,7 +266,7 @@ export default function Charts() {
             data={pieData}
             layout={pieLayout}
             useResizeHandler
-            className="w-[100%] h-[100%] sm:w-[80%] sm:h-[80%]"
+            className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
         />
     </div>
   )

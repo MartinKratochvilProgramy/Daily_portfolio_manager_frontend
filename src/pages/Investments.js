@@ -70,7 +70,7 @@ export default function Investments() {
           margin: {
               l: 100,
               r: 20,
-              b: 80,
+              b: 100,
               t: 20,
               pad: 5
             }, 
@@ -109,7 +109,7 @@ export default function Investments() {
             data={investmentsData}
             layout={investmentsLayout}
             useResizeHandler
-            className="w-[100%] h-[100%] sm:w-[80%] sm:h-[80%]"
+            className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
         />
     
     </div>
