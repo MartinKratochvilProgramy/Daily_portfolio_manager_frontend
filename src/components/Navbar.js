@@ -31,19 +31,30 @@ export default function Navbar({ active }) {
             }
     }
 
-    const activeStyles = "block p-2 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-700 bg-transparent";
+    const activeStyles = "block p-2 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-400 bg-transparent";
     const nonActiveStyles = "block p-2 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 hover:text-white text-gray-300 border-gray-700";
 
   return (
     <nav className="border-gray-200 px-2 sm:px-4 bg-gray-900">
-        <div className="flex justify-between items-center w-auto order-1" id="navbar-search">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-auto order-1" id="navbar-search">
 
-            <div className='text-white font-medium hidden sm:block'>
-                {credentials.username}
-                <button
-                    className='mx-4 bg-white text-black px-2 py-1 rounded'
-                    onClick={toggleTheme}
-                >Toggle theme</button>
+            <div className='flex w-full sm:w-auto my-1 justify-between items-center text-white space-x-4'>
+                <div className='pb-[1px]'>
+                    {credentials.username}
+                </div>
+                <div className="bg-gray-900 dark:text-gray-100"
+                    onClick={toggleTheme}>
+                    <div className="flex items-center justify-center space-x-2">
+                        <span className="text-sm text-gray-300 dark:text-gray-500">Light</span>
+                            <label className="flex items-center h-5 p-1 duration-300 ease-in-out bg-gray-400 rounded-full cursor-pointer w-9 dark:bg-gray-600">
+                                <div
+                                    className="w-4 h-4 duration-300 ease-in-out transform bg-white rounded-full shadow-md toggle-dot dark:translate-x-3">
+                                </div>
+                            </label>
+                        <span className="text-sm text-gray-500 dark:text-gray-300">Dark</span>
+                        <input id="toggle" type="checkbox" className="hidden" />
+                    </div>
+                </div>
             </div>
 
             <ul className="flex flex-row justify-end  items-center p-1-lg border-gray-100 space-x-0 md:space-x-4 mt-0 text-sm font-medium border-0 bg-gray-900">
@@ -70,7 +81,7 @@ export default function Navbar({ active }) {
                 <li>
                     <button
                         type="submit"
-                        className="flex flex-row px-5 py-2 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium text-sm leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                        className="flex flex-row px-5 py-2 my-2 text-blue-600 rounded border-solid border-blue-600 border-[1px] bg-white font-medium text-sm leading-snug uppercase whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                         onClick={logout}
                         >
                         Logout

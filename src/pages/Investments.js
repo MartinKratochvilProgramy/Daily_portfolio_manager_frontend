@@ -109,7 +109,7 @@ export default function Investments() {
             data={investmentsData}
             layout={investmentsLayout}
             useResizeHandler
-            className="w-[80%] h-[80%]"
+            className="w-[100%] h-[100%] sm:w-[80%] sm:h-[80%]"
         />
     
     </div>
