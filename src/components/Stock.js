@@ -67,7 +67,7 @@ export default function Stock({ stock, deleteStock }) {
                     <div className="w-24 flex justify-start">
                       {purchase.date}
                     </div>
-                    <div className="w-24 flex justify-center">
+                    <div className="w-20 flex justify-center">
                       {purchase.amount}
                     </div>
                     <div className="w-24 flex justify-center">
