@@ -111,7 +111,6 @@ export default function Investments() {
             useResizeHandler
             className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
         />
-    
     </div>
   )
 }
