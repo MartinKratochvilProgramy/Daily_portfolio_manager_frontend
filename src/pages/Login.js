@@ -73,7 +73,7 @@ export default function Login() {
             <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 h-full">
               <form onSubmit={login}>
     
-                <h1 className='text-3xl font-semibold mt-2 py-8 md:py-16 mb-0'>
+                <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 py-8 md:py-16 mb-0'>
                   SIMPLE WAY TO <span className='text-blue-600'>MANAGE</span>
                   <br />
                   YOUR <span className='text-blue-600'>INVESTMENTS</span> DAILY
@@ -105,7 +105,7 @@ export default function Login() {
                       className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                       Login
                     </button>
-                    <p className="text-m font-semibold mt-2 pt-1 mb-0">
+                    <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
                       Don't have an account? <Link 
                                                 to="/register" 
                                                 className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">

@@ -39,7 +39,7 @@ export default function Navbar({ active }) {
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center w-auto order-1" id="navbar-search">
 
             <div className='flex w-full sm:w-auto my-1 justify-between items-center text-white space-x-4'>
-                <div className='pb-[1px]'>
+                <div className='pb-[2px]'>
                     {credentials.username}
                 </div>
                 <div className="bg-gray-900 dark:text-gray-100"
