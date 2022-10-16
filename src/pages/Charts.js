@@ -16,6 +16,7 @@ export default function Charts() {
     const [theme,] = useContext(ThemeContext);
 
     useEffect(() => {
+        // set chart theme on load
         if (theme === 'light' || theme === "") {
             setChartTheme(chartThemeLight);
         } else {
@@ -34,9 +35,9 @@ export default function Charts() {
             })
             .then(handleErrors)
             .then((response ) => response.json())
-            .then((stocks) => {
-                setStocksHistory(stocks);
-                setCurrentNetWorth(stocks[stocks.length - 1].netWorth);
+            .then((history) => {
+                setStocksHistory(history);
+                setCurrentNetWorth(history[history.length - 1].netWorth);
             })
             .catch((error) => {
             console.log( error);

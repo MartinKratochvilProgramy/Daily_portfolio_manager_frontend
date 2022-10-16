@@ -6,7 +6,7 @@ export default function Stocks({ stocks, setStocks }) {
 
   const [credentials, ] = useContext(CredentialsContext);
 
-  const persist = (newStocks) => {
+  const deleteStock = (ticker, amount) => {
     // hit the endpoint and write to db
     fetch(`https://dailyportfoliomanager.herokuapp.com/stock_remove`, {
       method: 'POST',
@@ -15,25 +15,13 @@ export default function Stocks({ stocks, setStocks }) {
         "Authorization": `Basic ${credentials.username}:${credentials.password}`
       },
       body: JSON.stringify({
-        newStocks, 
+        ticker,
+        amount 
       })
     })
     .then((response ) => response.json())
+    .then((stocks) => setStocks(stocks))
   };
-
-  function deleteStock(ticker, newAmount) {
-    if (newAmount === 0) {
-      const newStocks = stocks.filter((stock) => stock.ticker !== ticker)
-      setStocks(newStocks);
-      persist(newStocks);
-    } else if (newAmount > 0) {
-      const newStocks = stocks;
-      const objIndex = stocks.findIndex((stocks => stocks.ticker === ticker));
-      newStocks[objIndex].amount = newAmount;
-      setStocks(newStocks);
-      persist(newStocks);
-    }
-  }
 
   return (
     <div 
