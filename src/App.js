@@ -18,7 +18,8 @@ function App() {
 
   
   useEffect(() => {
-      if (theme === 'light' || theme === "") {
+    console.log(theme);
+      if (theme === 'light' || theme === null) {
           document.documentElement.classList.add('light');
       } else {
           document.documentElement.classList.add('dark');

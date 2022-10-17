@@ -18,6 +18,7 @@ export default function Navbar({ active }) {
     function toggleTheme () {
         if (
             localStorage.getItem('color-theme') === 'light' ||
+            localStorage.getItem('color-theme') === null ||
             (!('color-theme' in localStorage) &&
             window.matchMedia('(prefers-color-scheme: dark)').matches)
             ) {
