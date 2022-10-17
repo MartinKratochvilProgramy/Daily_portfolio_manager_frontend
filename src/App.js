@@ -14,14 +14,15 @@ function App() {
   const user = JSON.parse(localStorage.getItem('user'));
   const theme = localStorage.getItem('color-theme');
   const credentialsState = useState(user);
-  const themeState = useState(theme);
+  const themeState = useState(theme || 'light');
 
   
   useEffect(() => {
-      if (theme === 'light' || theme === "") {
-          document.documentElement.classList.add('light');
+    console.log(theme);
+      if (theme === 'light' || theme === null) {
+        document.documentElement.classList.add('light');
       } else {
-          document.documentElement.classList.add('dark');
+        document.documentElement.classList.add('dark');
       }
   }, [theme]);
 
