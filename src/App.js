@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Register, Login, Stocks, Charts, Investments, About } from './pages';
+import { Register, Login, Stocks, Charts, Investments, About, More } from './pages';
 
 export const CredentialsContext = React.createContext();
 export const ThemeContext = React.createContext();
@@ -39,6 +39,7 @@ function App() {
               <Route exact path='/charts' element={<Charts />}></Route>
               <Route exact path='/investments' element={<Investments />}></Route>
               <Route exact path='/about' element={<About />}></Route>
+              <Route exact path='/more' element={<More />}></Route>
             </Routes> 
           </Router>
         </ThemeContext.Provider>

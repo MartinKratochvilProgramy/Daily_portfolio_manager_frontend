@@ -105,6 +105,13 @@ export default function Register() {
                                                 Login
                                               </Link>
                     </p>
+                    {/* <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
+                      <Link 
+                          to="/more" 
+                          className="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                          Find out more
+                        </Link>
+                    </p> */}
                   </div>
                 </div>
               </form>
