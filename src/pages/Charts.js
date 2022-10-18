@@ -69,6 +69,10 @@ export default function Charts() {
             .then(handleErrors)
             .then((response ) => response.json())
             .then((relativeChange) => {
+                relativeChange.forEach(
+                    item => item.relativeChange = ((item.relativeChange - 1) * 100).toFixed(2)
+                )
+                console.log(relativeChange);
                 setRelativeChangeHistory(relativeChange);
                 setCurrentRelativeChange(relativeChange[relativeChange.length - 1].relativeChange);
             })
@@ -254,7 +258,7 @@ export default function Charts() {
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
-            Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange.toFixed(2)} %</span>
+            Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange} %</span>
         </div>
         <Plot
             data={relativeChangeData}
