@@ -60,7 +60,6 @@ export default function Login() {
           document.documentElement.classList.add('dark');
           localStorage.setItem('color-theme', 'dark');
         } else {
-          console.log("light theme");
             setTheme('light');
             document.documentElement.classList.remove('dark');
             localStorage.setItem('color-theme', 'light');

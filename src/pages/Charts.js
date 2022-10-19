@@ -72,7 +72,6 @@ export default function Charts() {
                 relativeChange.forEach(
                     item => item.relativeChange = ((item.relativeChange - 1) * 100).toFixed(2)
                 )
-                console.log(relativeChange);
                 setRelativeChangeHistory(relativeChange);
                 setCurrentRelativeChange(relativeChange[relativeChange.length - 1].relativeChange);
             })
