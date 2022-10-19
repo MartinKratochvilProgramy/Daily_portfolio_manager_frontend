@@ -12,8 +12,9 @@ export const ThemeContext = React.createContext();
 
 function App() {
   const user = JSON.parse(localStorage.getItem('user'));
-  const theme = localStorage.getItem('color-theme');
   const credentialsState = useState(user);
+  
+  const theme = localStorage.getItem('color-theme');
   const themeState = useState(theme || 'light');
 
   useEffect(() => {

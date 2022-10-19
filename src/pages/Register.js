@@ -41,6 +41,7 @@ export default function Register() {
       .then(handleErrors)
       .then(async (res) => {
         const json = await res.json();
+        // set user in localStorage
         const username = json.username;
         const password = json.password;
         setCredentials({

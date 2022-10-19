@@ -30,6 +30,7 @@ export default function Login() {
     e.preventDefault();
 
     if (!loginInputError(username, password)) {
+      // validate login
       fetch(`https://dailyportfoliomanager.herokuapp.com/login`, {
         method: "POST",
         headers: {
@@ -43,6 +44,7 @@ export default function Login() {
       .then(handleErrors)
       .then(async (res) => {
         const json = await res.json();
+        // set user in localStorage
         const username = json.username;
         const password = json.password;
         setCredentials({
