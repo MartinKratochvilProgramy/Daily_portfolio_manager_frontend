@@ -16,17 +16,15 @@ function App() {
   const credentialsState = useState(user);
   const themeState = useState(theme || 'light');
 
-  
   useEffect(() => {
-    console.log(theme);
       if (theme === 'light' || theme === null) {
         document.documentElement.classList.add('light');
       } else {
         document.documentElement.classList.add('dark');
       }
-  }, [theme]);
-
-
+    }
+  )
+      
   return (
     <div className="App">
       <CredentialsContext.Provider value={credentialsState}>

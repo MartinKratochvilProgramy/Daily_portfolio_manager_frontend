@@ -11,8 +11,24 @@ export default function Navbar({ active }) {
 
     function logout() {
         setCredentials(null);
-        localStorage.setItem('user', null)
+        localStorage.setItem('user', null);
+        // set light theme on logout
+        localStorage.setItem('color-theme', 'light');
+        document.documentElement.classList.remove('dark');
         navigate("/");
+    }
+
+    function persistTheme(theme) {
+        fetch(`http://localhost:4000/set_theme`, {
+            method: 'POST',
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Basic ${credentials.username}:${credentials.password}`
+            },
+            body: JSON.stringify({
+              theme, 
+            })
+          })
     }
 
     function toggleTheme () {
@@ -25,10 +41,12 @@ export default function Navbar({ active }) {
                 setTheme('dark');
                 document.documentElement.classList.add('dark');
                 localStorage.setItem('color-theme', 'dark');
+                persistTheme('dark');
             } else {
                 setTheme('light');
                 document.documentElement.classList.remove('dark');
                 localStorage.setItem('color-theme', 'light');
+                persistTheme('light');
             }
     }
 

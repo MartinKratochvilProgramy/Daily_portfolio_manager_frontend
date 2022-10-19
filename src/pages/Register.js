@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CredentialsContext } from '../App';
+import { CredentialsContext, ThemeContext } from '../App';
 import { handleErrors } from './Login';
 
 export function registerInputError(username, password) {
@@ -16,6 +16,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false); 
   const [, setCredentials] = useContext(CredentialsContext);
+  const [, setTheme] = useContext(ThemeContext);
 
   const navigate  = useNavigate();
 
@@ -24,7 +25,7 @@ export default function Register() {
     e.preventDefault();
 
     if(!registerInputError(username, password)) {
-      fetch(`https://dailyportfoliomanager.herokuapp.com/register`, {
+      fetch(`http://localhost:4000/register`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
@@ -32,6 +33,9 @@ export default function Register() {
         body: JSON.stringify({
           username, 
           password,
+          settings: {
+            theme: "light"
+          }
         })
       })
       .then(handleErrors)
@@ -47,6 +51,18 @@ export default function Register() {
           username,
           password
         }))
+
+        // handle theme settings on load -> set global variable and save in localStorage
+        if (json.settings.theme === 'dark') {
+          setTheme('dark');
+          document.documentElement.classList.add('dark');
+          localStorage.setItem('color-theme', 'dark');
+        } else {
+          console.log("light theme");
+            setTheme('light');
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('color-theme', 'light');
+        }
         navigate("/stocks"); //deprec history.push()
       })
       .catch((error) => {
