@@ -19,7 +19,7 @@ export default function Navbar({ active }) {
     }
 
     function persistTheme(theme) {
-        fetch(`http://localhost:4000/set_theme`, {
+        fetch(`https://dailyportfoliomanager.herokuapp.com/set_theme`, {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
