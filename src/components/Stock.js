@@ -56,9 +56,9 @@ export default function Stock({ stock, deleteStock }) {
           
           <div className="flex flex-col items-start justify-start space-y-2">
             {expanded ? <div className="flex flex-row mt-4">
-              <div className="w-24 flex justify-start font-bold">DATE</div>
-              <div className="w-20 flex justify-center font-bold">AMOUNT</div>
-              <div className="w-24 flex justify-center font-bold">PRICE {currency}</div>
+              <div className="w-20 md:w-24 flex justify-start font-bold">DATE</div>
+              <div className="w-12 md:w-20 flex justify-center font-bold">AMOUNT</div>
+              <div className="w-24 flex justify-center font-bold">PRICE</div>
               
             </div> : null}
             <div className="">
@@ -68,7 +68,7 @@ export default function Stock({ stock, deleteStock }) {
                     <div className="w-24 flex justify-start">
                       {purchase.date}
                     </div>
-                    <div className="w-12 flex justify-center">
+                    <div className="w-6 md:w-20 flex justify-center">
                       {purchase.amount}
                     </div>
                     <div className="w-24 flex justify-center">
