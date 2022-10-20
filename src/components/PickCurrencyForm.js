@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PickCurrencyForm({ userSetCurrency, persist }) {
+export default function PickCurrencyForm({ userSetCurrency, register }) {
   return (
     <div className='flex justify-center flex-col items-center'>
         <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
@@ -21,7 +21,7 @@ export default function PickCurrencyForm({ userSetCurrency, persist }) {
         </select>
 
         <button
-        onClick={persist}
+        onClick={register}
         className="inline-block px-7 py-3 my-8 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
         Done
         </button>

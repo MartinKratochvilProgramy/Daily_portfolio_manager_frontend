@@ -36,8 +36,8 @@ export default function Register() {
   }
 
   
-  // use state vars to make http request
-  const persist = (e) => {
+  const register = (e) => {
+    // send username, password to server to create new user
     e.preventDefault();
 
     if(!registerInputError(username, password)) {
@@ -50,7 +50,7 @@ export default function Register() {
           username, 
           password,
           settings: {
-            theme: "light",
+            theme: "light",     // light theme by default
             currency: userCurrency
           }
         })
@@ -89,7 +89,7 @@ export default function Register() {
         {!pickCurrency ? 
           <RegisterForm validateUser={validateUser} setUsername={setUsername} setPassword={setPassword} error={error} />
         : 
-          <PickCurrencyForm userSetCurrency={userSetCurrency} persist={persist} />
+          <PickCurrencyForm userSetCurrency={userSetCurrency} register={register} />
         }
       </div>
     )
