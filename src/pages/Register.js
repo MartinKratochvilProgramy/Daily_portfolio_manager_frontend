@@ -73,6 +73,9 @@ export default function Register() {
     } else {
       setError(registerInputError(username, password));
     }
+
+    setCurrency(currency);
+    localStorage.setItem('currency', currency);
   };
 
 
