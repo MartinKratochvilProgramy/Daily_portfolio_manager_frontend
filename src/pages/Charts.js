@@ -235,6 +235,12 @@ export default function Charts() {
         return {pieData, pieLayout}
     }
 
+    function numberWithSpaces(x) {
+        var parts = x.toString().split(".");
+        parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        return parts.join(".");
+    }
+
     const {historyData, historyLayout} = initHistoryChart();        
     const {relativeChangeData, relativeChangeLayout} = initRelativeChangeChart();        
     const {pieData, pieLayout} = initPieChart();  
@@ -246,7 +252,7 @@ export default function Charts() {
             NET <span className='text-blue-600'>WORTH</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
-            Total: <span className='text-blue-600'>{currentNetWorth}</span> {currency}
+            Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {currency}
         </div>
         <Plot
             data={historyData}
