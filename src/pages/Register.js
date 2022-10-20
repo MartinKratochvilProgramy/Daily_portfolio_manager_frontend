@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CredentialsContext } from '../App';
+import { CredentialsContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 
 export function registerInputError(username, password) {
@@ -14,10 +14,11 @@ export function registerInputError(username, password) {
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [currency, setCurrency] = useState("");
+  const [userCurrency, userSetCurrency] = useState("");
   const [pickCurrency, setPickCurrency] = useState(false);
   const [error, setError] = useState(false); 
   const [, setCredentials] = useContext(CredentialsContext);
+  const [, setCurrency] = useContext(CredentialsContext);
 
   const navigate  = useNavigate();
 
@@ -47,7 +48,7 @@ export default function Register() {
           password,
           settings: {
             theme: "light",
-            currency: currency
+            currency: userCurrency
           }
         })
       })
@@ -74,8 +75,8 @@ export default function Register() {
       setError(registerInputError(username, password));
     }
 
-    setCurrency(currency);
-    localStorage.setItem('currency', currency);
+    setCurrency(userCurrency);
+    localStorage.setItem('currency', userCurrency);
   };
 
 
@@ -148,7 +149,7 @@ export default function Register() {
           </label>
 
           <select 
-            onChange={(event) => setCurrency(event.target.value)}
+            onChange={(event) => userSetCurrency(event.target.value)}
             id="currency" 
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm max-w-[250px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
               <option defaultValue="USD">USD</option>
