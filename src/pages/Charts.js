@@ -98,7 +98,7 @@ export default function Charts() {
             },
             yaxis: {
                 title: {
-                    text: 'Net worth [$]',
+                    text: `Net worth [${currency}]`,
                     font: {
                       size: 18,
                       color: chartTheme.color
@@ -155,7 +155,7 @@ export default function Charts() {
             },
             yaxis: {
                 title: {
-                    text: 'Relative change [%]',
+                    text: `Relative change [${currency}]`,
                     font: {
                       size: 18,
                       color: chartTheme.color
@@ -220,7 +220,7 @@ export default function Charts() {
             total += stock.prevClose * stock.amount
         });
         stocks.forEach(stock => {
-            stockFractions.push(stock.prevClose * stock.amount / total)
+            stockFractions.push(stock.prevClose * stock.amount)
         });
     
         const pieData = [
