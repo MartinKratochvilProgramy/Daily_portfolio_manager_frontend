@@ -14,7 +14,7 @@ export function registerInputError(username, password) {
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userCurrency, userSetCurrency] = useState("");
+  const [userCurrency, userSetCurrency] = useState("USD");
   const [pickCurrency, setPickCurrency] = useState(false);
   const [error, setError] = useState(false); 
   const [, setCredentials] = useContext(CredentialsContext);
@@ -33,6 +33,7 @@ export default function Register() {
     setPickCurrency(true);
   }
 
+  
   // use state vars to make http request
   const persist = (e) => {
     e.preventDefault();
