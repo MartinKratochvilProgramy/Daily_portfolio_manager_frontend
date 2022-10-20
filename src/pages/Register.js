@@ -18,7 +18,7 @@ export default function Register() {
   const [pickCurrency, setPickCurrency] = useState(false);
   const [error, setError] = useState(false); 
   const [, setCredentials] = useContext(CredentialsContext);
-  const [, setCurrency] = useContext(CredentialsContext);
+  const [, setCurrency] = useContext(CurrencyContext);
 
   const navigate  = useNavigate();
 
