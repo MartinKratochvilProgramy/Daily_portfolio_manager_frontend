@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import { CredentialsContext, ThemeContext } from '../App';
+import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 
@@ -14,6 +14,7 @@ export default function Charts() {
     const [currentRelativeChange, setCurrentRelativeChange] = useState(0);
     const [credentials,] = useContext(CredentialsContext);
     const [theme,] = useContext(ThemeContext);
+    const [currency,] = useContext(CurrencyContext);
 
     useEffect(() => {
         // set chart theme on load
@@ -245,7 +246,7 @@ export default function Charts() {
             NET <span className='text-blue-600'>WORTH</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
-            Total: <span className='text-blue-600'>{currentNetWorth}</span> $
+            Total: <span className='text-blue-600'>{currentNetWorth}</span> {currency}
         </div>
         <Plot
             data={historyData}

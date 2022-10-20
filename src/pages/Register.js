@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { CredentialsContext, ThemeContext } from '../App';
+import { CredentialsContext } from '../App';
 import { handleErrors } from './Login';
 
 export function registerInputError(username, password) {
@@ -14,14 +14,26 @@ export function registerInputError(username, password) {
 export default function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [currency, setCurrency] = useState("");
+  const [pickCurrency, setPickCurrency] = useState(false);
   const [error, setError] = useState(false); 
   const [, setCredentials] = useContext(CredentialsContext);
-  const [, setTheme] = useContext(ThemeContext);
 
   const navigate  = useNavigate();
 
+  const validateUser = (e) => {
+    e.preventDefault();
+
+    const error = registerInputError(username, password);
+    if (error) {
+      setError(error);
+      return
+    };
+    setPickCurrency(true);
+  }
+
   // use state vars to make http request
-  const register = (e) => {
+  const persist = (e) => {
     e.preventDefault();
 
     if(!registerInputError(username, password)) {
@@ -34,7 +46,8 @@ export default function Register() {
           username, 
           password,
           settings: {
-            theme: "light"
+            theme: "light",
+            currency: currency
           }
         })
       })
@@ -52,17 +65,6 @@ export default function Register() {
           username,
           password
         }))
-
-        // handle theme settings on load -> set global variable and save in localStorage
-        if (json.settings.theme === 'dark') {
-          setTheme('dark');
-          document.documentElement.classList.add('dark');
-          localStorage.setItem('color-theme', 'dark');
-        } else {
-            setTheme('light');
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
-        }
         navigate("/stocks"); //deprec history.push()
       })
       .catch((error) => {
@@ -73,68 +75,93 @@ export default function Register() {
     }
   };
 
-  return (
-    // src: https://tailwind-elements.com/docs/standard/components/login-form/
-    <div>
-      <section className="h-screen">
-        <div className="px-6 h-full text-gray-800 min-w-[355px]">
-          <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
-            <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 h-full">
-              <form onSubmit={register}>
-    
-                <h1 className='text-3xl text-black dark:text-white font-semibold mt-2 py-8 md:py-16 mb-0'>
-                  CREATE A <span className='text-blue-600'>NEW</span>
-                  <br />
-                  ACCOUNT
-                </h1>
 
-                <div className="flex flex-col justify-center items center xl:w-8/12 lg:w-10/12 md:w-10/12 mb-12 md:mb-0 mx-auto h-full">
-                  <div className="mb-6">
-                    <input
-                      type="text"
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      placeholder="Username"
-                      autoFocus
-                    />
-                  </div>
+    return (
+      // src: https://tailwind-elements.com/docs/standard/components/login-form/
+      <div>
+        {!pickCurrency ? 
+        <div>
+          <section className="h-screen">
+            <div className="px-6 h-full text-gray-800 min-w-[355px]">
+              <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
+                <div className="xl:ml-20 xl:w-5/12 lg:w-5/12 md:w-8/12 mb-12 md:mb-0 h-full">
+                  <form onSubmit={validateUser}>
         
-                  <div className="mb-6">
-                    <input
-                      type="password"
-                      onChange={(e) => setPassword(e.target.value)} 
-                      className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                      placeholder="Password"
-                    />
-                  </div>
-                  {error && (<span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700 mb-4 transition duration-200 ease-in-out'>{error}</span>)}
-                  <div className="text-center lg:text-left">
-                    <button
-                      type="submit"
-                      className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
-                      Register
-                    </button>
-                    <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
-                      Already have an account? <Link 
-                                                to="/" 
-                                                className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
-                                                Login
-                                              </Link>
-                    </p>
-                    {/* <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
-                      <Link 
-                          to="/more" 
-                          className="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
-                          Find out more
-                        </Link>
-                    </p> */}
-                  </div>
+                    <h1 className='text-3xl text-black dark:text-white font-semibold mt-2 py-8 md:py-16 mb-0'>
+                      CREATE A <span className='text-blue-600'>NEW</span>
+                      <br />
+                      ACCOUNT
+                    </h1>
+    
+                    <div className="flex flex-col justify-center items center xl:w-8/12 lg:w-10/12 md:w-10/12 mb-12 md:mb-0 mx-auto h-full">
+                      <div className="mb-6">
+                        <input
+                          type="text"
+                          onChange={(e) => setUsername(e.target.value)}
+                          className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          placeholder="Username"
+                          autoFocus
+                        />
+                      </div>
+            
+                      <div className="mb-6">
+                        <input
+                          type="password"
+                          onChange={(e) => setPassword(e.target.value)} 
+                          className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          placeholder="Password"
+                        />
+                      </div>
+                      {error && (<span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700 mb-4 transition duration-200 ease-in-out'>{error}</span>)}
+                      <div className="text-center lg:text-left">
+                        <button
+                          type="submit"
+                          className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                          Register
+                        </button>
+                        <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
+                          Already have an account? <Link 
+                                                    to="/" 
+                                                    className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
+                                                    Login
+                                                  </Link>
+                        </p>
+                      </div>
+                    </div>
+                  </form>
                 </div>
-              </form>
+              </div>
             </div>
-          </div>
+          </section>
+        </div> 
+        : 
+        <div className='flex justify-center flex-col items-center'>
+          <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+              <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 py-8 md:py-16 mb-0'>
+                  PICK YOUR <span className='text-blue-600'>PREFERED</span>
+                  <br />
+                  CURRENCY<span className='text-blue-600'></span>
+              </h1>
+          </label>
+
+          <select 
+            onChange={(event) => setCurrency(event.target.value)}
+            id="currency" 
+            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm max-w-[250px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option defaultValue="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="CZK">CZK</option>
+          </select>
+
+          <button
+            onClick={persist}
+            className="inline-block px-7 py-3 my-8 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+            Done
+          </button>
         </div>
-      </section>
-    </div>
-  )
+        }
+
+      </div>
+
+    )
 }

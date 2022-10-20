@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate  } from 'react-router-dom';
-import { CredentialsContext, ThemeContext } from '../App';
+import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 
 export const handleErrors = async (response) => {
   // throws error when response not OK
@@ -24,6 +24,7 @@ export default function Login() {
   const [error, setError] = useState(false); 
   const [, setCredentials] = useContext(CredentialsContext);
   const [, setTheme] = useContext(ThemeContext);
+  const [, setCurrency] = useContext(CurrencyContext);
 
   
   const login = (e) => {
@@ -66,6 +67,11 @@ export default function Login() {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('color-theme', 'light');
         }
+
+        // handle currency settings on load -> set global variable and save in localStorage
+        setCurrency(json.settings.currency);
+        localStorage.setItem('currency', json.settings.currency);
+
         navigate("/stocks") //deprec history.push()
       })
       .catch((error) => {

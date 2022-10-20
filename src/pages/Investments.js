@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { CredentialsContext, ThemeContext } from '../App';
+import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
 import { handleErrors } from './Login';
@@ -10,6 +10,7 @@ export default function Investments() {
   const [investmentsHistory, setInvestmentsHistory] = useState([]);
   const [credentials, ] = useContext(CredentialsContext);
   const [theme,] = useContext(ThemeContext);
+  const [currency,] = useContext(CurrencyContext);
 
   useEffect(() => {
     if (theme === 'light' || theme === "") {
@@ -55,7 +56,7 @@ export default function Investments() {
           },
           yaxis: {
               title: {
-                  text: 'Total invested [$]',
+                  text: `Total invested [${currency}]`,
                   font: {
                     size: 18,
                     color: chartTheme.color

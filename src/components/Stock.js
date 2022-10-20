@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react"
 import DeleteStockModal from "./DeleteStockModal";
-import { CredentialsContext } from '../App';
+import { CredentialsContext, CurrencyContext } from '../App';
 
 export default function Stock({ stock, deleteStock }) {
 
@@ -8,6 +8,7 @@ export default function Stock({ stock, deleteStock }) {
   const [purchases, setPurchases] = useState([]);
   const [expanded, setExpanded] = useState(false);
   const [credentials, ] = useContext(CredentialsContext);
+  const [currency, ] = useContext(CurrencyContext);
 
   function expand() {
     // on click fetch purchase data from server 
@@ -43,8 +44,8 @@ export default function Stock({ stock, deleteStock }) {
 
             <div className="w-full h-full text-justify flex items-start">
               <div className="w-16 font-bold">{stock.ticker}</div>
-              <div className="ml-4 w-6">{stock.amount}</div>
-              <div className="ml-6">{stock.prevClose} $</div>
+              <div className="ml-2 md:ml-10 w-4">{stock.amount}</div>
+              <div className="ml-3 md:ml-10">{stock.prevClose} {currency}</div>
             </div>
             <div onClick={() => {setShowDeleteModal(true)}} id={stock.ticker} className="rounded-full p-1 transition duration-150 hover:bg-red-100 ease-in-out">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-6 h-6">
@@ -57,7 +58,7 @@ export default function Stock({ stock, deleteStock }) {
             {expanded ? <div className="flex flex-row mt-4">
               <div className="w-24 flex justify-start font-bold">DATE</div>
               <div className="w-20 flex justify-center font-bold">AMOUNT</div>
-              <div className="w-24 flex justify-center font-bold">PRICE ($)</div>
+              <div className="w-24 flex justify-center font-bold">PRICE {currency}</div>
               
             </div> : null}
             <div className="">
@@ -67,7 +68,7 @@ export default function Stock({ stock, deleteStock }) {
                     <div className="w-24 flex justify-start">
                       {purchase.date}
                     </div>
-                    <div className="w-20 flex justify-center">
+                    <div className="w-12 flex justify-center">
                       {purchase.amount}
                     </div>
                     <div className="w-24 flex justify-center">

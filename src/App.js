@@ -9,6 +9,7 @@ import { Register, Login, Stocks, Charts, Investments, About, More } from './pag
 
 export const CredentialsContext = React.createContext();
 export const ThemeContext = React.createContext();
+export const CurrencyContext = React.createContext();
 
 function App() {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -16,6 +17,9 @@ function App() {
   
   const theme = localStorage.getItem('color-theme');
   const themeState = useState(theme || 'light');
+  
+  const currency = localStorage.getItem('currency');
+  const currencyState = useState(currency);
 
   useEffect(() => {
       if (theme === 'light' || theme === null) {
@@ -30,18 +34,20 @@ function App() {
     <div className="App">
       <CredentialsContext.Provider value={credentialsState}>
         <ThemeContext.Provider value={themeState}>
-          <Router>
-            <Routes>
-              <Route exact path='/' element={user === null ? <Login  /> : <Charts />}></Route>
-              <Route exact path='/register' element={<Register />}></Route>
-              <Route exact path='/stocks' element={<Stocks />}></Route>
-              <Route exact path='/charts' element={<Charts />}></Route>
-              <Route exact path='/investments' element={<Investments />}></Route>
-              <Route exact path='/about' element={<About />}></Route>
-              <Route exact path='/more' element={<More />}></Route>
-            </Routes> 
-          </Router>
-        </ThemeContext.Provider>
+          <CurrencyContext.Provider value={currencyState}>
+            <Router>
+              <Routes>
+                <Route exact path='/' element={user === null ? <Login  /> : <Charts />}></Route>
+                <Route exact path='/register' element={<Register />}></Route>
+                <Route exact path='/stocks' element={<Stocks />}></Route>
+                <Route exact path='/charts' element={<Charts />}></Route>
+                <Route exact path='/investments' element={<Investments />}></Route>
+                <Route exact path='/about' element={<About />}></Route>
+                <Route exact path='/more' element={<More />}></Route>
+              </Routes> 
+            </Router>
+          </CurrencyContext.Provider>  
+        </ThemeContext.Provider>  
       </CredentialsContext.Provider>
     </div>
   );

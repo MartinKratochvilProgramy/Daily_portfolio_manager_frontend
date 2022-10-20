@@ -50,8 +50,8 @@ export default function Navbar({ active }) {
             }
     }
 
-    const activeStyles = "block p-2 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-400 bg-transparent";
-    const nonActiveStyles = "block p-2 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 hover:text-white text-gray-300 border-gray-700";
+    const activeStyles = "block p-1 sm:p-4 text-white bg-blue-700 bg-transparent text-blue-400 bg-transparent";
+    const nonActiveStyles = "block p-1 sm:p-4 text-gray-700 hover:bg-gray-100 hover:bg-transparent hover:text-blue-700 hover:text-white text-gray-300 border-gray-700";
 
   return (
     <nav className="border-gray-200 px-0 sm:px-4 bg-gray-900">
