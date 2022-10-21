@@ -1,14 +1,16 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
+import ChartLoadingSpinner from '../components/ChartLoadingSpinner';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 
 export default function Charts() {
-    const [chartTheme, setChartTheme] = useState({});
     const [stocks, setStocks] = useState([]);
     const [stocksHistory, setStocksHistory] = useState([]);
+    const [stocksLoaded, setStocksLoaded] = useState(false);
+    const [chartTheme, setChartTheme] = useState({});
     const [currentNetWorth, setCurrentNetWorth] = useState(0);
     const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
     const [currentRelativeChange, setCurrentRelativeChange] = useState(0);
@@ -75,6 +77,7 @@ export default function Charts() {
                 )
                 setRelativeChangeHistory(relativeChange);
                 setCurrentRelativeChange(relativeChange[relativeChange.length - 1].relativeChange);
+                setStocksLoaded(true);
             })
                 .catch((error) => {
                 console.log(error);
@@ -236,6 +239,7 @@ export default function Charts() {
     }
 
     function numberWithSpaces(x) {
+        // returns number as string with spaces between thousands
         var parts = x.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
         return parts.join(".");
@@ -254,33 +258,45 @@ export default function Charts() {
         <div className='font-semibold text-black dark:text-white'>
             Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {currency}
         </div>
-        <Plot
-            data={historyData}
-            layout={historyLayout}
-            useResizeHandler
-            className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
-        />
+        {stocksLoaded ? 
+            <Plot
+                data={historyData}
+                layout={historyLayout}
+                useResizeHandler
+                className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+            />
+            :
+            <ChartLoadingSpinner />
+        }
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
             Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange} %</span>
         </div>
-        <Plot
-            data={relativeChangeData}
-            layout={relativeChangeLayout}
-            useResizeHandler
-            className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
-        />
+        {stocksLoaded ? 
+            <Plot
+                data={relativeChangeData}
+                layout={relativeChangeLayout}
+                useResizeHandler
+                className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+            />
+            :
+            <ChartLoadingSpinner /> 
+        }
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
         </h1>
-        <Plot
-            data={pieData}
-            layout={pieLayout}
-            useResizeHandler
-            className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
-        />
+        {stocksLoaded ? 
+            <Plot
+                data={pieData}
+                layout={pieLayout}
+                useResizeHandler
+                className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
+            />
+            :
+            <ChartLoadingSpinner />
+        }
     </div>
   )
 }
