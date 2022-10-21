@@ -3,11 +3,13 @@ import { CredentialsContext } from '../App';
 import StockInput from '../components/StockInput';
 import StocksDisplay from '../components/StocksDisplay';
 import Navbar from '../components/Navbar';
+import ChartLoadingSpinner from '../components/ChartLoadingSpinner';
 import { handleErrors } from './Login';
 
 export default function Stocks() {
   const [stocks, setStocks] = useState([])
   const [credentials, ] = useContext(CredentialsContext);
+  const [stocksLoaded, setStocksLoaded] = useState(false);
 
   useEffect(() => {
       // get stocks on load
@@ -20,7 +22,10 @@ export default function Stocks() {
         })
         .then(handleErrors)
         .then((response ) => response.json())
-        .then((stocks) => setStocks(stocks))
+        .then((stocks) => {
+          setStocks(stocks);
+          setStocksLoaded(true);
+        })
         .catch((error) => {
           console.log(error);
         })
@@ -31,7 +36,11 @@ export default function Stocks() {
     <div className='bg-white dark:bg-gray-800 pb-8'>
       <Navbar active={"stocks"}/>
       <StockInput setStocks={setStocks}/>
-      <StocksDisplay stocks={stocks} setStocks={setStocks}/>
+      {stocksLoaded ? 
+        <StocksDisplay stocks={stocks} setStocks={setStocks}/>
+        :
+        <ChartLoadingSpinner />
+      }
     </div>
   )
 }
