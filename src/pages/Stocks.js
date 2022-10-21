@@ -28,7 +28,7 @@ export default function Stocks() {
     }, [credentials]);
 
   return (
-    <div className='bg-white dark:bg-gray-800'>
+    <div className='bg-white dark:bg-gray-800 pb-8'>
       <Navbar active={"stocks"}/>
       <StockInput setStocks={setStocks}/>
       <StocksDisplay stocks={stocks} setStocks={setStocks}/>
