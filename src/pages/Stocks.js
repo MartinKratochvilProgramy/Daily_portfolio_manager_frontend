@@ -3,7 +3,7 @@ import { CredentialsContext } from '../App';
 import StockInput from '../components/StockInput';
 import StocksDisplay from '../components/StocksDisplay';
 import Navbar from '../components/Navbar';
-import ChartLoadingSpinner from '../components/ChartLoadingSpinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 
 export default function Stocks() {
@@ -39,7 +39,9 @@ export default function Stocks() {
       {stocksLoaded ? 
         <StocksDisplay stocks={stocks} setStocks={setStocks}/>
         :
-        <ChartLoadingSpinner />
+        <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+            <LoadingSpinner size={16} />
+        </div>
       }
     </div>
   )

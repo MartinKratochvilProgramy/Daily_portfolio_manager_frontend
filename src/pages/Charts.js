@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import ChartLoadingSpinner from '../components/ChartLoadingSpinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
@@ -266,7 +266,9 @@ export default function Charts() {
                 className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
             />
             :
-            <ChartLoadingSpinner />
+            <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+                <LoadingSpinner size={16} />
+            </div>
         }
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
@@ -282,7 +284,9 @@ export default function Charts() {
                 className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
             />
             :
-            <ChartLoadingSpinner /> 
+            <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+                <LoadingSpinner size={16} />
+            </div>
         }
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
@@ -295,7 +299,9 @@ export default function Charts() {
                 className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
             />
             :
-            <ChartLoadingSpinner />
+            <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+                <LoadingSpinner size={16} />
+            </div>
         }
     </div>
   )

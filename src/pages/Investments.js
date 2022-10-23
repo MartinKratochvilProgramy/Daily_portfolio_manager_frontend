@@ -2,14 +2,14 @@ import React, { useContext, useState, useEffect } from 'react';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import ChartLoadingSpinner from '../components/ChartLoadingSpinner';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 
 export default function Investments() {
   const [chartTheme, setChartTheme] = useState({});
   const [investmentsHistory, setInvestmentsHistory] = useState([]);
-  const [stocksLoaded, setStocksLoaded] = useState(false);
+  const [investmentsLoaded, setInvestmentsLoaded] = useState(false);
   const [credentials, ] = useContext(CredentialsContext);
   const [theme,] = useContext(ThemeContext);
   const [currency,] = useContext(CurrencyContext);
@@ -35,7 +35,7 @@ export default function Investments() {
         .then((response ) => response.json())
         .then((investments) => {
           setInvestmentsHistory(investments)
-          setStocksLoaded(true);
+          setInvestmentsLoaded(true);
         })
         .catch((error) => {
             console.log( error);
@@ -107,7 +107,7 @@ export default function Investments() {
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             YOUR HISTORICAL <span className='text-blue-600'>INVESTMENTS</span>
         </h1>
-        {stocksLoaded ? 
+        {investmentsLoaded ? 
           <Plot
               data={investmentsData}
               layout={investmentsLayout}
@@ -115,7 +115,9 @@ export default function Investments() {
               className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
           />
           :
-          <ChartLoadingSpinner />
+          <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+              <LoadingSpinner size={16} />
+          </div>
         }
     </div>
   )

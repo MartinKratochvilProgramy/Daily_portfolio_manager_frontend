@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate  } from 'react-router-dom';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 export const handleErrors = async (response) => {
   // throws error when response not OK
@@ -22,6 +23,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false); 
+  const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
   const [, setCredentials] = useContext(CredentialsContext);
   const [, setTheme] = useContext(ThemeContext);
   const [, setCurrency] = useContext(CurrencyContext);
@@ -29,6 +31,7 @@ export default function Login() {
   
   const login = (e) => {
     e.preventDefault();
+    setUserIsBeingValidated(true);
 
     if (!loginInputError(username, password)) {
       // validate login
@@ -75,6 +78,7 @@ export default function Login() {
         navigate("/stocks") //deprec history.push()
       })
       .catch((error) => {
+        setUserIsBeingValidated(false);
         setError(error.message)
       })
     } else {
@@ -118,12 +122,16 @@ export default function Login() {
                       placeholder="Password"
                     />
                   </div>
+
                   {error && (<span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'>{error}<br /></span>)}
-                  <div className="text-center lg:text-left">
+                  <div className="flex flex-col items-center pt-3">
                     <button
                       type="submit"
-                      className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                      className="inline-block relative px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                       Login
+                      <div className='absolute right-[-50px] top-3'>
+                        {userIsBeingValidated && <LoadingSpinner size={6} />}  
+                      </div>
                     </button>
                     <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
                       Don't have an account? <Link 
@@ -132,13 +140,6 @@ export default function Login() {
                                                 Register
                                               </Link>
                     </p>
-                    {/* <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
-                      <Link 
-                          to="/more" 
-                          className="text-blue-600 hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
-                          Find out more
-                        </Link>
-                    </p> */}
                   </div>
                 </div>
               </form>
