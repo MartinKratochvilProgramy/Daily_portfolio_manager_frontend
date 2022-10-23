@@ -107,18 +107,18 @@ export default function Investments() {
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             YOUR HISTORICAL <span className='text-blue-600'>INVESTMENTS</span>
         </h1>
-        {investmentsLoaded ? 
-          <Plot
-              data={investmentsData}
-              layout={investmentsLayout}
-              useResizeHandler
-              className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
-          />
-          :
-          <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
-              <LoadingSpinner size={16} />
-          </div>
-        }
+        <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+          {investmentsLoaded ? 
+            <Plot
+                data={investmentsData}
+                layout={investmentsLayout}
+                useResizeHandler
+                className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
+            />
+            :
+            <LoadingSpinner size={16} />
+          }
+        </div>
     </div>
   )
 }

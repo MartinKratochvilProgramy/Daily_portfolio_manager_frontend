@@ -258,51 +258,51 @@ export default function Charts() {
         <div className='font-semibold text-black dark:text-white'>
             Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {currency}
         </div>
-        {stocksLoaded ? 
-            <Plot
-                data={historyData}
-                layout={historyLayout}
-                useResizeHandler
-                className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
-            />
-            :
-            <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+        <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+            {stocksLoaded ? 
+                <Plot
+                    data={historyData}
+                    layout={historyLayout}
+                    useResizeHandler
+                    className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+                />
+                :
                 <LoadingSpinner size={16} />
-            </div>
-        }
+            }
+        </div>
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
         <div className='font-semibold text-black dark:text-white'>
             Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange} %</span>
         </div>
-        {stocksLoaded ? 
-            <Plot
-                data={relativeChangeData}
-                layout={relativeChangeLayout}
-                useResizeHandler
-                className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
-            />
-            :
-            <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+        <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+            {stocksLoaded ? 
+                <Plot
+                    data={relativeChangeData}
+                    layout={relativeChangeLayout}
+                    useResizeHandler
+                    className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+                />
+                :
                 <LoadingSpinner size={16} />
-            </div>
-        }
+            }
+        </div>
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
         </h1>
-        {stocksLoaded ? 
-            <Plot
-                data={pieData}
-                layout={pieLayout}
-                useResizeHandler
-                className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
-            />
-            :
-            <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+        <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+            {stocksLoaded ? 
+                <Plot
+                    data={pieData}
+                    layout={pieLayout}
+                    useResizeHandler
+                    className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
+                />
+                :
                 <LoadingSpinner size={16} />
-            </div>
-        }
+            }
+        </div>
     </div>
   )
 }
