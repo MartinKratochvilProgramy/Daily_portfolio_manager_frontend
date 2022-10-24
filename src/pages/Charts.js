@@ -291,13 +291,16 @@ export default function Charts() {
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
         </h1>
-        <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
+        <div className='font-semibold text-black dark:text-white'>
+            Pie chart of all the stocks in your portfolio
+        </div>
+        <div className='flex justify-center items-center pl-0 md:pl-20 min-h-[260px] md:min-h-[450px]'>
             {stocksLoaded ? 
                 <Plot
                     data={pieData}
                     layout={pieLayout}
                     useResizeHandler
-                    className="w-[100%] sm:w-[80%] h-[260px] md:h-auto"
+                    className="w-[100%] sm:w-[75%] h-[260px] md:h-auto"
                 />
                 :
                 <LoadingSpinner size={16} />
