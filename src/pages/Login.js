@@ -133,13 +133,18 @@ export default function Login() {
                         {(userIsBeingValidated && !error) && <LoadingSpinner size={6} />}  
                       </div>
                     </button>
-                    <p className="text-m text-black dark:text-white font-semibold mt-2 pt-1 mb-0">
+                    <p className="text-m text-black dark:text-white font-semibold mt-2 pt-3 mb-0">
                       Don't have an account? <Link 
                                                 to="/register" 
                                                 className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
                                                 Register
                                               </Link>
                     </p>
+                     <Link 
+                        to="/more" 
+                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                        Find out more...
+                      </Link>
                   </div>
                 </div>
               </form>

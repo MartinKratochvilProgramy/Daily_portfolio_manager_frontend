@@ -9,17 +9,30 @@ export default function More() {
             ADD YOUR <span className='text-blue-600'>STOCKS</span> AND <span className='text-blue-600'>MANAGE</span> YOUR PORTFOLIO
         </h1>
         <p className='max-w-[60%] text-xl'>
-            This web app allows you to manage and visualize the daily growth of your portfolio - simply add the stocks you wish to track, specify the ticker and amount and the app will automatically every day 
+            This web app allows you to manage and visualize the daily growth of your portfolio - simply add the stocks you wish to track, specify ticker and amount and the app will automatically every day 
             update current net worth of your investments. App uses Yahoo Finance API, so in order to add your stocks correctly, refer to <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer" className='text-blue-600 underline underline-offset-4'>https://finance.yahoo.com/</a> and 
-            search for corresponding tickers (eg. 'AAPL' or 'MSFT').
+            search for corresponding tickers (eg. 'AAPL' or 'MSFT'). When creating your account, you can choose from three currencies, in which to display financial data : USD, EUR or CZK - currency
+            conversion rates are fetched from the Yahoo API.
         </p>
+        <img src={require("../img/stocks.png")} alt=""></img>
+
         <p className='max-w-[60%] text-xl'>
-            Every day the server looks for previous close price for each stock in your portfolio and updates current net-worth.
+            Because the amounts of each stock in your portfolio may change, every day the server looks for previous close price for each stock in your portfolio and updates current net-worth. 
+            Total net worth and relative change is displayed.
         </p>
+        <img className='w-10/12' src={require("../img/net_worth.png")} alt=""></img>
+        <img className='w-10/12' src={require("../img/relative_change.png")} alt=""></img>
+
         <p className='max-w-[60%] text-xl'>
-            To get a rough idea about how much you invest and what is your discipline when investing, refer to the <a href="/investments" className='text-blue-600 underline underline-offset-4'>Investments </a>
-            section, where the amount of money you invested is displayed. 
+            To manage your risk more easily, pie chart of % valuation of each stock is displayed.
         </p>
+        <img src={require("../img/pie.png")} alt=""></img>
+
+        <p className='max-w-[60%] text-xl'>
+            To get a rough idea about how much you invest and what is your discipline when investing, the Investments section displays total invested amount where the amount each day you bought a new stock.
+        </p>
+        <img className='w-10/12' src={require("../img/investment_history.png")} alt=""></img>
+
         <p className='max-w-[60%] text-xl'>
             This app is intended for the 'Bogglehead' type investor who likes to invest regularly over longer periods of time.
         </p>
