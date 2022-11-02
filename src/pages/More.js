@@ -9,9 +9,9 @@ export default function More() {
             ADD YOUR <span className='text-blue-600'>STOCKS</span> AND <span className='text-blue-600'>MANAGE</span> YOUR PORTFOLIO
         </h1>
         <p className='max-w-[80%] md:max-w-[60%] text-xl'>
-            This web app allows you to manage and visualize the daily growth of your portfolio - simply add the stocks you wish to track, specify ticker and amount and the app will automatically every day 
-            update current net worth of your investments. App uses Yahoo Finance API, so in order to add your stocks correctly, refer to <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer" className='text-blue-600 underline underline-offset-4'>https://finance.yahoo.com/</a> and 
-            search for corresponding tickers (eg. 'AAPL' or 'MSFT'). When creating your account, you can choose from three currencies, in which to display financial data : USD, EUR or CZK - currency
+            This web app allows you to manage and visualize the daily growth of your portfolio - simply add the stocks you wish to track, specify ticker and amount and the app will  
+            update current net worth of your investments every day. App uses Yahoo Finance API, so in order to add your stocks correctly, refer to <a href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer" className='text-blue-600 underline underline-offset-4'>https://finance.yahoo.com/</a> and 
+            search for corresponding tickers (eg. 'AAPL' or 'MSFT'). When creating the account, you can choose from three currencies in which to display financial data: USD, EUR or CZK - currency
             conversion rates are fetched from the Yahoo API.
         </p>
         <img src={require("../img/stocks.png")} alt="stock input example"></img>
