@@ -217,10 +217,8 @@ export default function Charts() {
         } ;
         const stockTickers = [];
         const stockFractions = [];
-        let total = 0;
         stocks.forEach(stock => {
             stockTickers.push(stock.ticker)
-            total += stock.prevClose * stock.amount
         });
         stocks.forEach(stock => {
             stockFractions.push(stock.prevClose * stock.amount)

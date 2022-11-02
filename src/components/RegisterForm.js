@@ -52,7 +52,7 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                         <Link 
                           to="/more" 
                           className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
-                          Find out more...
+                          Find out more
                         </Link>
                       </div>
                     </div>
