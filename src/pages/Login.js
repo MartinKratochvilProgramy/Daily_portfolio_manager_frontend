@@ -75,7 +75,7 @@ export default function Login() {
         setCurrency(json.settings.currency);
         localStorage.setItem('currency', json.settings.currency);
 
-        navigate("/stocks") //deprec history.push()
+        navigate("/stocks");
       })
       .catch((error) => {
         setUserIsBeingValidated(false);
@@ -85,6 +85,23 @@ export default function Login() {
       setError(loginInputError(username, password));
     }
   };
+
+  const loginDemo = (e) => {
+    setCredentials({
+      username: "demouser",
+      password: "$2b$10$cgrf7pkSFOKBAfsCa9aFe.IjK/CiCx5NrrjUb.uoO/fJJBOG/Hi2i",
+    });
+    localStorage.setItem('user', JSON.stringify({
+      username: "demouser",
+      password: "$2b$10$cgrf7pkSFOKBAfsCa9aFe.IjK/CiCx5NrrjUb.uoO/fJJBOG/Hi2i",
+    }))
+    
+    // handle currency settings on load -> set global variable and save in localStorage
+    setCurrency("USD");
+    localStorage.setItem('currency', "USD");
+
+    navigate("/stocks");
+  }
   
   const navigate  = useNavigate();
 
@@ -145,6 +162,12 @@ export default function Login() {
                         className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                         Find out more
                       </Link>
+                     <div 
+                        onClick={loginDemo}
+                        to="/more" 
+                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out cursor-pointer">
+                        Demo
+                      </div>
                   </div>
                 </div>
               </form>
