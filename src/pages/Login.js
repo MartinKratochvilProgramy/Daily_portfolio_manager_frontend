@@ -87,6 +87,7 @@ export default function Login() {
   };
 
   const loginDemo = (e) => {
+    // login demouser
     setCredentials({
       username: "demouser",
       password: "$2b$10$cgrf7pkSFOKBAfsCa9aFe.IjK/CiCx5NrrjUb.uoO/fJJBOG/Hi2i",

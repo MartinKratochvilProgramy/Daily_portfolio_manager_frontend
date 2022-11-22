@@ -10,6 +10,7 @@ export default function Stocks() {
   const [stocks, setStocks] = useState([])
   const [credentials, ] = useContext(CredentialsContext);
   const [stocksLoaded, setStocksLoaded] = useState(false);
+  const [error, setError] = useState()
 
   useEffect(() => {
       // get stocks on load
@@ -35,9 +36,9 @@ export default function Stocks() {
   return (
     <div className='bg-white dark:bg-gray-800 pb-8'>
       <Navbar active={"stocks"}/>
-      <StockInput setStocks={setStocks}/>
+      <StockInput setStocks={setStocks} error={error} setError={setError}/>
       {stocksLoaded ? 
-        <StocksDisplay stocks={stocks} setStocks={setStocks}/>
+        <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError}/>
         :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
             <LoadingSpinner size={16} />
