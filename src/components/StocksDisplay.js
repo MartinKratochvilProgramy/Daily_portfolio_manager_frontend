@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Stock from './Stock';
 import { CredentialsContext } from '../App';
+import { serverRoute } from '../serverRoute';
 
 export default function Stocks({ stocks, setStocks, setError }) {
 
@@ -12,7 +13,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
       return;
     }
     // hit the endpoint and write to db
-    fetch(`https://dailyportfoliomanager.herokuapp.com/stock_remove`, {
+    fetch(serverRoute + '/stock_remove', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

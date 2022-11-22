@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
+import { serverRoute } from '../serverRoute';
 
 export default function Investments() {
   const [chartTheme, setChartTheme] = useState({});
@@ -24,7 +25,7 @@ export default function Investments() {
     
   useEffect(() => {
     // get net worth history on load
-    fetch(`https://dailyportfoliomanager.herokuapp.com/investments_history`, {
+    fetch(serverRoute + `/investments_history`, {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",

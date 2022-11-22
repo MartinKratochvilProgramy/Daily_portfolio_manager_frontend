@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate  } from 'react-router-dom';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { serverRoute } from '../serverRoute';
 
 export const handleErrors = async (response) => {
   // throws error when response not OK
@@ -35,7 +36,7 @@ export default function Login() {
 
     if (!loginInputError(username, password)) {
       // validate login
-      fetch(`https://dailyportfoliomanager.herokuapp.com/login`, {
+      fetch(serverRoute + `/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

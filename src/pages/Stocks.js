@@ -5,6 +5,7 @@ import StocksDisplay from '../components/StocksDisplay';
 import Navbar from '../components/Navbar';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
+import { serverRoute } from '../serverRoute';
 
 export default function Stocks() {
   const [stocks, setStocks] = useState([])
@@ -14,7 +15,7 @@ export default function Stocks() {
 
   useEffect(() => {
       // get stocks on load
-      fetch(`https://dailyportfoliomanager.herokuapp.com/stocks`, {
+      fetch(serverRoute + '/stocks', {
         method: 'GET',
         headers: {
             "Content-Type": "application/json",

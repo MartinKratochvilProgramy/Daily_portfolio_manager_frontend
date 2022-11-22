@@ -4,6 +4,7 @@ import { CredentialsContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import RegisterForm from '../components/RegisterForm';
 import PickCurrencyForm from '../components/PickCurrencyForm';
+import { serverRoute } from '../serverRoute';
 
 export function registerInputError(username, password) {
   if (username === "") return "Missing username";
@@ -41,7 +42,7 @@ export default function Register() {
     e.preventDefault();
 
     if(!registerInputError(username, password)) {
-      fetch(`https://dailyportfoliomanager.herokuapp.com/register`, {
+      fetch(serverRoute + `/register`, {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",
