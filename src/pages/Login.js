@@ -85,25 +85,7 @@ export default function Login() {
       setError(loginInputError(username, password));
     }
   };
-
-  const loginDemo = (e) => {
-    // login demouser
-    setCredentials({
-      username: "demouser",
-      password: "$2b$10$cgrf7pkSFOKBAfsCa9aFe.IjK/CiCx5NrrjUb.uoO/fJJBOG/Hi2i",
-    });
-    localStorage.setItem('user', JSON.stringify({
-      username: "demouser",
-      password: "$2b$10$cgrf7pkSFOKBAfsCa9aFe.IjK/CiCx5NrrjUb.uoO/fJJBOG/Hi2i",
-    }))
-    
-    // handle currency settings on load -> set global variable and save in localStorage
-    setCurrency("USD");
-    localStorage.setItem('currency', "USD");
-
-    navigate("/stocks");
-  }
-  
+ 
   const navigate  = useNavigate();
 
   return (
@@ -163,12 +145,12 @@ export default function Login() {
                         className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                         Find out more
                       </Link>
-                     <div 
-                        onClick={loginDemo}
-                        to="/more" 
-                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out cursor-pointer">
+                      <br/>
+                     <Link 
+                        to="/demo" 
+                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                         Demo
-                      </div>
+                      </Link>
                   </div>
                 </div>
               </form>
