@@ -9,6 +9,10 @@ export default function StockInput({ setStocks }) {
   const [credentials, ] = useContext(CredentialsContext);
   
   const persist = (newStock) => {
+    if (credentials.username === "demouser") {
+      setError("Cannot edit in demo mode")
+      return;
+    }
     // hit the endpoint and write to db
     // returns the new stocks array
     fetch(`https://dailyportfoliomanager.herokuapp.com/stock_add`, {

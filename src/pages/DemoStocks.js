@@ -4,34 +4,20 @@ import StockInput from '../components/StockInput';
 import StocksDisplay from '../components/StocksDisplay';
 import Navbar from '../components/Navbar';
 import LoadingSpinner from '../components/LoadingSpinner';
-import { handleErrors } from './Login';
+import { demoStocks } from '../demo/demoStocks';
 
 export default function DemoStocks() {
-  const [stocks, setStocks] = useState([])
-  const [credentials, ] = useContext(CredentialsContext);
-  const [stocksLoaded, setStocksLoaded] = useState(false);
-
-  useEffect(() => {
-      // get stocks on load
-      fetch(`https://dailyportfoliomanager.herokuapp.com/stocks`, {
-        method: 'GET',
-        headers: {
-            "Content-Type": "application/json",
-            Authorization: `Basic ${credentials.username}:${credentials.password}`,
-        },
-        })
-        .then(handleErrors)
-        .then((response ) => response.json())
-        .then((stocks) => {
-          setStocks(stocks);
-          setStocksLoaded(true);
-        })
-        .catch((error) => {
-          console.log(error);
-        })
+  const [stocks, setStocks] = useState(demoStocks);
+  const [stocksLoaded, ] = useState(true);
+  const [, setCredentials] = useContext(CredentialsContext);
   
-    }, [credentials]);
-
+  setCredentials({username: "demouser", password: "demouser"})
+  localStorage.setItem('user', JSON.stringify({
+    username: "demouser",
+    password: "$2b$10$cgrf7pkSFOKBAfsCa9aFe.IjK/CiCx5NrrjUb.uoO/fJJBOG/Hi2i"
+  }))
+  
+  
   return (
     <div className='bg-white dark:bg-gray-800 pb-8'>
       <Navbar active={"stocks"}/>

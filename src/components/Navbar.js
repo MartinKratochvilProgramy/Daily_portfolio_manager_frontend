@@ -6,7 +6,7 @@ export default function Navbar({ active }) {
 
     const [credentials, setCredentials] = useContext(CredentialsContext);
     const [, setTheme] = useContext(ThemeContext);
-    
+
     const navigate = useNavigate();
 
     function logout() {

@@ -14,6 +14,8 @@ export default function Stock({ stock, deleteStock }) {
     // on click fetch purchase data from server 
     if (!expanded) {
       const ticker = stock.ticker;
+
+      console.log("fetch ", credentials.password);
       
       fetch(`https://dailyportfoliomanager.herokuapp.com/stock_purchases`, {
         method: 'POST',
