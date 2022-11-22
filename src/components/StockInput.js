@@ -1,11 +1,11 @@
 import React, { useState, useContext } from 'react'
 import { CredentialsContext } from '../App';
 import { handleErrors } from '../pages/Login';
+import { serverRoute } from '../serverRoute';
 
-export default function StockInput({ setStocks }) {
+export default function StockInput({ setStocks, error, setError }) {
   const [stockTicker, setStockTicker] = useState('');
   const [stockAmount, setStockAmount] = useState(0);
-  const [error, setError] = useState(false); 
   const [credentials, ] = useContext(CredentialsContext);
   
   const persist = (newStock) => {
@@ -15,7 +15,7 @@ export default function StockInput({ setStocks }) {
     }
     // hit the endpoint and write to db
     // returns the new stocks array
-    fetch(`https://dailyportfoliomanager.herokuapp.com/stock_add`, {
+    fetch(serverRoute + '/stock_add', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

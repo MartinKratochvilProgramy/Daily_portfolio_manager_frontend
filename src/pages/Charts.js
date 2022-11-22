@@ -5,6 +5,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
+import { serverRoute } from '../serverRoute';
 
 export default function Charts() {
     const [stocks, setStocks] = useState([]);
@@ -29,7 +30,7 @@ export default function Charts() {
    
     useEffect(() => {
         // get net worth history on load
-        fetch(`https://dailyportfoliomanager.herokuapp.com/stocks_history`, {
+        fetch(serverRoute + `/stocks_history`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -47,7 +48,7 @@ export default function Charts() {
         })
     
         // get stocks on load
-        fetch(`https://dailyportfoliomanager.herokuapp.com/stocks`, {
+        fetch(serverRoute + `/stocks`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
@@ -62,7 +63,7 @@ export default function Charts() {
             })
     
         // get relative change on load
-        fetch(`https://dailyportfoliomanager.herokuapp.com/relative_change`, {
+        fetch(serverRoute + `/relative_change`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",

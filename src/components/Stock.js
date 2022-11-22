@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react"
 import DeleteStockModal from "./DeleteStockModal";
 import { CredentialsContext, CurrencyContext } from '../App';
+import { serverRoute } from "../serverRoute";
 
 export default function Stock({ stock, deleteStock }) {
 
@@ -17,7 +18,7 @@ export default function Stock({ stock, deleteStock }) {
 
       console.log("fetch ", credentials.password);
       
-      fetch(`https://dailyportfoliomanager.herokuapp.com/stock_purchases`, {
+      fetch(serverRoute + '/stock_purchases', {
         method: 'POST',
         headers: {
           "Content-Type": "application/json",

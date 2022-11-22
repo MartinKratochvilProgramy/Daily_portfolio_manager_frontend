@@ -5,4 +5,4 @@ export { default as Login } from './Login';
 export { default as Register } from './Register';
 export { default as Stocks } from './Stocks';
 export { default as More } from './More';
-export { default as DemoStocks } from './DemoStocks';
+export { default as Demo } from './Demo';

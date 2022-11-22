@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { CredentialsContext, ThemeContext } from '../App';
 import { useNavigate  } from 'react-router-dom';
+import { serverRoute } from '../serverRoute';
 
 export default function Navbar({ active }) {
 
@@ -19,7 +20,7 @@ export default function Navbar({ active }) {
     }
 
     function persistTheme(theme) {
-        fetch(`https://dailyportfoliomanager.herokuapp.com/set_theme`, {
+        fetch(serverRoute + '/set_theme', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",

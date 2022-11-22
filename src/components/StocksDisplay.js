@@ -1,14 +1,19 @@
 import React, { useContext } from 'react'
 import Stock from './Stock';
 import { CredentialsContext } from '../App';
+import { serverRoute } from '../serverRoute';
 
-export default function Stocks({ stocks, setStocks }) {
+export default function Stocks({ stocks, setStocks, setError }) {
 
   const [credentials, ] = useContext(CredentialsContext);
 
   const deleteStock = (ticker, amount) => {
+    if (credentials.username === "demouser") {
+      setError("Cannot edit in demo mode");
+      return;
+    }
     // hit the endpoint and write to db
-    fetch(`https://dailyportfoliomanager.herokuapp.com/stock_remove`, {
+    fetch(serverRoute + '/stock_remove', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",

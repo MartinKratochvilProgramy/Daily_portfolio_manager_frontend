@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link, useNavigate  } from 'react-router-dom';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { serverRoute } from '../serverRoute';
 
 export const handleErrors = async (response) => {
   // throws error when response not OK
@@ -35,7 +36,7 @@ export default function Login() {
 
     if (!loginInputError(username, password)) {
       // validate login
-      fetch(`https://dailyportfoliomanager.herokuapp.com/login`, {
+      fetch(serverRoute + `/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +76,7 @@ export default function Login() {
         setCurrency(json.settings.currency);
         localStorage.setItem('currency', json.settings.currency);
 
-        navigate("/stocks") //deprec history.push()
+        navigate("/stocks");
       })
       .catch((error) => {
         setUserIsBeingValidated(false);
@@ -85,7 +86,7 @@ export default function Login() {
       setError(loginInputError(username, password));
     }
   };
-  
+ 
   const navigate  = useNavigate();
 
   return (
@@ -144,6 +145,12 @@ export default function Login() {
                         to="/more" 
                         className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                         Find out more
+                      </Link>
+                      <br/>
+                     <Link 
+                        to="/demo" 
+                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                        Demo
                       </Link>
                   </div>
                 </div>

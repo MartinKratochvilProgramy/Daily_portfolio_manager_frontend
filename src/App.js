@@ -5,7 +5,7 @@ import {
   Route,
 } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { Register, Login, Stocks, Charts, Investments, About, More, DemoStocks } from './pages';
+import { Register, Login, Stocks, Charts, Investments, About, More, Demo } from './pages';
 
 export const CredentialsContext = React.createContext();
 export const ThemeContext = React.createContext();
@@ -44,7 +44,7 @@ function App() {
                 <Route exact path='/investments' element={<Investments />}></Route>
                 <Route exact path='/about' element={<About />}></Route>
                 <Route exact path='/more' element={<More />}></Route>
-                <Route exact path='/demo' element={<DemoStocks />}></Route>
+                <Route exact path='/demo' element={<Demo />}></Route>
               </Routes> 
             </Router>
           </CurrencyContext.Provider>  
