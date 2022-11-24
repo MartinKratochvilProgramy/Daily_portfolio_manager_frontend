@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import Stock from './Stock';
 import { CredentialsContext } from '../App';
 import { serverRoute } from '../serverRoute';
@@ -6,6 +6,8 @@ import { serverRoute } from '../serverRoute';
 export default function Stocks({ stocks, setStocks, setError }) {
 
   const [credentials, ] = useContext(CredentialsContext);
+
+  const [searchKey, setSearchKey] = useState("");
 
   const deleteStock = (ticker, amount) => {
     if (credentials.username === "demouser") {
@@ -33,14 +35,24 @@ export default function Stocks({ stocks, setStocks, setError }) {
       className="flex flex-col md:px-12 px-2 pt-14 md:pt-1 lg:w-6/12 md:w-8/12 w-10/12 m-auto"
       id='stocks-output'
       >
+        <div className='flex justify-end'>
+          <input 
+            onChange={(e) => {setSearchKey(e.target.value)}}
+            className='w-4/12 sm:w-3/12 lg:w-2/12 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+            type="text" 
+            placeholder='Filter...' />
+        </div>
         {stocks.map((stock) => {
-          return (
-              <Stock 
-                stock={stock} 
-                key={stock.ticker} 
-                deleteStock={deleteStock}
-                />
-          )
+          if (stock.ticker.includes(searchKey.toUpperCase())) {
+            return (
+                <Stock 
+                  stock={stock} 
+                  key={stock.ticker} 
+                  deleteStock={deleteStock}
+                  />
+            )
+          } 
+          return null;
         })}
   </div>
   )
