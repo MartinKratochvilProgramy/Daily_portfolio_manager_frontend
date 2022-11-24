@@ -10,6 +10,24 @@ export default function Stocks({ stocks, setStocks, setError }) {
 
   const [searchKey, setSearchKey] = useState("");
 
+  function sortStocks(value) {
+    const newStocks = [...stocks];
+
+    if (value === "A-Z") {
+      newStocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
+      setStocks(newStocks);
+    } else if (value === "Z-A") {
+      newStocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
+      setStocks(newStocks);
+    } else if (value === "Newest") {
+      newStocks.sort(function(a,b){return new Date(b.lastPurchase) - new Date(a.lastPurchase)});
+      setStocks(newStocks);
+    } else if (value === "Oldest") {
+      newStocks.sort(function(a,b){return new Date(a.firstPurchase) - new Date(b.firstPurchase)});
+      setStocks(newStocks);
+    }
+  }
+  
   const deleteStock = (ticker, amount) => {
     if (credentials.username === "demouser") {
       setError("Cannot edit in demo mode");
@@ -37,7 +55,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
       id='stocks-output'
       >
         <div className='flex justify-between'>
-          <OrderDropDown />
+          <OrderDropDown sortStocks={sortStocks} />
           <input 
             onChange={(e) => {setSearchKey(e.target.value)}}
             className='w-4/12 sm:w-3/12 lg:w-2/12 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'

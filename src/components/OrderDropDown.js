@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
-export default function OrderDropDown() {
+export default function OrderDropDown({ sortStocks }) {
 
   const [display, setDisplay] = useState(false);
+  const [dropdownValue, setDropdownValue] = useState("SORT")
 
   let displayStyle;
   display ? displayStyle = {display: "block"} : displayStyle = {display: "none"}
 
-  useEffect(() => {
-    document.addEventListener("mousedown", () => {
-      setDisplay(false);
-    });
-  
-  }, [])
-
+  function handleClick(value) {
+    sortStocks(value); 
+    setDropdownValue(value);
+  }
 
   return (
     <>
@@ -22,9 +20,9 @@ export default function OrderDropDown() {
       id="dropdownDefault" 
       onClick={() => setDisplay(!display)}
       data-dropdown-toggle="dropdown" 
-      className="relative flex flex-row justify-center items-center px-4 py-1 text-white bg-blue-600 font-medium text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" 
+      className="relative flex flex-row w-[97px] justify-center items-center px-4 py-1 text-white bg-blue-600 font-medium text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" 
       type="button">
-        Sort
+        {dropdownValue}
         <svg 
           className="ml-2 w-4 h-4" 
           aria-hidden="true" 
@@ -47,10 +45,32 @@ export default function OrderDropDown() {
         >
           <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
             <li>
-              <div href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Oldest</div>
+              <div 
+                onClick={() => handleClick("A-Z")}
+                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                A-Z
+              </div>
             </li>
             <li>
-              <div href="#" className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Newest</div>
+              <div 
+                onClick={() => handleClick("Z-A")}
+                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Z-A
+              </div>
+            </li>
+            <li>
+              <div 
+                onClick={() => handleClick("Newest")}
+                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Newest
+              </div>
+            </li>
+            <li>
+              <div 
+                onClick={() => handleClick("Oldest")}
+                className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                Oldest
+              </div>
             </li>
           </ul>
       </div>
