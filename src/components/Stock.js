@@ -16,8 +16,6 @@ export default function Stock({ stock, deleteStock }) {
     if (!expanded) {
       const ticker = stock.ticker;
 
-      console.log("fetch ", credentials.password);
-      
       fetch(serverRoute + '/stock_purchases', {
         method: 'POST',
         headers: {
