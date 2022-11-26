@@ -1,45 +1,18 @@
 import React, { useState, useContext } from "react"
 import DeleteStockModal from "./DeleteStockModal";
-import { CredentialsContext, CurrencyContext } from '../App';
-import { serverRoute } from "../serverRoute";
+import { CurrencyContext } from '../App';
 
 export default function Stock({ stock, deleteStock }) {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const [purchases, setPurchases] = useState([]);
   const [expanded, setExpanded] = useState(false);
-  const [credentials, ] = useContext(CredentialsContext);
   const [currency, ] = useContext(CurrencyContext);
-
-  function expand() {
-    // on click fetch purchase data from server 
-    if (!expanded) {
-      const ticker = stock.ticker;
-
-      fetch(serverRoute + '/stock_purchases', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Basic ${credentials.username}:${credentials.password}`
-        },
-        body: JSON.stringify({
-          ticker, 
-        })
-      })
-      .then((response ) => response.json())
-      .then((purchaseHistory) => {
-        setPurchases(purchaseHistory);
-      })
-    }
-    setExpanded(!expanded);
-  }
-
 
   return (
       <>
         <button 
           className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-4 py-3 my-2 text-black font-medium text-sm leading-snug uppercase hover:shadow-xl focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-100 active:shadow-lg transition duration-150 ease-in-out dark:hover:bg-blue-100"
-          onClick={expand}
+          onClick={() => setExpanded(!expanded)}
         >
           <div className="flex flex-row items-center">
 
@@ -63,7 +36,7 @@ export default function Stock({ stock, deleteStock }) {
               
             </div> : null}
             <div className="">
-            {expanded ? purchases.map((purchase) => {
+            {expanded ? stock.purchaseHistory.map((purchase) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
                     <div className="w-24 flex justify-start">
