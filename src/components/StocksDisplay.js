@@ -58,7 +58,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
       className="flex flex-col md:px-12 px-2 pt-14 lg:w-6/12 md:w-8/12 w-10/12 m-auto"
       id='stocks-output'
       >
-        <div className='flex justify-between'>
+        <div className='flex justify-between mb-2'>
           <OrderDropDown sortStocks={sortStocks} />
           <input 
             onChange={(e) => {setSearchKey(e.target.value)}}
