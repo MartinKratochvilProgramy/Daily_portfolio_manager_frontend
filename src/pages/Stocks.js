@@ -30,6 +30,7 @@ export default function Stocks() {
         })
         .catch((error) => {
           console.log(error);
+          setStocksLoaded(true);
         })
   
     }, [credentials]);

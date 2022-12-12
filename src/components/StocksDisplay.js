@@ -49,6 +49,10 @@ export default function Stocks({ stocks, setStocks, setError }) {
     .then((stocks) => setStocks(stocks))
   };
 
+  if (stocks.length === 0) {
+    return;
+  }
+
   return (
     <div 
       className="flex flex-col md:px-12 px-2 pt-14 lg:w-6/12 md:w-8/12 w-10/12 m-auto"
