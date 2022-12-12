@@ -35,8 +35,8 @@ export default function Stock({ stock, deleteStock }) {
           <div className="flex flex-row items-center">
 
             <div className="w-full h-full flex items-start">
-              <div className="min-w-[42px] md:min-w-[72px] font-bold text-justify">{stock.ticker}</div>
-              <div className="ml-2 md:ml-6 w-2 md:w-4">{stock.amount}</div>
+              <div className="min-w-[42px] md:min-w-[94px] font-bold text-justify">{stock.ticker}</div>
+              <div className="ml-2 md:ml-6 w-2 md:w-10">{stock.amount}</div>
               <div className="ml-2 md:ml-6 w-[72px] md:w-24">{stock.prevClose.toFixed(1)} {currency}</div>
               <div className="ml-2 md:ml-6">
                 {avgPercentageChange >= 0 ? 
@@ -54,12 +54,17 @@ export default function Stock({ stock, deleteStock }) {
           </div>
           
           <div className="flex flex-col items-start justify-start space-y-2">
-            {expanded ? <div className="flex flex-row mt-4">
-              <div className="w-20 md:w-24 flex justify-start font-bold">DATE</div>
-              <div className="w-12 md:w-20 flex justify-center font-bold">AMOUNT</div>
-              <div className="w-24 flex justify-center font-bold">PRICE</div>
-              
-            </div> : null}
+            {expanded ? 
+              <>
+                <hr className="bg-gray-700 w-full h-[1px]" />
+                <div className="flex flex-row mt-4">
+                  <div className="w-20 md:w-24 flex justify-start font-bold">DATE</div>
+                  <div className="w-12 md:w-20 flex justify-center font-bold">AMOUNT</div>
+                  <div className="w-24 flex justify-center font-bold">PRICE</div>
+                </div> 
+              </>
+            : 
+              null}
             <div className="">
             {expanded ? stock.purchaseHistory.map((purchase) => {
               return (
