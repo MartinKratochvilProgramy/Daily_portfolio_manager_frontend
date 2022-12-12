@@ -56,7 +56,7 @@ export default function Stock({ stock, deleteStock }) {
           <div className="flex flex-col items-start justify-start space-y-2">
             {expanded ? 
               <>
-                <hr className="bg-gray-700 w-full h-[1px]" />
+                <hr className="bg-gray-700 w-full h-[1px] mt-1" />
                 <div className="flex flex-row mt-4">
                   <div className="w-20 md:w-24 flex justify-start font-bold">DATE</div>
                   <div className="w-12 md:w-20 flex justify-center font-bold">AMOUNT</div>
