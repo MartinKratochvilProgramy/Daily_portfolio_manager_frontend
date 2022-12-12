@@ -8,18 +8,43 @@ export default function Stock({ stock, deleteStock }) {
   const [expanded, setExpanded] = useState(false);
   const [currency, ] = useContext(CurrencyContext);
 
+  function getAvgPercentageReturn() {
+    let relativeChanges = 0;
+    let amounts = 0;
+
+    // calculate weighted average for gain of each purchase
+    for (const purchase of stock.purchaseHistory) {
+      const relativeChange = (stock.prevClose / purchase.currentPrice - 1) * 100 * purchase.amount;
+      relativeChanges += relativeChange;
+      amounts += purchase.amount;
+    }
+
+    const avgPercentageChange = (relativeChanges / amounts).toFixed(1);
+
+    return avgPercentageChange;
+  }
+
+  const avgPercentageChange = getAvgPercentageReturn();
+
   return (
       <>
         <button 
-          className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-4 py-3 my-2 text-black font-medium text-sm leading-snug uppercase hover:shadow-xl focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-100 active:shadow-lg transition duration-150 ease-in-out dark:hover:bg-blue-100"
+          className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-2 md:px-4 py-3 my-2 text-black font-medium text-sm leading-snug uppercase hover:shadow-xl focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-100 active:shadow-lg transition duration-150 ease-in-out dark:hover:bg-blue-100"
           onClick={() => setExpanded(!expanded)}
         >
           <div className="flex flex-row items-center">
 
-            <div className="w-full h-full text-justify flex items-start">
-              <div className="w-16 font-bold">{stock.ticker}</div>
-              <div className="ml-2 md:ml-10 w-4">{stock.amount}</div>
-              <div className="ml-3 md:ml-10">{stock.prevClose} {currency}</div>
+            <div className="w-full h-full flex items-start">
+              <div className="w-[72px] font-bold text-justify">{stock.ticker}</div>
+              <div className="ml-2 md:ml-6 w-2 md:w-4">{stock.amount}</div>
+              <div className="ml-2 md:ml-6 w-[72px] md:w-24">{stock.prevClose.toFixed(1)} {currency}</div>
+              <div className="ml-2 md:ml-6">
+                {avgPercentageChange >= 0 ? 
+                  <div className="text-green-600">{"+" + avgPercentageChange + "%"}</div> 
+                : 
+                  <div className="text-red-600">{avgPercentageChange + "%"}</div> 
+                }
+              </div>
             </div>
             <div onClick={() => {setShowDeleteModal(true)}} id={stock.ticker} className="rounded-full p-1 transition duration-150 hover:bg-red-100 ease-in-out">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black" className="w-6 h-6">
