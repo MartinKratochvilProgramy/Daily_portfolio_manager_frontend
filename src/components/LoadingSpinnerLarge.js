@@ -1,11 +1,7 @@
 import React from 'react'
 
-export default function LoadingSpinner({ size }) {
+export default function LoadingSpinnerLarge() {
 
-  const svgStyles = `w-${size} h-${size}`;
-
-  console.log(svgStyles);
-  
   return (
     <div className='w-24 h-24'>
         <svg aria-hidden="true" className='mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600' viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinnerLarge from '../components/LoadingSpinnerLarge';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
@@ -266,7 +266,7 @@ export default function Charts() {
                     className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
                 />
                 :
-                <LoadingSpinner size={24} />
+                <LoadingSpinnerLarge />
             }
         </div>
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
@@ -284,7 +284,7 @@ export default function Charts() {
                     className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
                 />
                 :
-                <LoadingSpinner size={24} />
+                <LoadingSpinnerLarge />
             }
         </div>
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
@@ -302,7 +302,7 @@ export default function Charts() {
                     className="w-[100%] sm:w-[75%] h-[260px] md:h-auto"
                 />
                 :
-                <LoadingSpinner size={24} />
+                <LoadingSpinnerLarge />
             }
         </div>
     </div>
