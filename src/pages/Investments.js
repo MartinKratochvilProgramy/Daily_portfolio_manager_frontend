@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import LoadingSpinnerLarge from '../components/LoadingSpinnerLarge';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';
@@ -117,7 +117,7 @@ export default function Investments() {
                 className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
             />
             :
-            <LoadingSpinnerLarge />
+            <LoadingSpinner size={70} />
           }
         </div>
     </div>

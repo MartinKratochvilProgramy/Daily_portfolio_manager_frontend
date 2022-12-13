@@ -3,7 +3,7 @@ import { CredentialsContext } from '../App';
 import StockInput from '../components/StockInput';
 import StocksDisplay from '../components/StocksDisplay';
 import Navbar from '../components/Navbar';
-import LoadingSpinnerLarge from '../components/LoadingSpinnerLarge';
+import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 import { serverRoute } from '../serverRoute';
 
@@ -43,7 +43,7 @@ export default function Stocks() {
         <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError}/>
         :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
-          <LoadingSpinnerLarge />
+          <LoadingSpinner size={70} />
         </div>
       }
     </div>
