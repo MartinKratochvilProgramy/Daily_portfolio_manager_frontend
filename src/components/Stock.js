@@ -35,7 +35,7 @@ export default function Stock({ stock, deleteStock }) {
           <div className="flex flex-row items-center">
 
             <div className="w-full h-full flex items-start">
-              <div className="min-w-[58px] md:min-w-[62px] font-bold text-justify">{stock.ticker}</div>
+              <div className="min-w-[58px] md:min-w-[68px] font-bold text-justify">{stock.ticker}</div>
               <div className="ml-1 md:ml-6 w-2 md:w-10">{stock.amount}</div>
               <div className="ml-1 md:ml-6 w-[48px] md:w-24">{stock.prevClose.toFixed(1)} <span className="hidden md:inline-block">{currency}</span></div>
               <div className="ml-1 md:ml-6">
