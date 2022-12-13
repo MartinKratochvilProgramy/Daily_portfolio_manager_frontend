@@ -35,9 +35,9 @@ export default function Stock({ stock, deleteStock }) {
           <div className="flex flex-row items-center">
 
             <div className="w-full h-full flex items-start">
-              <div className="min-w-[58px] md:min-w-[68px] font-bold text-justify">{stock.ticker}</div>
-              <div className="ml-1 md:ml-6 w-2 md:w-10">{stock.amount}</div>
-              <div className="ml-1 md:ml-6 w-[48px] md:w-24">{stock.prevClose.toFixed(1)} <span className="hidden md:inline-block">{currency}</span></div>
+              <div className="w-[61px] md:w-[81px] font-bold text-justify">{stock.ticker}</div>
+              <div className="w-4 md:w-24 flex justify-center">{stock.amount}</div>
+              <div className="w-12 md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="hidden md:inline-block">{currency}</span></div>
               <div className="ml-1 md:ml-6">
                 {avgPercentageChange >= 0 ? 
                   <div className="text-green-600">{"+" + avgPercentageChange + "%"}</div> 
@@ -58,9 +58,9 @@ export default function Stock({ stock, deleteStock }) {
               <>
                 <hr className="bg-gray-300 w-full h-[1px] mt-1 border-0" />
                 <div className="flex flex-row mt-4">
-                  <div className="min-w-[61px] md:min-w-[62px] font-bold text-justify">DATE</div>
-                  <div className="ml-1 md:ml-6 w-12 md:w-10 flex justify-center font-bold">AMOUNT</div>
-                  <div className="ml-2 md:ml-6 w-12 md:w-24 flex justify-center font-bold">PRICE</div>
+                  <div className="w-[71px] md:w-[81px] font-bold text-justify">DATE</div>
+                  <div className="w-14 md:w-24 flex justify-center font-bold">AMOUNT</div>
+                  <div className="w-14 md:w-24 flex justify-center font-bold">PRICE</div>
                 </div> 
               </>
             : 
@@ -69,13 +69,13 @@ export default function Stock({ stock, deleteStock }) {
             {expanded ? stock.purchaseHistory.map((purchase) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
-                    <div className="min-w-[61px] md:min-w-[71px] flex justify-start">
+                    <div className="w-[71px] md:w-[81px] flex justify-start">
                       {purchase.date}
                     </div>
-                    <div className="ml-1 md:ml-4 w-12 md:w-10 flex justify-center">
+                    <div className="w-14 md:w-24 flex justify-center">
                       {purchase.amount}
                     </div>
-                    <div className="ml-1 md:ml-6 w-[48px] md:w-24 flex justify-center">
+                    <div className="w-14 md:w-24 flex justify-center">
                       {purchase.currentPrice}
                     </div>
                   </div>
