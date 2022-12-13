@@ -29,16 +29,16 @@ export default function Stock({ stock, deleteStock }) {
   return (
       <>
         <button 
-          className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-2 md:px-4 py-3 my-2 text-black font-medium text-sm leading-snug uppercase hover:shadow-xl focus:outline-none focus:ring-0 active:bg-blue-100 transition duration-150 ease-in-out dark:hover:bg-blue-100"
+          className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-2 md:px-4 py-3 my-2 text-black font-medium text-xs sm:text-md leading-snug uppercase hover:shadow-xl focus:outline-none focus:ring-0 active:bg-blue-100 transition duration-150 ease-in-out dark:hover:bg-blue-100"
           onClick={() => setExpanded(!expanded)}
         >
           <div className="flex flex-row items-center">
 
             <div className="w-full h-full flex items-start">
               <div className="min-w-[42px] md:min-w-[94px] font-bold text-justify">{stock.ticker}</div>
-              <div className="ml-2 md:ml-6 w-2 md:w-10">{stock.amount}</div>
-              <div className="ml-2 md:ml-6 w-[72px] md:w-24">{stock.prevClose.toFixed(1)} <span className="hidden sm:inline-block">{currency}</span></div>
-              <div className="ml-2 md:ml-6">
+              <div className="ml-1 md:ml-6 w-2 md:w-10">{stock.amount}</div>
+              <div className="ml-1 md:ml-6 w-[72px] md:w-24">{stock.prevClose.toFixed(1)} {currency}</div>
+              <div className="ml-1 md:ml-6">
                 {avgPercentageChange >= 0 ? 
                   <div className="text-green-600">{"+" + avgPercentageChange + "%"}</div> 
                 : 
@@ -69,10 +69,10 @@ export default function Stock({ stock, deleteStock }) {
             {expanded ? stock.purchaseHistory.map((purchase) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
-                    <div className="w-24 flex justify-start">
+                    <div className="w-[80px] md:w-24 flex justify-start">
                       {purchase.date}
                     </div>
-                    <div className="w-6 md:w-20 flex justify-center">
+                    <div className="w-12 md:w-20 flex justify-center">
                       {purchase.amount}
                     </div>
                     <div className="w-24 flex justify-center">
