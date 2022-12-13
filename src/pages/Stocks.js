@@ -35,8 +35,6 @@ export default function Stocks() {
   
     }, [credentials]);
 
-  console.log(stocksLoaded);
-
   return (
     <div className='bg-white dark:bg-gray-800 pb-8'>
       <Navbar active={"stocks"}/>
