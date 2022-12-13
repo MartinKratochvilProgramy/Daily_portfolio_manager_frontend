@@ -69,7 +69,7 @@ export default function Stock({ stock, deleteStock }) {
             {expanded ? stock.purchaseHistory.map((purchase) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
-                    <div className="min-w-[58px] md:min-w-[62px] flex justify-start">
+                    <div className="min-w-[61px] md:min-w-[71px] flex justify-start">
                       {purchase.date}
                     </div>
                     <div className="ml-1 md:ml-4 w-12 md:w-10 flex justify-center">
