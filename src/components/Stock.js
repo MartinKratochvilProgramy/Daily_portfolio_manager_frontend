@@ -37,7 +37,7 @@ export default function Stock({ stock, deleteStock }) {
             <div className="w-full h-full flex items-start">
               <div className="w-[61px] md:w-[81px] font-bold text-justify">{stock.ticker}</div>
               <div className="w-4 md:w-24 flex justify-center">{stock.amount}</div>
-              <div className="w-12 md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="hidden md:inline-block">{currency}</span></div>
+              <div className="w-12 md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="ml-1 hidden md:inline-block">{currency}</span></div>
               <div className="ml-1 md:ml-6">
                 {avgPercentageChange >= 0 ? 
                   <div className="text-green-600">{"+" + avgPercentageChange + "%"}</div> 
