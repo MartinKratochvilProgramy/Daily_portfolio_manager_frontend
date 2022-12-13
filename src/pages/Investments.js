@@ -117,7 +117,7 @@ export default function Investments() {
                 className="w-[100%] sm:w-[80%] h-[360px] md:h-full"
             />
             :
-            <LoadingSpinner size={16} />
+            <LoadingSpinner size={24} />
           }
         </div>
     </div>

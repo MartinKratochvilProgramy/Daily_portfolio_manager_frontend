@@ -45,7 +45,7 @@ export default function Stocks() {
         <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError}/>
         :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
-            <LoadingSpinner size={16} />
+            <LoadingSpinner size={24} />
         </div>
       }
     </div>
