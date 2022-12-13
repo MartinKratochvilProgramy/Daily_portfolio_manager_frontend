@@ -58,7 +58,7 @@ export default function Stock({ stock, deleteStock }) {
               <>
                 <hr className="bg-gray-300 w-full h-[1px] mt-1 border-0" />
                 <div className="flex flex-row mt-4">
-                  <div className="min-w-[58px] md:min-w-[62px] font-bold text-justify">DATE</div>
+                  <div className="min-w-[61px] md:min-w-[62px] font-bold text-justify">DATE</div>
                   <div className="ml-1 md:ml-6 w-12 md:w-10 flex justify-center font-bold">AMOUNT</div>
                   <div className="ml-2 md:ml-6 w-12 md:w-24 flex justify-center font-bold">PRICE</div>
                 </div> 
