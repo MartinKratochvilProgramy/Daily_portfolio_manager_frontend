@@ -25,6 +25,7 @@ export default function Stocks() {
         .then(handleErrors)
         .then((response ) => response.json())
         .then((stocks) => {
+
           setStocks(stocks);
           setStocksLoaded(true);
         })

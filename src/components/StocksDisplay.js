@@ -24,6 +24,10 @@ export default function Stocks({ stocks, setStocks, setError }) {
     } else if (value === "Oldest") {
       newStocks.sort(function(a,b){return new Date(a.firstPurchase) - new Date(b.firstPurchase)});
       setStocks(newStocks);
+    } else if (value === "Value") {
+      console.log(stocks);
+      newStocks.sort(function(a,b){return b.prevClose * b.amount - a.prevClose * a.amount});
+      setStocks(newStocks);
     }
   }
 
