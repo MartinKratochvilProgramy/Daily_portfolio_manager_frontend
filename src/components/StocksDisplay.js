@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import Stock from './Stock';
 import { CredentialsContext } from '../App';
 import { serverRoute } from '../serverRoute';
@@ -7,10 +7,9 @@ import OrderDropDown from './OrderDropDown';
 export default function Stocks({ stocks, setStocks, setError }) {
 
   const [credentials, ] = useContext(CredentialsContext);
-
   const [searchKey, setSearchKey] = useState("");
 
-  function sortStocks(value) {
+  const sortStocks = (value) => {
     const newStocks = [...stocks];
 
     if (value === "A-Z") {
@@ -27,6 +26,12 @@ export default function Stocks({ stocks, setStocks, setError }) {
       setStocks(newStocks);
     }
   }
+
+  useEffect(() => {
+    sortStocks("Newest");
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  
   
   const deleteStock = (ticker, amount) => {
     if (credentials.username === "demouser") {

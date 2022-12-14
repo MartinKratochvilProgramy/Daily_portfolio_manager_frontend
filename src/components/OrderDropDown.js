@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 export default function OrderDropDown({ sortStocks }) {
 
   const [display, setDisplay] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState("SORT")
+  const [dropdownValue, setDropdownValue] = useState("Newest")
 
   let displayStyle;
   display ? displayStyle = {display: "block"} : displayStyle = {display: "none"}
