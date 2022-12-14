@@ -141,17 +141,16 @@ export default function Login() {
                                                 Register
                                               </Link>
                     </p>
-                     <Link 
-                        to="/more" 
-                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
-                        Find out more
-                      </Link>
-                      <br/>
-                     <Link 
-                        to="/demo" 
-                        className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
-                        Demo
-                      </Link>
+                    <Link 
+                      to="/more" 
+                      className="mb-2 block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                      Find out more
+                    </Link>
+                    <Link 
+                      to="/demo" 
+                      className="block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                      Demo
+                    </Link>
                   </div>
                 </div>
               </form>

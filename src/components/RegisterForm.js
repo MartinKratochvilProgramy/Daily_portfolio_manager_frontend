@@ -51,13 +51,12 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                         </p>
                         <Link 
                           to="/more" 
-                          className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                          className="mb-2 block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                           Find out more
                         </Link>
-                        <br />
                         <Link 
                           to="/demo" 
-                          className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                          className="block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                           Demo
                         </Link>
                       </div>
