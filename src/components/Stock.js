@@ -8,28 +8,6 @@ export default function Stock({ stock, deleteStock }) {
   const [expanded, setExpanded] = useState(false);
   const [currency, ] = useContext(CurrencyContext);
 
-  function getAvgPercentageReturn() {
-    let relativeChanges = 0;
-    let amounts = 0;
-
-    // calculate weighted average for gain of each purchase
-    for (const purchase of stock.purchaseHistory) {
-      const relativeChange = (stock.prevClose / purchase.currentPrice - 1) * 100;
-      const totalRelativeChange = relativeChange * purchase.amount;
-      relativeChanges += totalRelativeChange;
-      amounts += purchase.amount;
-      
-      // update relative change for each purchase
-      purchase.relativeChange = relativeChange;
-    }
-
-    const avgPercentageChange = (relativeChanges / amounts).toFixed(1);
-
-    return avgPercentageChange;
-  }
-
-  const avgPercentageChange = getAvgPercentageReturn();
-
   return (
       <>
         <button 
@@ -43,10 +21,10 @@ export default function Stock({ stock, deleteStock }) {
               <div className="w-5 xs:w-12 xsm:w-16 md:w-24 flex justify-center">{stock.amount}</div>
               <div className="w-11 xs:w-12 xsm:w-16 md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="ml-1 hidden md:inline-block">{currency}</span></div>
               <div className="w-11 xs:w-12 xsm:w-16 md:w-24 flex justify-center">
-                {avgPercentageChange >= 0 ? 
-                  <div className="text-green-600">{"+" + avgPercentageChange + "%"}</div> 
+                {stock.avgPercentageChange >= 0 ? 
+                  <div className="text-green-600">{"+" + stock.avgPercentageChange + "%"}</div> 
                 : 
-                  <div className="text-red-600">{avgPercentageChange + "%"}</div> 
+                  <div className="text-red-600">{stock.avgPercentageChange + "%"}</div> 
                 }
               </div>
             </div>

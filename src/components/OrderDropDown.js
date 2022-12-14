@@ -19,7 +19,7 @@ export default function OrderDropDown({ sortStocks }) {
         id="dropdownDefault" 
         onClick={() => setDisplay(!display)}
         data-dropdown-toggle="dropdown" 
-        className="relative flex flex-row w-[97px] justify-center items-center px-4 py-1 text-white bg-blue-600 font-medium text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" 
+        className="relative flex flex-row min-w-[105px] xsm:min-w-[124px] justify-center items-center px-4 py-1 text-white bg-blue-600 font-medium text-[12px] xsm:text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out" 
         type="button">
           {dropdownValue}
           <svg 
@@ -42,21 +42,7 @@ export default function OrderDropDown({ sortStocks }) {
           className="z-10 absolute mt-2 top-[100%] left-0 w-full bg-white rounded-[3px] divide-y divide-gray-100 shadow-2xl dark:bg-gray-700"
           style={displayStyle}
           >
-            <ul className="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
-              <li>
-                <div 
-                  onClick={() => handleClick("A-Z")}
-                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  A-Z
-                </div>
-              </li>
-              <li>
-                <div 
-                  onClick={() => handleClick("Z-A")}
-                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Z-A
-                </div>
-              </li>
+            <ul className="py-1 text-[12px] xsm:text-xs text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
               <li>
                 <div 
                   onClick={() => handleClick("Newest")}
@@ -73,9 +59,44 @@ export default function OrderDropDown({ sortStocks }) {
               </li>
               <li>
                 <div 
-                  onClick={() => handleClick("Value")}
+                  onClick={() => handleClick("Value high")}
                   className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                  Value
+                  Value high
+                </div>
+              </li>
+              <li>
+                <div 
+                  onClick={() => handleClick("Value low")}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  Value low
+                </div>
+              </li>
+              <li>
+                <div 
+                  onClick={() => handleClick("Change high")}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  Change high
+                </div>
+              </li>
+              <li>
+                <div 
+                  onClick={() => handleClick("Change low")}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  Change low
+                </div>
+              </li>
+              <li>
+                <div 
+                  onClick={() => handleClick("A-Z")}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  A-Z
+                </div>
+              </li>
+              <li>
+                <div 
+                  onClick={() => handleClick("Z-A")}
+                  className="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  Z-A
                 </div>
               </li>
             </ul>

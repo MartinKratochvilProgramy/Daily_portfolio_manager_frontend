@@ -24,9 +24,17 @@ export default function Stocks({ stocks, setStocks, setError }) {
     } else if (value === "Oldest") {
       newStocks.sort(function(a,b){return new Date(a.firstPurchase) - new Date(b.firstPurchase)});
       setStocks(newStocks);
-    } else if (value === "Value") {
-      console.log(stocks);
+    } else if (value === "Value high") {
       newStocks.sort(function(a,b){return b.prevClose * b.amount - a.prevClose * a.amount});
+      setStocks(newStocks);
+    } else if (value === "Value low") {
+      newStocks.sort(function(a,b){return a.prevClose * a.amount - b.prevClose * b.amount});
+      setStocks(newStocks);
+    } else if (value === "Change high") {
+      newStocks.sort(function(a,b){return b.avgPercentageChange - a.avgPercentageChange});
+      setStocks(newStocks);
+    } else if (value === "Change low") {
+      newStocks.sort(function(a,b){return a.avgPercentageChange - b.avgPercentageChange});
       setStocks(newStocks);
     }
   }
@@ -71,7 +79,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
           <OrderDropDown sortStocks={sortStocks} />
           <input 
             onChange={(e) => {setSearchKey(e.target.value)}}
-            className='w-4/12 sm:w-3/12 lg:w-2/12 px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
+            className='w-[105px] xsm:w-[124px] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
             type="text" 
             placeholder='Search...' />
         </div>
