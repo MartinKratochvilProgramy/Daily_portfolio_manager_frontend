@@ -7,7 +7,7 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
           <section className="h-screen">
             <div className="px-6 h-full text-gray-800 min-w-[355px]">
               <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
-                <div className="xl:ml-20 w-1/2 md:w-4/12 mb-12 md:mb-0 h-full">
+                <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
                   <form onSubmit={validateUser}>
         
                     <h1 className='text-3xl text-black dark:text-white font-semibold mt-2 py-8 md:py-16 mb-0'>
@@ -53,6 +53,12 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                           to="/more" 
                           className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                           Find out more
+                        </Link>
+                        <br />
+                        <Link 
+                          to="/demo" 
+                          className="text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                          Demo
                         </Link>
                       </div>
                     </div>

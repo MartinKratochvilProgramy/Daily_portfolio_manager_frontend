@@ -95,7 +95,7 @@ export default function Login() {
       <section className="h-screen">
         <div className="px-6 h-full text-gray-800">
           <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
-            <div className="xl:ml-20 w-1/2 md:w-4/12 mb-12 md:mb-0 h-full">
+            <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
               <form onSubmit={login}>
     
                 <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 py-8 md:py-16 mb-0'>
