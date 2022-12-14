@@ -60,7 +60,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
 
   return (
     <div 
-      className="flex flex-col md:px-12 px-2 pt-14 lg:w-6/12 md:w-8/12 w-10/12 m-auto"
+      className="flex flex-col md:px-12 px-2 pt-14 w-10/12 md:w-6/12 m-auto"
       id='stocks-output'
       >
         <div className='flex justify-between mb-2'>

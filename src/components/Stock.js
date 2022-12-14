@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react"
+import React, { useState, useContext, useEffect } from "react"
 import DeleteStockModal from "./DeleteStockModal";
 import { CurrencyContext } from '../App';
 
@@ -14,9 +14,12 @@ export default function Stock({ stock, deleteStock }) {
 
     // calculate weighted average for gain of each purchase
     for (const purchase of stock.purchaseHistory) {
-      const relativeChange = (stock.prevClose / purchase.currentPrice - 1) * 100 * purchase.amount;
-      relativeChanges += relativeChange;
+      const relativeChange = (purchase.currentPrice / stock.prevClose - 1) * 100;
+      const totalRelativeChange = relativeChange * purchase.amount;
+      relativeChanges += totalRelativeChange;
       amounts += purchase.amount;
+      
+      purchase.relativeChange = relativeChange;
     }
 
     const avgPercentageChange = (relativeChanges / amounts).toFixed(1);
@@ -25,6 +28,13 @@ export default function Stock({ stock, deleteStock }) {
   }
 
   const avgPercentageChange = getAvgPercentageReturn();
+
+  // useEffect(() => {
+  //   for (const purchase of stock.purchaseHistory) {
+  //     stock.relativeChange = 
+  //   }
+  // }, [])
+  
 
   return (
       <>
@@ -35,10 +45,10 @@ export default function Stock({ stock, deleteStock }) {
           <div className="flex flex-row items-center">
 
             <div className="w-full h-full flex items-start">
-              <div className="w-[61px] md:w-[81px] font-bold text-justify">{stock.ticker}</div>
-              <div className="w-4 md:w-24 flex justify-center">{stock.amount}</div>
-              <div className="w-12 md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="ml-1 hidden md:inline-block">{currency}</span></div>
-              <div className="ml-1 md:ml-6">
+              <div className="w-[64px] xs:w-12 xsm:w-24 md:w-[81px] font-bold text-justify">{stock.ticker}</div>
+              <div className="w-5 xs:w-12 xsm:w-16 md:w-24 flex justify-center">{stock.amount}</div>
+              <div className="w-11 xs:w-12 xsm:w-16 md:w-24 flex justify-center">{stock.prevClose.toFixed(1)} <span className="ml-1 hidden md:inline-block">{currency}</span></div>
+              <div className="w-11 xs:w-12 xsm:w-16 md:w-24 flex justify-center">
                 {avgPercentageChange >= 0 ? 
                   <div className="text-green-600">{"+" + avgPercentageChange + "%"}</div> 
                 : 
@@ -58,9 +68,10 @@ export default function Stock({ stock, deleteStock }) {
               <>
                 <hr className="bg-gray-300 w-full h-[1px] mt-1 border-0" />
                 <div className="flex flex-row mt-4">
-                  <div className="w-[71px] md:w-[81px] font-bold text-justify">DATE</div>
-                  <div className="w-14 md:w-24 flex justify-center font-bold">AMOUNT</div>
-                  <div className="w-14 md:w-24 flex justify-center font-bold">PRICE</div>
+                  <div className="w-[48px] xsm:w-24 md:w-[81px] font-bold text-justify">DATE</div>
+                  <div className="w-12 xsm:w-16 md:w-24 flex justify-center font-bold">AMOUNT</div>
+                  <div className="w-12 xsm:w-16 md:w-24 flex justify-center font-bold">PRICE</div>
+                  <div className="w-12 xsm:w-16 md:w-24 flex justify-center font-bold">CHANGE</div>
                 </div> 
               </>
             : 
@@ -69,14 +80,21 @@ export default function Stock({ stock, deleteStock }) {
             {expanded ? stock.purchaseHistory.map((purchase) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
-                    <div className="w-[71px] md:w-[81px] flex justify-start">
-                      {purchase.date}
+                    <div className="w-[48px] xsm:w-24 md:w-[81px] flex justify-start">
+                      {purchase.date.substring(2, purchase.date.lenght)}
                     </div>
-                    <div className="w-14 md:w-24 flex justify-center">
+                    <div className="w-12 xsm:w-16 md:w-24 flex justify-center">
                       {purchase.amount}
                     </div>
-                    <div className="w-14 md:w-24 flex justify-center">
+                    <div className="w-12 xsm:w-16 md:w-24 flex justify-center">
                       {purchase.currentPrice}
+                    </div>
+                    <div className="w-12 xsm:w-16 md:w-24 flex justify-center">
+                      {purchase.relativeChange >= 0 ? 
+                        <div className="text-green-600">{"+" + purchase.relativeChange.toFixed(1) + "%"}</div> 
+                      : 
+                        <div className="text-red-600">{purchase.relativeChange.toFixed(1) + "%"}</div> 
+                      }
                     </div>
                   </div>
               )
