@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react"
+import React, { useState, useContext } from "react"
 import DeleteStockModal from "./DeleteStockModal";
 import { CurrencyContext } from '../App';
 
@@ -14,11 +14,12 @@ export default function Stock({ stock, deleteStock }) {
 
     // calculate weighted average for gain of each purchase
     for (const purchase of stock.purchaseHistory) {
-      const relativeChange = (purchase.currentPrice / stock.prevClose - 1) * 100;
+      const relativeChange = (stock.prevClose / purchase.currentPrice - 1) * 100;
       const totalRelativeChange = relativeChange * purchase.amount;
       relativeChanges += totalRelativeChange;
       amounts += purchase.amount;
       
+      // update relative change for each purchase
       purchase.relativeChange = relativeChange;
     }
 
@@ -28,13 +29,6 @@ export default function Stock({ stock, deleteStock }) {
   }
 
   const avgPercentageChange = getAvgPercentageReturn();
-
-  // useEffect(() => {
-  //   for (const purchase of stock.purchaseHistory) {
-  //     stock.relativeChange = 
-  //   }
-  // }, [])
-  
 
   return (
       <>
