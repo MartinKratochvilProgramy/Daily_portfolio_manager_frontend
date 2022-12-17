@@ -7,9 +7,15 @@ export default function Navbar({ active }) {
     
     const [credentials, setCredentials] = useContext(CredentialsContext);
     const [, setTheme] = useContext(ThemeContext);
-    
+
     const navigate = useNavigate();
+
+    console.log(credentials.username);
     
+    if (credentials.username === null) {
+        console.log("empty");
+    };
+
     function logout() {
         setCredentials(null);
         localStorage.setItem('user', null);
@@ -60,7 +66,7 @@ export default function Navbar({ active }) {
 
             <div className='flex w-full sm:w-auto py-1 px-2 justify-start items-center text-white space-x-4'>
                 <div className='pb-[2px]'>
-                    {credentials.username && credentials.username}
+                    {credentials.username}
                 </div>
                 <div className="bg-gray-900 dark:text-gray-100"
                     onClick={toggleTheme}>

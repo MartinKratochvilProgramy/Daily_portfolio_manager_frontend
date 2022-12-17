@@ -52,9 +52,9 @@ export default function Stocks() {
         setStocksLoaded(true);
       })
       
-  }, [credentials]);
+    }, [credentials]);
     
-  useLogout();
+    useLogout();
 
   return (
       <div className='bg-white dark:bg-gray-800 pb-8'>

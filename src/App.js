@@ -37,7 +37,7 @@ function App() {
           <CurrencyContext.Provider value={currencyState}>
             <Router>
               <Routes>
-                <Route exact path='/' element={user === null ? <Login  /> : <Charts />}></Route>
+                <Route exact path='/' element={user === null ? <Login /> : <Stocks />}></Route>
                 <Route exact path='/register' element={<Register />}></Route>
                 <Route exact path='/stocks' element={<Stocks />}></Route>
                 <Route exact path='/charts' element={<Charts />}></Route>

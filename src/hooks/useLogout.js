@@ -13,6 +13,7 @@ export const useLogout = () => {
         setCredentials(null);
         localStorage.setItem('user', null);
         navigate("/");
+        window.location.reload();
     }
 
     return;
