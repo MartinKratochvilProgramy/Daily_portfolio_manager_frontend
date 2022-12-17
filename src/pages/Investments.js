@@ -6,6 +6,7 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';
+import { useLogout } from '../hooks/useLogout';
 
 export default function Investments() {
   const [chartTheme, setChartTheme] = useState({});
@@ -44,60 +45,62 @@ export default function Investments() {
 
   }, [credentials]);
 
-    function initInvestmentsChart() {
-      const investmentsLayout =  {
-          xaxis: {
-              title: {
-                  text: 'Time',
-                  font: {
-                    size: 18,
-                    color: chartTheme.color
-                  }
-                },
-              color: chartTheme.color,
-              tickcolor: chartTheme.tickcolor,
-              gridcolor: chartTheme.gridcolor
-          },
-          yaxis: {
-              title: {
-                  text: `Total invested [${currency}]`,
-                  font: {
-                    size: 18,
-                    color: chartTheme.color
-                  }
-                },
-              color: chartTheme.color,
-              tickcolor: chartTheme.tickcolor,
-              gridcolor: chartTheme.gridcolor
-          },
-          margin: {
-              l: 100,
-              r: 20,
-              b: 100,
-              t: 20,
-              pad: 5
-            }, 
-          title: false,
-          plot_bgcolor: chartTheme.plot_bgcolor,
-          paper_bgcolor: chartTheme.paper_bgcolor
-      } ;
-      const totalInvestedAmounts = [];
-      const changesHistory = [];
-      investmentsHistory.forEach(investments => {
-          totalInvestedAmounts.push(investments.total)
-          changesHistory.push(investments.date)
-      });
-  
-      const investmentsData = [
-          {
-              x: changesHistory,
-              y: totalInvestedAmounts,
-              type: 'bar',
-              mode: 'lines+markers',
-              marker: {color: '#1C64F2'},
-          },
-      ]
-      return {investmentsData, investmentsLayout}
+  useLogout();
+
+  function initInvestmentsChart() {
+    const investmentsLayout =  {
+        xaxis: {
+            title: {
+                text: 'Time',
+                font: {
+                  size: 18,
+                  color: chartTheme.color
+                }
+              },
+            color: chartTheme.color,
+            tickcolor: chartTheme.tickcolor,
+            gridcolor: chartTheme.gridcolor
+        },
+        yaxis: {
+            title: {
+                text: `Total invested [${currency}]`,
+                font: {
+                  size: 18,
+                  color: chartTheme.color
+                }
+              },
+            color: chartTheme.color,
+            tickcolor: chartTheme.tickcolor,
+            gridcolor: chartTheme.gridcolor
+        },
+        margin: {
+            l: 100,
+            r: 20,
+            b: 100,
+            t: 20,
+            pad: 5
+          }, 
+        title: false,
+        plot_bgcolor: chartTheme.plot_bgcolor,
+        paper_bgcolor: chartTheme.paper_bgcolor
+    } ;
+    const totalInvestedAmounts = [];
+    const changesHistory = [];
+    investmentsHistory.forEach(investments => {
+        totalInvestedAmounts.push(investments.total)
+        changesHistory.push(investments.date)
+    });
+
+    const investmentsData = [
+        {
+            x: changesHistory,
+            y: totalInvestedAmounts,
+            type: 'bar',
+            mode: 'lines+markers',
+            marker: {color: '#1C64F2'},
+        },
+    ]
+    return {investmentsData, investmentsLayout}
   }
 
   const {investmentsData, investmentsLayout} = initInvestmentsChart(); 

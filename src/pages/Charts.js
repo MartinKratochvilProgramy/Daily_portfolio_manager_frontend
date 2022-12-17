@@ -6,6 +6,7 @@ import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';
+import { useLogout } from '../hooks/useLogout';
 
 export default function Charts() {
     const [stocks, setStocks] = useState([]);
@@ -85,6 +86,8 @@ export default function Charts() {
             })
 
     }, [credentials]);
+
+    useLogout();
 
     function initHistoryChart() {
         const historyLayout =  {

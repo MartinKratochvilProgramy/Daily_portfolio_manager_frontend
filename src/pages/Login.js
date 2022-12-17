@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import Cookies from 'universal-cookie';
 import { Link, useNavigate  } from 'react-router-dom';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -49,6 +50,7 @@ export default function Login() {
       .then(handleErrors)
       .then(async (res) => {
         const json = await res.json();
+        console.log(json);
         // set user in localStorage
         const username = json.username;
         const password = json.password;
@@ -75,6 +77,9 @@ export default function Login() {
         // handle currency settings on load -> set global variable and save in localStorage
         setCurrency(json.settings.currency);
         localStorage.setItem('currency', json.settings.currency);
+
+        const cookies = new Cookies();
+        cookies.set('token', json.token, { path: '/', maxAge: 1 });
 
         navigate("/stocks");
       })
