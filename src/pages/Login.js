@@ -50,7 +50,6 @@ export default function Login() {
       .then(handleErrors)
       .then(async (res) => {
         const json = await res.json();
-        console.log(json);
         // set user in localStorage
         const username = json.username;
         const password = json.password;

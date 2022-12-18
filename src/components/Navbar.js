@@ -10,12 +10,6 @@ export default function Navbar({ active }) {
 
     const navigate = useNavigate();
 
-    console.log(credentials.username);
-    
-    if (credentials.username === null) {
-        console.log("empty");
-    };
-
     function logout() {
         setCredentials(null);
         localStorage.setItem('user', null);

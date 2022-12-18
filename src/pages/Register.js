@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import Cookies from 'universal-cookie';
 import {  useNavigate } from 'react-router-dom';
 import { CredentialsContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
@@ -33,51 +34,61 @@ export default function Register() {
       setError(error);
       return
     };
-    setPickCurrency(true);
-  }
 
-  
-  const register = (e) => {
-    // send username, password to server to create new user
-    e.preventDefault();
-
-    if(!registerInputError(username, password)) {
-      fetch(serverRoute + `/register`, {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          username, 
-          password,
-          settings: {
-            theme: "light",     // light theme by default
-            currency: userCurrency
-          }
-        })
+    fetch(serverRoute + '/validate_user', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
       })
+    })
       .then(handleErrors)
-      .then(async (res) => {
-        const json = await res.json();
-        // set user in localStorage
-        const username = json.username;
-        const password = json.password;
-        setCredentials({
-          username,
-          password
-        })
-        localStorage.setItem('user', JSON.stringify({
-          username,
-          password
-        }))
-        navigate("/stocks"); //deprec history.push()
+      .then(() => {
+        setPickCurrency(true);
       })
       .catch((error) => {
         setError(error.message)
       })
-    } else {
-      setError(registerInputError(username, password));
-    }
+  }
+
+  const register = (e) => {
+    // send username, password to server to create new user
+    e.preventDefault();
+
+    fetch(serverRoute + `/register`, {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username, 
+        password,
+        settings: {
+          theme: "light",     // light theme by default
+          currency: userCurrency
+        }
+      })
+    })
+    .then(async (res) => {
+      const json = await res.json();
+      // set user in localStorage
+      const username = json.username;
+      setCredentials({
+        username,
+      })
+      localStorage.setItem('user', JSON.stringify({
+        username,
+      }))
+
+      const cookies = new Cookies();
+      cookies.set('token', json.token, { path: '/', maxAge: 100 });
+
+      navigate("/stocks"); //deprec history.push()
+
+      setPickCurrency(true);
+    })
 
     setCurrency(userCurrency);
     localStorage.setItem('currency', userCurrency);
@@ -90,7 +101,7 @@ export default function Register() {
         {!pickCurrency ? 
           <RegisterForm validateUser={validateUser} setUsername={setUsername} setPassword={setPassword} error={error} />
         : 
-          <PickCurrencyForm userSetCurrency={userSetCurrency} register={register} />
+          <PickCurrencyForm register={register} userSetCurrency={userSetCurrency} />
         }
       </div>
     )
