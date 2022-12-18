@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 import { CredentialsContext } from '../App';
 import StockInput from '../components/StockInput';
 import StocksDisplay from '../components/StocksDisplay';
@@ -16,12 +17,15 @@ export default function Stocks() {
 
   useEffect(() => {
 
+    const cookies = new Cookies();
+    const token = cookies.get('token');
+
     // get stocks on load
     fetch(serverRoute + '/stocks', {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${credentials.username}:${credentials.password}`,
+        Authorization: `Basic ${credentials.username}:${token}`,
         },
       })
       .then(handleErrors)
@@ -30,6 +34,9 @@ export default function Stocks() {
         for (const stock of stocks) {
           let relativeChanges = 0;
           let amounts = 0;
+          stock.avgPercentageChange = 0;
+
+          console.log(stock);
       
           // calculate weighted average for gain of each purchase
           for (const purchase of stock.purchaseHistory) {
@@ -43,6 +50,7 @@ export default function Stocks() {
           }
           
           stock.avgPercentageChange = (relativeChanges / amounts).toFixed(1);
+          console.log(relativeChanges, amounts);
         }
         setStocks(stocks);
         setStocksLoaded(true);

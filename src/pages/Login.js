@@ -79,7 +79,7 @@ export default function Login() {
         localStorage.setItem('currency', json.settings.currency);
 
         const cookies = new Cookies();
-        cookies.set('token', json.token, { path: '/', maxAge: 1 });
+        cookies.set('token', json.token, { path: '/', maxAge: 100 });
 
         navigate("/stocks");
       })
@@ -103,7 +103,7 @@ export default function Login() {
             <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
               <form onSubmit={login}>
     
-                <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 py-8 md:py-16 mb-0'>
+                <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 pt-8 md:pt-16 mb-6'>
                   SIMPLE WAY TO <span className='text-blue-600'>MANAGE</span>
                   <br />
                   YOUR <span className='text-blue-600'>INVESTMENTS</span> DAILY
@@ -114,7 +114,7 @@ export default function Login() {
                     <input
                       type="text"
                       onChange={(e) => setUsername(e.target.value)}
-                      className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      className="form-control w-full max-w-xs px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       placeholder="Username"
                       autoFocus
                     />
@@ -124,7 +124,7 @@ export default function Login() {
                     <input
                       type="password"
                       onChange={(e) => setPassword(e.target.value)} 
-                      className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      className="form-control w-full max-w-xs px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                       placeholder="Password"
                     />
                   </div>

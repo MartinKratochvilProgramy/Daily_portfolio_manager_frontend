@@ -10,10 +10,8 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                 <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
                   <form onSubmit={validateUser}>
         
-                    <h1 className='text-3xl text-black dark:text-white font-semibold mt-2 py-8 md:py-16 mb-0'>
-                      CREATE A <span className='text-blue-600'>NEW</span>
-                      <br />
-                      ACCOUNT
+                    <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 pt-8 md:pt-16 mb-6'>
+                      CREATE A <span className='text-blue-600'>NEW</span> ACCOUNT
                     </h1>
     
                     <div className="flex flex-col justify-center items center xl:w-8/12 lg:w-10/12 md:w-10/12 mb-12 md:mb-0 mx-auto h-full">
@@ -21,7 +19,7 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                         <input
                           type="text"
                           onChange={(e) => setUsername(e.target.value)}
-                          className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          className="form-control w-full max-w-xs px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                           placeholder="Username"
                           autoFocus
                         />
@@ -31,7 +29,7 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                         <input
                           type="password"
                           onChange={(e) => setPassword(e.target.value)} 
-                          className="form-control block w-full px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                          className="form-control w-full max-w-xs px-4 py-2 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                           placeholder="Password"
                         />
                       </div>

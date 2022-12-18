@@ -7,6 +7,7 @@ import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';
 import { useLogout } from '../hooks/useLogout';
+import Cookies from 'universal-cookie';
 
 export default function Charts() {
     const [stocks, setStocks] = useState([]);
@@ -30,12 +31,15 @@ export default function Charts() {
     }, [theme]);
    
     useEffect(() => {
+        const cookies = new Cookies();
+        const token = cookies.get('token');
+
         // get net worth history on load
         fetch(serverRoute + `/stocks_history`, {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Basic ${credentials.username}:${credentials.password}`,
+                Authorization: `Basic ${credentials.username}:${token}`,
             },
             })
             .then(handleErrors)
@@ -53,7 +57,7 @@ export default function Charts() {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Basic ${credentials.username}:${credentials.password}`,
+                Authorization: `Basic ${credentials.username}:${token}`,
             },
             })
             .then(handleErrors)
@@ -68,7 +72,7 @@ export default function Charts() {
             method: 'GET',
             headers: {
                 "Content-Type": "application/json",
-                Authorization: `Basic ${credentials.username}:${credentials.password}`,
+                Authorization: `Basic ${credentials.username}:${token}`,
             },
             })
             .then(handleErrors)

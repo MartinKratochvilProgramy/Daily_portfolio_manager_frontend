@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import { CredentialsContext } from '../App';
 import { handleErrors } from '../pages/Login';
 import { serverRoute } from '../serverRoute';
+import Cookies from 'universal-cookie';
 
 export default function StockInput({ setStocks, error, setError }) {
   const [stockTicker, setStockTicker] = useState('');
@@ -9,6 +10,10 @@ export default function StockInput({ setStocks, error, setError }) {
   const [credentials, ] = useContext(CredentialsContext);
   
   const persist = (newStock) => {
+
+    const cookies = new Cookies();
+    const token = cookies.get('token');
+
     if (credentials.username === "demouser") {
       setError("Cannot edit in demo mode")
       return;
@@ -19,7 +24,7 @@ export default function StockInput({ setStocks, error, setError }) {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Basic ${credentials.username}:${credentials.password}`
+        "Authorization": `Basic ${credentials.username}:${token}`
       },
       body: JSON.stringify({
         newStock, 
