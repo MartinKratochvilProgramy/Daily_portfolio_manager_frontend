@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Cookies from 'universal-cookie';
 import { CredentialsContext, ThemeContext } from '../App';
 import { useNavigate  } from 'react-router-dom';
 import { serverRoute } from '../serverRoute';
@@ -17,6 +18,9 @@ export default function Navbar({ active }) {
         localStorage.setItem('color-theme', 'light');
         document.documentElement.classList.remove('dark');
         navigate("/");
+
+        const cookies = new Cookies();
+        cookies.remove('token', { path: '/' });
     }
 
     function persistTheme(theme) {
