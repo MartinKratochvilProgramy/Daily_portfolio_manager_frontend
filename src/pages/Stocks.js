@@ -23,6 +23,7 @@ export default function Stocks() {
     const cookies = new Cookies();
     const token = cookies.get('token');
 
+    console.log(token);
     if (!token) {
       setCredentials(null);
       localStorage.setItem('user', null);
