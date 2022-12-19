@@ -4,8 +4,8 @@ import { CredentialsContext } from '../App';
 import { useContext } from 'react';
 
 export const useLogout = () => {
-    const navigate = useNavigate();
     const [, setCredentials] = useContext(CredentialsContext);
+    const navigate = useNavigate();
 
     const cookies = new Cookies();
     const cookie = cookies.get('token');
@@ -13,7 +13,7 @@ export const useLogout = () => {
         setCredentials(null);
         localStorage.setItem('user', null);
         navigate("/");
-        window.location.reload();
+        //window.location.reload();
     }
 
     return;

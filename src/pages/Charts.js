@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -6,7 +7,6 @@ import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';
-import { useLogout } from '../hooks/useLogout';
 import Cookies from 'universal-cookie';
 
 export default function Charts() {
@@ -17,9 +17,11 @@ export default function Charts() {
     const [currentNetWorth, setCurrentNetWorth] = useState(0);
     const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
     const [currentRelativeChange, setCurrentRelativeChange] = useState(0);
-    const [credentials,] = useContext(CredentialsContext);
+    const [credentials, setCredentials] = useContext(CredentialsContext);
     const [theme,] = useContext(ThemeContext);
     const [currency,] = useContext(CurrencyContext);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         // set chart theme on load
@@ -33,6 +35,13 @@ export default function Charts() {
     useEffect(() => {
         const cookies = new Cookies();
         const token = cookies.get('token');
+
+        if (!token) {
+            setCredentials(null);
+            localStorage.setItem('user', null);
+            navigate("/");
+            return;
+        }
 
         // get net worth history on load
         fetch(serverRoute + `/stocks_history`, {
@@ -89,9 +98,7 @@ export default function Charts() {
                 console.log(error);
             })
 
-    }, [credentials]);
-
-    useLogout();
+    }, [credentials, setCredentials, navigate]);
 
     function initHistoryChart() {
         const historyLayout =  {

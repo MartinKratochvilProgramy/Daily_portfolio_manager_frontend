@@ -3,6 +3,7 @@ import { CredentialsContext } from '../App';
 import { handleErrors } from '../pages/Login';
 import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
+import formatStocks from '../utils/formatStocks';
 
 export default function StockInput({ setStocks, error, setError }) {
   const [stockTicker, setStockTicker] = useState('');
@@ -32,7 +33,11 @@ export default function StockInput({ setStocks, error, setError }) {
     })
     .then(handleErrors)
     .then((response ) => response.json())
-    .then((returnedStocks) => {setStocks(returnedStocks)})
+    .then((returnedStocks) => {
+      formatStocks(returnedStocks);
+
+      setStocks(returnedStocks)
+    })
     .catch((error) => {
       setError(error.message)
     })

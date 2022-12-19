@@ -33,14 +33,14 @@ export default function RegisterForm({ validateUser, setUsername, setPassword, e
                           placeholder="Password"
                         />
                       </div>
-                      {error && (<span className='font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700 mb-4 transition duration-200 ease-in-out'>{error}</span>)}
+                      {error && (<span className='mb-2 font-semibold text-xl text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out'>{error}</span>)}
                       <div className="text-center lg:text-left">
                         <button
                           type="submit"
-                          className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                          className="inline-block mt-2 px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                           Register
                         </button>
-                        <p className="text-m text-black dark:text-white font-semibold mt-2 pt-3 mb-2">
+                        <p className="text-m text-black dark:text-white font-semibold pt-3 mb-2">
                           Already have an account? <Link 
                                                     to="/" 
                                                     className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">

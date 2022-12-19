@@ -83,7 +83,7 @@ export default function Register() {
       }))
 
       const cookies = new Cookies();
-      cookies.set('token', json.token, { path: '/', maxAge: 100 });
+      cookies.set('token', json.token, { path: '/', maxAge: 6000 });
 
       navigate("/stocks"); //deprec history.push()
 

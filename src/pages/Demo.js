@@ -23,7 +23,7 @@ export default function Demo() {
         localStorage.setItem('currency', "USD");
 
         const cookies = new Cookies();
-        cookies.set('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNGZhZjA5NTUwMjZlMzJjMzZkNzkyNiIsImlhdCI6MTY3MTM4MjQ3NywiZXhwIjoxNjcxMzg2MDc3fQ.obKwSXlL_GrbUr-KdyyhZDeNyPsyB3_srNv_M2Pd9AA", { path: '/', maxAge: 100 });
+        cookies.set('token', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNGZhZjA5NTUwMjZlMzJjMzZkNzkyNiIsImlhdCI6MTY3MTM4MjQ3NywiZXhwIjoxNjcxMzg2MDc3fQ.obKwSXlL_GrbUr-KdyyhZDeNyPsyB3_srNv_M2Pd9AA", { path: '/', maxAge: 6000 });
 
         navigate("/stocks");
     
