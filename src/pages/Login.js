@@ -78,7 +78,7 @@ export default function Login() {
         localStorage.setItem('currency', json.settings.currency);
 
         const cookies = new Cookies();
-        cookies.set('token', json.token, { path: '/', maxAge: 1 });
+        cookies.set('token', json.token, { path: '/', maxAge: 6000 });
 
         navigate("/stocks");
       })

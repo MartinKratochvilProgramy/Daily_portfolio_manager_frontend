@@ -1,12 +1,15 @@
-import React, { useState, useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Cookies from 'universal-cookie';
 import Stock from './Stock';
 import { CredentialsContext } from '../App';
 import { serverRoute } from '../serverRoute';
 import OrderDropDown from './OrderDropDown';
+import formatStocks from '../utils/formatStocks';
 
 export default function Stocks({ stocks, setStocks, setError }) {
 
-  const [credentials, ] = useContext(CredentialsContext);
+  const [credentials, setCredentials] = useContext(CredentialsContext);
   const [searchKey, setSearchKey] = useState("");
 
   const sortStocks = (value) => {
@@ -44,8 +47,20 @@ export default function Stocks({ stocks, setStocks, setError }) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
+  const navigate = useNavigate();
   
   const deleteStock = (ticker, amount) => {
+
+    const cookies = new Cookies();
+    const token = cookies.get('token');
+
+    if (!token) {
+      setCredentials(null);
+      localStorage.setItem('user', null);
+      navigate("/");
+      return;
+    }
+
     if (credentials.username === "demouser") {
       setError("Cannot edit in demo mode");
       return;
@@ -55,7 +70,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Basic ${credentials.username}:${credentials.password}`
+        "Authorization": `Basic ${credentials.username}:${token}`
       },
       body: JSON.stringify({
         ticker,
@@ -63,7 +78,11 @@ export default function Stocks({ stocks, setStocks, setError }) {
       })
     })
     .then((response ) => response.json())
-    .then((stocks) => setStocks(stocks))
+      .then((stocks) => {
+        formatStocks(stocks);
+
+        setStocks(stocks);
+      })
   };
 
   if (stocks.length === 0) {

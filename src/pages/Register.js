@@ -35,7 +35,7 @@ export default function Register() {
       return
     };
 
-    fetch(serverRoute + '/validate_user', {
+    fetch(serverRoute + '/validate_username', {
       method: 'POST',
       headers: {
         "Content-Type": "application/json",
