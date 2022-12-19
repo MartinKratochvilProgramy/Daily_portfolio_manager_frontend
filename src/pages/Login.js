@@ -138,7 +138,7 @@ export default function Login() {
                         {(userIsBeingValidated && !error) && <LoadingSpinner size={32} />}  
                       </div>
                     </button>
-                    <p className="text-m text-black dark:text-white font-semibold pt-3 mb-2">
+                    <p className="text-m text-black dark:text-white font-semibold pt-3 mb-1">
                       Don't have an account? <Link 
                                                 to="/register" 
                                                 className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
@@ -147,7 +147,7 @@ export default function Login() {
                     </p>
                     <Link 
                       to="/more" 
-                      className="mb-2 block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
+                      className="mb-1 block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                       Find out more
                     </Link>
                     <Link 
