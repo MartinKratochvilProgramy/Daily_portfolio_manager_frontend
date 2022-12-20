@@ -31,7 +31,7 @@ export default function Login() {
   const [, setCurrency] = useContext(CurrencyContext);
 
   
-  const login = (e) => {
+  const login = (e, username, password) => {
     e.preventDefault();
     setUserIsBeingValidated(true);
 
@@ -100,7 +100,7 @@ export default function Login() {
         <div className="px-6 h-full text-gray-800">
           <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
             <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
-              <form onSubmit={login}>
+              <form onSubmit={(e) => login(e, username, password)}>
     
                 <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 pt-8 md:pt-16 mb-6'>
                   SIMPLE WAY TO <span className='text-blue-600'>MANAGE</span>
@@ -151,7 +151,7 @@ export default function Login() {
                       Find out more
                     </Link>
                     <Link 
-                      to="/demo" 
+                      onClick={(e) => login(e, "demouser", "demouser")}
                       className="block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                       Demo
                     </Link>
