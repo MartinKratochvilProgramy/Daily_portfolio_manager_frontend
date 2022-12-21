@@ -39,63 +39,63 @@ export default function OrderDropDown({ sortStocks }) {
       
         <div 
           id="dropdown" 
-          className="z-10 absolute mt-2 top-[100%] left-0 w-full bg-white rounded-[3px] divide-y divide-gray-100 shadow-2xl dark:bg-gray-700"
+          className="z-10 absolute mt-2 top-[100%] left-0 w-full bg-white rounded-[3px] divide-y divide-gray-100 shadow-2xl"
           style={displayStyle}
           >
-            <ul className="text-[12px] xsm:text-xs text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefault">
+            <ul className="text-[12px] xsm:text-xs text-gray-700" aria-labelledby="dropdownDefault">
               <li>
                 <div 
                   onClick={() => handleClick("Newest")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   Newest
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("Oldest")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   Oldest
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("Value high")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   Value high
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("Value low")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   Value low
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("Change high")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   Change high
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("Change low")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   Change low
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("A-Z")}
-                  className="border-b block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="border-b block py-2 hover:bg-gray-100">
                   A-Z
                 </div>
               </li>
               <li>
                 <div 
                   onClick={() => handleClick("Z-A")}
-                  className="block py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                  className="block py-2 hover:bg-gray-100">
                   Z-A
                 </div>
               </li>
