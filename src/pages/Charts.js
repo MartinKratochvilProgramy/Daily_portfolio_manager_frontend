@@ -268,7 +268,7 @@ export default function Charts() {
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             NET <span className='text-blue-600'>WORTH</span> HISTORY
         </h1>
-        <div className='font-semibold text-black dark:text-white'>
+        <div className='font-semibold text-black dark:text-white text-xs xsm:text-lg'>
             Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {currency}
         </div>
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
@@ -286,7 +286,7 @@ export default function Charts() {
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             RELATIVE <span className='text-blue-600'>CHANGE</span> HISTORY
         </h1>
-        <div className='font-semibold text-black dark:text-white'>
+          <div className='font-semibold text-black dark:text-white text-xs xsm:text-lg'>
             Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange} %</span>
         </div>
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
@@ -304,7 +304,7 @@ export default function Charts() {
         <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
             ALL <span className='text-blue-600'>STOCKS</span>
         </h1>
-        <div className='font-semibold text-black dark:text-white'>
+        <div className='font-semibold text-black dark:text-white text-xs xsm:text-lg'>
             Pie chart of all the stocks in your portfolio
         </div>
         <div className='flex justify-center items-center pl-0 md:pl-20 min-h-[260px] md:min-h-[450px]'>
