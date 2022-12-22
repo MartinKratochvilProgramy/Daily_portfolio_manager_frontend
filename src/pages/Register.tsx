@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Cookies from 'universal-cookie';
 import {  useNavigate } from 'react-router-dom';
 import { handleErrors } from './Login';
-const { CredentialsContext, CurrencyContext } = require('../App');
-const RegisterForm = require('../components/RegisterForm');
-const PickCurrencyForm = require('../components/PickCurrencyForm');
+import { CredentialsContext, CurrencyContext } from '../App';
+const { RegisterForm } = require('../components/RegisterForm').default;
+const { PickCurrencyForm } = require('../components/PickCurrencyForm').default;
 const { serverRoute } = require('../serverRoute');
 
 export function registerInputError(
@@ -19,13 +19,14 @@ export function registerInputError(
 }
 
 export default function Register() {
-  const [username, setUsername] = useState("");
+
+  const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState("");
   const [userCurrency, userSetCurrency] = useState("USD");
-  const [pickCurrency, setPickCurrency] = useState(false);
+  const [pickCurrency, setPickCurrency] = useState<boolean>(false);
   const [error, setError] = useState<boolean | string>(false); 
-  const [, setCredentials] = CredentialsContext();
-  const [, setCurrency] = CurrencyContext();
+  const { setCredentials } = useContext(CredentialsContext);
+  const { setCurrency } = useContext(CurrencyContext);
 
   const navigate  = useNavigate();
 
@@ -82,6 +83,7 @@ export default function Register() {
       const json = await res.json();
       // set user in localStorage
       const username = json.username;
+      
       setCredentials({
         username,
       })
@@ -101,15 +103,14 @@ export default function Register() {
     localStorage.setItem('currency', userCurrency);
   };
 
-
     return (
       // src: https://tailwind-elements.com/docs/standard/components/login-form/
-      <div>
-        {!pickCurrency ? 
+      <>
+        {!pickCurrency ?
           <RegisterForm validateUser={validateUser} setUsername={setUsername} setPassword={setPassword} error={error} />
-        : 
+          :
           <PickCurrencyForm register={register} userSetCurrency={userSetCurrency} />
         }
-      </div>
+      </>
     )
 }

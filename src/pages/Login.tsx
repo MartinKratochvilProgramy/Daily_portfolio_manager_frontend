@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Cookies from 'universal-cookie';
 import { Link, useNavigate  } from 'react-router-dom';
-const { CredentialsContext, ThemeContext, CurrencyContext } = require('../App');
-const { LoadingSpinner } = require('../components/LoadingSpinner');
+import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
+const {LoadingSpinner} = require('../components/LoadingSpinner').default;
 const { serverRoute } = require('../serverRoute');
 
 export const handleErrors = async (response: any) => {
@@ -18,20 +18,22 @@ export const handleErrors = async (response: any) => {
 export function loginInputError(
   username: string,
   password: string
-) {
-  if (username === "") return "Missing username";
-  if (password === "") return "Missing password";
-  return false;
-}
-
+  ) {
+    if (username === "") return "Missing username";
+    if (password === "") return "Missing password";
+    return false;
+  }
+  
 export default function Login() {
+    
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<boolean | string>(false); 
   const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
-  const [, setCredentials] = CredentialsContext();
-  const [, setTheme] = ThemeContext();
-  const [, setCurrency] = CurrencyContext();
+  const { setCredentials } = useContext(CredentialsContext);
+  const setTheme = useContext(ThemeContext);
+  const setCurrency = useContext(CurrencyContext);
   
   const login = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLAnchorElement>,
@@ -101,7 +103,7 @@ export default function Login() {
 
   return (
     // src: https://tailwind-elements.com/docs/standard/components/login-form/
-    <div>
+    <>
       <section className="h-screen">
         <div className="px-6 h-full text-gray-800">
           <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
@@ -169,6 +171,6 @@ export default function Login() {
           </div>
         </div>
       </section>
-    </div>
+    </>
   )
 }

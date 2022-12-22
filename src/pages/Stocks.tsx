@@ -1,18 +1,19 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import { CredentialsContext } from '../App';
-import StockInput from '../components/StockInput';
-import StocksDisplay from '../components/StocksDisplay';
-import Navbar from '../components/Navbar';
-import LoadingSpinner from '../components/LoadingSpinner';
-import { handleErrors } from './Login';
-import { serverRoute } from '../serverRoute';
-import formatStocks from '../utils/formatStocks';
+const StockInput = require('../components/StockInput');
+const StocksDisplay = require('../components/StocksDisplay');
+const Navbar = require('../components/Navbar');
+const LoadingSpinner = require('../components/LoadingSpinner');
+const { handleErrors } = require('./Login');
+const { serverRoute } = require('../serverRoute');
+const formatStocks = require('../utils/formatStocks');
 
 export default function Stocks() {
+  const { CredentialsContext } = require('../App');
+
   const [stocks, setStocks] = useState([])
-  const [credentials, setCredentials] = useContext(CredentialsContext);
+  const [credentials, setCredentials] = CredentialsContext();
   const [stocksLoaded, setStocksLoaded] = useState(false);
   const [error, setError] = useState()
 
@@ -25,7 +26,7 @@ export default function Stocks() {
 
     if (!token) {
       setCredentials(null);
-      localStorage.setItem('user', null);
+      localStorage.setItem('user', "null");
       navigate("/");
       return;
     }

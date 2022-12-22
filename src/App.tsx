@@ -8,23 +8,23 @@ import React, { useState, useEffect } from "react";
 const { Register, Login, Stocks, Charts, Investments, About, More } = require('./pages');
 
 interface CredentialsInterface {
-  username?: string,
-  password?: string
+  username?: string | null,
+  password?: string | null
 }
 
-export const CredentialsContext = React.createContext<CredentialsInterface | null>(null);
-export const ThemeContext = React.createContext<string>('light');
-export const CurrencyContext = React.createContext<string>('USD');
+export const CredentialsContext = React.createContext<any>(null);
+export const ThemeContext = React.createContext<any>('light');
+export const CurrencyContext = React.createContext<any>('USD');
 
 function App() {
-  const user: string = JSON.parse(localStorage.getItem('user') || "{}");
-  const [credentialsState] = useState<CredentialsInterface>({username: user});
+  const user: string | null = JSON.parse(localStorage.getItem('user') || "null");
+  const [credentialsState, setCredentialsState] = useState<CredentialsInterface>({username: user});
 
-  const theme: string = localStorage.getItem('color-theme') || '{}';
-  const [themeState] = useState(theme || 'light');
+  const theme = localStorage.getItem('color-theme') || 'light';
+  const [themeState, setThemeState] = useState(theme || 'light');
 
   const currency = localStorage.getItem('currency') || 'USD';
-  const [currencyState] = useState(currency);
+  const [currencyState, setCurrencyState] = useState(currency);
 
   useEffect(() => {
     if (theme === 'light' || theme === null) {
@@ -35,11 +35,12 @@ function App() {
   }
   )
 
+
   return (
     <div className="App">
-      <CredentialsContext.Provider value={credentialsState}>
-        <ThemeContext.Provider value={themeState}>
-          <CurrencyContext.Provider value={currencyState}>
+      <CredentialsContext.Provider value={{ credentials: credentialsState, setCredentials: setCredentialsState}}>
+        <ThemeContext.Provider value={{ themeState, setThemeState }}>
+          <CurrencyContext.Provider value={{ currencyState, setCurrencyState }}>
             <Router>
               <Routes>
                 <Route path='/' element={user === null ? <Login /> : <Stocks />}></Route>

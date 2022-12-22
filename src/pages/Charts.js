@@ -2,12 +2,12 @@ import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Plot from 'react-plotly.js';
 import Navbar from '../components/Navbar';
-import LoadingSpinner from '../components/LoadingSpinner';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
+const { LoadingSpinner } = require('../components/LoadingSpinner');
 
 export default function Charts() {
     const [stocks, setStocks] = useState([]);
