@@ -1,13 +1,16 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 import {  useNavigate } from 'react-router-dom';
-import { CredentialsContext, CurrencyContext } from '../App';
 import { handleErrors } from './Login';
-import RegisterForm from '../components/RegisterForm';
-import PickCurrencyForm from '../components/PickCurrencyForm';
-import { serverRoute } from '../serverRoute';
+const { CredentialsContext, CurrencyContext } = require('../App');
+const RegisterForm = require('../components/RegisterForm');
+const PickCurrencyForm = require('../components/PickCurrencyForm');
+const { serverRoute } = require('../serverRoute');
 
-export function registerInputError(username, password) {
+export function registerInputError(
+  username: string,
+  password: string
+) {
   if (username === "") return "Missing username";
   if (password === "") return "Missing password";
   if (username.length < 3) return "Username should be longer than 3 characters";
@@ -20,13 +23,15 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [userCurrency, userSetCurrency] = useState("USD");
   const [pickCurrency, setPickCurrency] = useState(false);
-  const [error, setError] = useState(false); 
-  const [, setCredentials] = useContext(CredentialsContext);
-  const [, setCurrency] = useContext(CurrencyContext);
+  const [error, setError] = useState<boolean | string>(false); 
+  const [, setCredentials] = CredentialsContext();
+  const [, setCurrency] = CurrencyContext();
 
   const navigate  = useNavigate();
 
-  const validateUser = (e) => {
+  const validateUser = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     e.preventDefault();
 
     const error = registerInputError(username, password);
@@ -53,7 +58,9 @@ export default function Register() {
       })
   }
 
-  const register = (e) => {
+  const register = (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     // send username, password to server to create new user
     e.preventDefault();
 
