@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Cookies from 'universal-cookie';
 import { Link, useNavigate  } from 'react-router-dom';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
-const {LoadingSpinner} = require('../components/LoadingSpinner').default;
+import { LoadingSpinner } from '../components/'
 const { serverRoute } = require('../serverRoute');
 
 export const handleErrors = async (response: any) => {
