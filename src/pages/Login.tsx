@@ -1,11 +1,11 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
 import { Link, useNavigate  } from 'react-router-dom';
-import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
-import LoadingSpinner from '../components/LoadingSpinner';
-import { serverRoute } from '../serverRoute';
+const { CredentialsContext, ThemeContext, CurrencyContext } = require('../App');
+const { LoadingSpinner } = require('../components/LoadingSpinner');
+const { serverRoute } = require('../serverRoute');
 
-export const handleErrors = async (response) => {
+export const handleErrors = async (response: any) => {
   // throws error when response not OK
   if (!response.ok) {
     const {message} = await response.json();
@@ -15,7 +15,10 @@ export const handleErrors = async (response) => {
   }
 }
 
-export function loginInputError(username, password) {
+export function loginInputError(
+  username: string,
+  password: string
+) {
   if (username === "") return "Missing username";
   if (password === "") return "Missing password";
   return false;
@@ -24,14 +27,17 @@ export function loginInputError(username, password) {
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(false); 
+  const [error, setError] = useState<boolean | string>(false); 
   const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
-  const { setCredentials } = useContext(CredentialsContext);
-  const [, setTheme] = useContext(ThemeContext);
-  const [, setCurrency] = useContext(CurrencyContext);
-
+  const [, setCredentials] = CredentialsContext();
+  const [, setTheme] = ThemeContext();
+  const [, setCurrency] = CurrencyContext();
   
-  const login = (e, username, password) => {
+  const login = (
+    e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLAnchorElement>,
+    username: string,
+    password: string
+  ) => {
     e.preventDefault();
     setUserIsBeingValidated(true);
 
@@ -152,6 +158,7 @@ export default function Login() {
                     </Link>
                     <Link 
                       onClick={(e) => login(e, "demouser", "demouser")}
+                      to=""
                       className="block text-blue-600 font-semibold hover:text-blue-700 focus:text-blue-700 transition duration-200 ease-in-out">
                       Demo
                     </Link>
