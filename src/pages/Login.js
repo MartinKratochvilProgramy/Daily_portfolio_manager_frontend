@@ -26,7 +26,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false); 
   const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
-  const [, setCredentials] = useContext(CredentialsContext);
+  const { setCredentials } = useContext(CredentialsContext);
   const [, setTheme] = useContext(ThemeContext);
   const [, setCurrency] = useContext(CurrencyContext);
 
