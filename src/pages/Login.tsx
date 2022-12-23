@@ -31,8 +31,8 @@ export default function Login() {
   const [error, setError] = useState<boolean | string>(false); 
   const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
   const { setCredentials } = useContext(CredentialsContext);
-  const setTheme = useContext(ThemeContext);
-  const setCurrency = useContext(CurrencyContext);
+  const { setTheme } = useContext(ThemeContext);
+  const { setCurrency } = useContext(CurrencyContext);
   
   const login = (
     e: React.FormEvent<HTMLFormElement> | React.MouseEvent<HTMLAnchorElement>,

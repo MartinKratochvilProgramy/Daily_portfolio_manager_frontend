@@ -17,10 +17,10 @@ export default function Charts() {
     const [currentNetWorth, setCurrentNetWorth] = useState(0);
     const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
     const [currentRelativeChange, setCurrentRelativeChange] = useState(0);
-    const [credentials, setCredentials] = useContext(CredentialsContext);
-    const [theme,] = useContext(ThemeContext);
-    const [currency,] = useContext(CurrencyContext);
-
+    const { credentials, setCredentials } = useContext(CredentialsContext);
+    const { theme } = useContext(ThemeContext);
+    const { currency } = useContext(CurrencyContext);
+    
     const navigate = useNavigate();
 
     useEffect(() => {

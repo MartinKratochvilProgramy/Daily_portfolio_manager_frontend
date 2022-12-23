@@ -3,7 +3,7 @@ import { ThemeContext } from '../App';
 import {Navbar} from '../components/Navbar';
 
 export default function About() {
-    const [theme,] = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
  
     return (
     <div className='text-black dark:text-white'>
