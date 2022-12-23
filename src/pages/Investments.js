@@ -13,9 +13,9 @@ export default function Investments() {
   const [chartTheme, setChartTheme] = useState({});
   const [investmentsHistory, setInvestmentsHistory] = useState([]);
   const [investmentsLoaded, setInvestmentsLoaded] = useState(false);
-  const [credentials, setCredentials] = useContext(CredentialsContext);
-  const [theme,] = useContext(ThemeContext);
-  const [currency,] = useContext(CurrencyContext);
+  const { credentials, setCredentials } = useContext(CredentialsContext);
+  const { theme } = useContext(ThemeContext);
+  const { currency } = useContext(CurrencyContext);
 
   const navigate = useNavigate();
 
