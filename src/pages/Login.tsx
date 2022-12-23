@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import Cookies from 'universal-cookie';
 import { Link, useNavigate  } from 'react-router-dom';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
-import { LoadingSpinner } from '../components/'
+const { LoadingSpinner } = require('../components/LoadingSpinner');
 const { serverRoute } = require('../serverRoute');
 
 export const handleErrors = async (response: any) => {
@@ -26,7 +26,6 @@ export function loginInputError(
   
 export default function Login() {
     
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<boolean | string>(false); 

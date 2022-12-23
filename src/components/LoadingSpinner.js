@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function LoadingSpinner ({ size }) {
+export function LoadingSpinner ({ size }) {
 
   return (
     <div style={{width: `${size}px`, height: `${size}px`}}>

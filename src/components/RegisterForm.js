@@ -1,7 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+const { LoadingSpinner } = require('./LoadingSpinner');
 
-export const RegisterForm = ({ validateUser, setUsername, setPassword, error}) => {
+export function RegisterForm({ validateUser, setUsername, setPassword, error, userIsBeingValidated }) {
+  
   return (
         <div>
           <section className="h-screen">
@@ -37,8 +39,11 @@ export const RegisterForm = ({ validateUser, setUsername, setPassword, error}) =
                       <div className="text-center lg:text-left">
                         <button
                           type="submit"
-                          className="inline-block mt-2 px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
+                          className="inline-block mt-2 relative px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">
                           Register
+                          <div className='absolute right-[-50px] top-3'>
+                            {(userIsBeingValidated && !error) && <LoadingSpinner size={32} />}
+                          </div>
                         </button>
                         <p className="text-m text-black dark:text-white font-semibold pt-3 mb-2">
                           Already have an account? <Link 

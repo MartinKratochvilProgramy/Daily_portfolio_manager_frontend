@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function PickCurrencyForm({ userSetCurrency, register }) {
+export function PickCurrencyForm({ userSetCurrency, register }) {
   return (
     <div className='flex justify-center flex-col items-center'>
         <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">

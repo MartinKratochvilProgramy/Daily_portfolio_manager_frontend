@@ -3,8 +3,8 @@ import Cookies from 'universal-cookie';
 import {  useNavigate } from 'react-router-dom';
 import { handleErrors } from './Login';
 import { CredentialsContext, CurrencyContext } from '../App';
-const { RegisterForm } = require('../components/RegisterForm').default;
-const { PickCurrencyForm } = require('../components/PickCurrencyForm').default;
+const { RegisterForm } = require('../components/RegisterForm');
+const { PickCurrencyForm } = require('../components/PickCurrencyForm');
 const { serverRoute } = require('../serverRoute');
 
 export function registerInputError(
@@ -24,20 +24,23 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [userCurrency, userSetCurrency] = useState("USD");
   const [pickCurrency, setPickCurrency] = useState<boolean>(false);
+  const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
   const [error, setError] = useState<boolean | string>(false); 
   const { setCredentials } = useContext(CredentialsContext);
   const { setCurrency } = useContext(CurrencyContext);
 
+
   const navigate  = useNavigate();
 
-  const validateUser = (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const validateUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    setUserIsBeingValidated(true);
 
     const error = registerInputError(username, password);
     if (error) {
       setError(error);
+      setUserIsBeingValidated(false)
       return
     };
 
@@ -97,6 +100,7 @@ export default function Register() {
       navigate("/stocks"); //deprec history.push()
 
       setPickCurrency(true);
+      setUserIsBeingValidated(false);
     })
 
     setCurrency(userCurrency);
@@ -107,7 +111,7 @@ export default function Register() {
       // src: https://tailwind-elements.com/docs/standard/components/login-form/
       <>
         {!pickCurrency ?
-          <RegisterForm validateUser={validateUser} setUsername={setUsername} setPassword={setPassword} error={error} />
+          <RegisterForm validateUser={validateUser} setUsername={setUsername} setPassword={setPassword} error={error} userIsBeingValidated={userIsBeingValidated} />
           :
           <PickCurrencyForm register={register} userSetCurrency={userSetCurrency} />
         }
