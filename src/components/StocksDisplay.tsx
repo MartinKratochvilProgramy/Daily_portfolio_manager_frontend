@@ -5,7 +5,7 @@ import { CredentialsContext } from '../App';
 const { serverRoute } = require('../serverRoute');
 const { Stock } = require('./Stock');
 const { OrderDropDown } = require('./OrderDropDown');
-const formatStocks = require('../utils/formatStocks');
+const { formatStocks } = require('../utils/formatStocks');
 
 interface Props {
   stocks: any;
@@ -19,7 +19,7 @@ export const StocksDisplay: React.FC<Props> = ({
   setError 
 }) => {
 
-  const [credentials, setCredentials] = useContext(CredentialsContext);
+  const { credentials, setCredentials } = useContext(CredentialsContext);
   const [searchKey, setSearchKey] = useState("");
   
   const sortStocks = (value: string) => {
@@ -53,6 +53,7 @@ export const StocksDisplay: React.FC<Props> = ({
   }
 
   useEffect(() => {
+    
     sortStocks("Newest");
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -88,11 +89,10 @@ export const StocksDisplay: React.FC<Props> = ({
       })
     })
     .then((response ) => response.json())
-      .then((stocks) => {
-        formatStocks(stocks);
-
-        setStocks(stocks);
-      })
+    .then((stocks) => {
+      formatStocks(stocks);
+      setStocks(stocks);
+    })
   };
 
   return (
@@ -103,21 +103,19 @@ export const StocksDisplay: React.FC<Props> = ({
         <div className='flex justify-between mb-2'>
           <OrderDropDown sortStocks={sortStocks} />
           <input 
-            onChange={(e) => {setSearchKey(e.target.value)}}
+            onChange={(e) => setSearchKey(e.target.value)}
             className='w-[105px] xsm:w-[124px] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
             type="text" 
             placeholder='Search...' />
         </div>
-          {stocks.map((stock: any) => {
-            if (stock.ticker.includes(searchKey.toUpperCase())) {
+      {stocks.map((stock: any) => {
+        if (stock.ticker.includes(searchKey.toUpperCase())) {
               return (
-                <>
                   <Stock 
                     stock={stock} 
                     key={stock.ticker} 
                     deleteStock={deleteStock}
                     />
-                </>
               )
             } 
             return null;

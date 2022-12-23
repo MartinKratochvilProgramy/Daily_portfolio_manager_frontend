@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 
-export default function OrderDropDown({ sortStocks }) {
+interface Props {
+  sortStocks: any;
+}
+
+export const OrderDropDown: React.FC<Props> = ({ sortStocks }) => {
 
   const [display, setDisplay] = useState(false);
   const [dropdownValue, setDropdownValue] = useState("Newest")
@@ -8,7 +12,7 @@ export default function OrderDropDown({ sortStocks }) {
   let displayStyle;
   display ? displayStyle = {display: "block"} : displayStyle = {display: "none"}
 
-  function handleClick(value) {
+  function handleClick(value: string) {
     sortStocks(value); 
     setDropdownValue(value);
   }

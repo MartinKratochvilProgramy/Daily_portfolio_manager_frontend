@@ -8,7 +8,7 @@ const { StocksDisplay } = require('../components/StocksDisplay');
 const { LoadingSpinner } = require('../components/LoadingSpinner');
 const { handleErrors } = require('./Login');
 const { serverRoute } = require('../serverRoute');
-const formatStocks = require('../utils/formatStocks');
+const { formatStocks } = require('../utils/formatStocks');
 
 export default function Stocks() {
   
@@ -42,7 +42,6 @@ export default function Stocks() {
       .then(handleErrors)
       .then((response ) => response.json())
       .then((stocks) => {
-        console.log(stocks);
         
         formatStocks(stocks);
 
@@ -50,7 +49,6 @@ export default function Stocks() {
         setStocksLoaded(true);
       })
       .catch((error) => {
-        console.log("error ", error);
         setStocks([]);
         setStocksLoaded(true);
       })

@@ -1,12 +1,17 @@
 import React, { useState, useContext } from "react"
-import DeleteStockModal from "./DeleteStockModal";
 import { CurrencyContext } from '../App';
+const DeleteStockModal = require("./DeleteStockModal");
 
-export default function Stock({ stock, deleteStock }) {
+interface Props {
+  stock: any;
+  deleteStock: any;
+}
+
+export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [expanded, setExpanded] = useState(false);
-  const [currency, ] = useContext(CurrencyContext);
+  const { currency } = useContext(CurrencyContext);
 
   return (
       <>
@@ -49,7 +54,7 @@ export default function Stock({ stock, deleteStock }) {
             : 
               null}
             <div className="">
-            {expanded ? stock.purchaseHistory.map((purchase) => {
+            {expanded ? stock.purchaseHistory.map((purchase: any) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
                     <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start">

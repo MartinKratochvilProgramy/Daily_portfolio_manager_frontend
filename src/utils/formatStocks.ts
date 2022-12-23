@@ -1,4 +1,4 @@
-export const formatStocks = (stocks) => {
+export const formatStocks = (stocks: any) => {
     // adds average percent change to each stock
 
     for (const stock of stocks) {

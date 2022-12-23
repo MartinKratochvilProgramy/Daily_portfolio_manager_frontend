@@ -82,9 +82,6 @@ export default function Login() {
         localStorage.setItem('currency', json.settings.currency);
 
 
-        console.log(json.settings.currency);
-        
-
         navigate("/stocks");
       })
       .catch((error) => {
