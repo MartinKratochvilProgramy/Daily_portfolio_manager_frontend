@@ -8,8 +8,7 @@ import React, { useState, useEffect } from "react";
 const { Register, Login, Stocks, Charts, Investments, About, More } = require('./pages');
 
 interface CredentialsInterface {
-  username?: string | null,
-  password?: string | null
+  username: string | null,
 }
 
 export const CredentialsContext = React.createContext<any>(null);
@@ -17,8 +16,9 @@ export const ThemeContext = React.createContext<any>('light');
 export const CurrencyContext = React.createContext<any>('USD');
 
 function App() {
-  const user: string | null = JSON.parse(localStorage.getItem('user') || "null");
-  const [credentialsState, setCredentialsState] = useState<CredentialsInterface>({username: user});
+  const user: CredentialsInterface = JSON.parse(localStorage.getItem('user') || "null");
+  
+  const [credentialsState, setCredentialsState] = useState(user);
 
   const theme = localStorage.getItem('color-theme') || 'light';
   const [themeState, setThemeState] = useState(theme || 'light');

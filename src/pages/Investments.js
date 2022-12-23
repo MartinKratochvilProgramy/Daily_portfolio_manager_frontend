@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react';
 import { CredentialsContext, ThemeContext, CurrencyContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import Plot from 'react-plotly.js';
-import Navbar from '../components/Navbar';
+import {Navbar} from '../components/Navbar';
 import { handleErrors } from './Login';
 import { chartThemeLight, chartThemeDark } from './themes/lineChartThemes.js';
 import { serverRoute } from '../serverRoute';

@@ -1,19 +1,23 @@
 import React, { useContext } from 'react';
 import Cookies from 'universal-cookie';
 import { CredentialsContext, ThemeContext } from '../App';
-import { useNavigate  } from 'react-router-dom';
-import { serverRoute } from '../serverRoute';
+import { useNavigate } from 'react-router-dom';
+const { serverRoute } = require('../serverRoute');
 
-export default function Navbar({ active }) {
+interface Props {
+    active: string
+}
+
+export const Navbar:React.FC<Props> = ({ active }) => {
     
-    const [credentials, setCredentials] = useContext(CredentialsContext);
-    const [, setTheme] = useContext(ThemeContext);
+    const { credentials, setCredentials } = useContext(CredentialsContext);
+    const { setTheme } = useContext(ThemeContext);
 
     const navigate = useNavigate();
 
     function logout() {
         setCredentials(null);
-        localStorage.setItem('user', null);
+        localStorage.setItem('user', "null");
         // set light theme on logout
         localStorage.setItem('color-theme', 'light');
         document.documentElement.classList.remove('dark');
@@ -23,12 +27,15 @@ export default function Navbar({ active }) {
         cookies.remove('token', { path: '/' });
     }
 
-    function persistTheme(theme) {
+    function persistTheme(theme: string) {
+        const cookies = new Cookies();
+        const token = cookies.get('token');
+        
         fetch(serverRoute + '/set_theme', {
             method: 'POST',
             headers: {
               "Content-Type": "application/json",
-              "Authorization": `Basic ${credentials.username}:${credentials.password}`
+              "Authorization": `Basic ${credentials.username}:${token}`
             },
             body: JSON.stringify({
               theme, 
@@ -64,7 +71,7 @@ export default function Navbar({ active }) {
 
             <div className='flex w-full sm:w-auto py-1 px-2 justify-start items-center text-white space-x-4'>
                 <div className='pb-[2px]'>
-                    {credentials.username}
+                    {credentials.username.username}
                 </div>
                 <div className="bg-gray-900 dark:text-gray-100"
                     onClick={toggleTheme}>

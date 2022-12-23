@@ -1,16 +1,31 @@
 import React, { useState, useContext } from 'react'
 import { CredentialsContext } from '../App';
 import { handleErrors } from '../pages/Login';
-import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
-import formatStocks from '../utils/formatStocks';
+const formatStocks = require('../utils/formatStocks');
+const { serverRoute } = require('../serverRoute');
 
-export default function StockInput({ setStocks, error, setError }) {
+interface Props {
+  setStocks: any;
+  error: string | boolean;
+  setError: (error: string | boolean) => void;
+}
+
+interface Stock {
+  ticker: string;
+  amount: number;
+}
+
+export const StockInput: React.FC<Props> = ({
+  setStocks,
+  error,
+  setError
+}) => {
   const [stockTicker, setStockTicker] = useState('');
   const [stockAmount, setStockAmount] = useState(0);
-  const [credentials, ] = useContext(CredentialsContext);
+  const { credentials,  } = useContext(CredentialsContext);
   
-  const persist = (newStock) => {
+  const persist = (newStock: Stock) => {
 
     const cookies = new Cookies();
     const token = cookies.get('token');
@@ -43,19 +58,21 @@ export default function StockInput({ setStocks, error, setError }) {
     })
   };
 
-  const addStock = (e) => {
+  const addStock = (e: React.FormEvent<HTMLFormElement>) => {
     // get stock ticker, amount and send to server
     e.preventDefault();
     setError(false);
     
     if (stockTicker === '') {
       const tickerInput = document.getElementById('ticker-input');
+      if (tickerInput === null) return;
       tickerInput.classList.add('border-red-400')
       tickerInput.classList.remove('border-gray-300')
       return;
     }
     if (stockAmount <= 0) {
       const amountInput = document.getElementById('amount-input');
+      if (amountInput === null) return;
       amountInput.classList.add('border-red-400')
       amountInput.classList.remove('border-gray-300')
       return;
@@ -67,24 +84,24 @@ export default function StockInput({ setStocks, error, setError }) {
     setStockAmount(0);
   }
 
-  const onTickerInputChange = (e) => {
+  const onTickerInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(false);
     e.target.classList.remove('border-red-400');
     e.target.classList.add('border-gray-300');
     setStockTicker(e.target.value);
   }
   
-  const onAmountInputChange = (e) => {
+  const onAmountInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(false);
     e.target.classList.remove('border-red-400');
     e.target.classList.add('border-gray-300');
-    setStockAmount(e.target.value);
+    setStockAmount(parseInt(e.target.value));
   }
 
   return (
     <div className="md:px-12 px-2 pt-14 md:pt-1 w-10/12 md:w-6/12 m-auto">
       <form 
-        onSubmit={addStock} 
+        onSubmit={(e) => addStock(e)} 
         className="flex flex-col space-y-4 items-center">   
           <label htmlFor="add-stock" className="sr-only">Add stock</label>
           <h1 className='text-3xl font-semibold mt-2 py-4 md:py-4 mb-0 text-black dark:text-white'>
@@ -97,7 +114,6 @@ export default function StockInput({ setStocks, error, setError }) {
               id="ticker-input" 
               className="bg-gray-100 border w-full border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5" 
               placeholder="Ticker ('AAPL', 'MSFT', ... )" 
-              required="" 
               autoFocus
               onChange={onTickerInputChange} 
               value={stockTicker}
@@ -108,8 +124,7 @@ export default function StockInput({ setStocks, error, setError }) {
               id="amount-input" 
               className="text-center bg-gray-100 border w-5/12 md:w-3/12 border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5" 
               placeholder="Amount..." 
-              required="" 
-              onChange={onAmountInputChange} 
+              onChange={(e) => onAmountInputChange(e)} 
               value={stockAmount}
             />
           </div>

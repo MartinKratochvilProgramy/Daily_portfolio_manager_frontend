@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ThemeContext } from '../App';
-import Navbar from '../components/Navbar';
+import {Navbar} from '../components/Navbar';
 
 export default function About() {
     const [theme,] = useContext(ThemeContext);
