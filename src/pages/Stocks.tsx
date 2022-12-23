@@ -11,7 +11,6 @@ const { serverRoute } = require('../serverRoute');
 const formatStocks = require('../utils/formatStocks');
 
 export default function Stocks() {
-
   
   const [stocks, setStocks] = useState([])
   const { credentials, setCredentials } = useContext(CredentialsContext);
@@ -21,10 +20,10 @@ export default function Stocks() {
   const navigate = useNavigate();
 
   useEffect(() => {
-
+    
     const cookies = new Cookies();
     const token = cookies.get('token');
-
+    
     if (!token) {
       setCredentials(null);
       localStorage.setItem('user', "null");
@@ -37,7 +36,7 @@ export default function Stocks() {
       method: 'GET',
       headers: {
           "Content-Type": "application/json",
-        Authorization: `Basic ${credentials.username}:${token}`,
+        Authorization: `Basic ${credentials}:${token}`,
         },
       })
       .then(handleErrors)
@@ -49,7 +48,8 @@ export default function Stocks() {
         setStocksLoaded(true);
       })
       .catch((error) => {
-        console.log(error);
+        console.log("error ", error);
+        setStocks([]);
         setStocksLoaded(true);
       })
       
@@ -60,13 +60,13 @@ export default function Stocks() {
     <div className='bg-white dark:bg-gray-800 pb-8'>
       <Navbar active="stocks"/>
       <StockInput setStocks={setStocks} error={error} setError={setError}/>
-      {/* {stocksLoaded ?
-        <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError}/>
+      {stocksLoaded ?
+        stocks.length > 0 ? <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError} /> : null
         :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
           <LoadingSpinner size={70} />
         </div>
-      } */}
+      }
     </div>
   )
 }

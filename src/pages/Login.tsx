@@ -63,12 +63,9 @@ export default function Login() {
         const cookies = new Cookies();
         cookies.set('token', json.token, { path: '/', maxAge: 6000 });
         
-        setCredentials({
-          username,
-        });
-        localStorage.setItem('user', JSON.stringify("sbeve"))
+        setCredentials(username);
+        localStorage.setItem('user', JSON.stringify(username))
         
-        console.log("here1 ", username);
         // handle theme settings on load -> set global variable and save in localStorage
         if (json.settings.theme === 'dark') {
           setTheme('dark');
@@ -79,8 +76,6 @@ export default function Login() {
           document.documentElement.classList.remove('dark');
           localStorage.setItem('color-theme', 'light');
         }
-
-        console.log("here2");
 
         // handle currency settings on load -> set global variable and save in localStorage
         setCurrency(json.settings.currency);

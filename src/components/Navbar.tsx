@@ -71,7 +71,7 @@ export const Navbar:React.FC<Props> = ({ active }) => {
 
             <div className='flex w-full sm:w-auto py-1 px-2 justify-start items-center text-white space-x-4'>
                 <div className='pb-[2px]'>
-                    {credentials.username.username}
+                    {credentials}
                 </div>
                 <div className="bg-gray-900 dark:text-gray-100"
                     onClick={toggleTheme}>

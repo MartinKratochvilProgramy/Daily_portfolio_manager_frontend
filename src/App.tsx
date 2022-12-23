@@ -39,7 +39,7 @@ function App() {
   return (
     <div className="App">
       <CredentialsContext.Provider value={{ credentials: credentialsState, setCredentials: setCredentialsState}}>
-        <ThemeContext.Provider value={{ themeState, setThemeState }}>
+        <ThemeContext.Provider value={{ theme: themeState, setTheme: setThemeState }}>
           <CurrencyContext.Provider value={{ currencyState, setCurrencyState }}>
             <Router>
               <Routes>

@@ -9,9 +9,10 @@ import formatStocks from '../utils/formatStocks';
 
 export default function Stocks({ stocks, setStocks, setError }) {
 
+  
   const [credentials, setCredentials] = useContext(CredentialsContext);
   const [searchKey, setSearchKey] = useState("");
-
+  
   const sortStocks = (value) => {
     const newStocks = [...stocks];
 
@@ -48,7 +49,7 @@ export default function Stocks({ stocks, setStocks, setError }) {
   }, []);
   
   const navigate = useNavigate();
-  
+
   const deleteStock = (ticker, amount) => {
 
     const cookies = new Cookies();
