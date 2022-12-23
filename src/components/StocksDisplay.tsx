@@ -1,19 +1,28 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import Stock from './Stock';
 import { CredentialsContext } from '../App';
-import { serverRoute } from '../serverRoute';
-import OrderDropDown from './OrderDropDown';
+const { serverRoute } = require('../serverRoute');
+const { Stock } = require('./Stock');
+const { OrderDropDown } = require('./OrderDropDown');
 const formatStocks = require('../utils/formatStocks');
 
-export default function Stocks({ stocks, setStocks, setError }) {
+interface Props {
+  stocks: any;
+  setStocks: any;
+  setError: (error: string | boolean) => void;
+}
 
-  
+export const StocksDisplay: React.FC<Props> = ({ 
+  stocks, 
+  setStocks, 
+  setError 
+}) => {
+
   const [credentials, setCredentials] = useContext(CredentialsContext);
   const [searchKey, setSearchKey] = useState("");
   
-  const sortStocks = (value) => {
+  const sortStocks = (value: string) => {
     const newStocks = [...stocks];
 
     if (value === "A-Z") {
@@ -23,10 +32,10 @@ export default function Stocks({ stocks, setStocks, setError }) {
       newStocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
       setStocks(newStocks);
     } else if (value === "Newest") {
-      newStocks.sort(function(a,b){return new Date(b.lastPurchase) - new Date(a.lastPurchase)});
+      newStocks.sort(function(a,b){return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime()});
       setStocks(newStocks);
     } else if (value === "Oldest") {
-      newStocks.sort(function(a,b){return new Date(a.firstPurchase) - new Date(b.firstPurchase)});
+      newStocks.sort(function(a,b){return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime()});
       setStocks(newStocks);
     } else if (value === "Value high") {
       newStocks.sort(function(a,b){return b.prevClose * b.amount - a.prevClose * a.amount});
@@ -50,14 +59,14 @@ export default function Stocks({ stocks, setStocks, setError }) {
   
   const navigate = useNavigate();
 
-  const deleteStock = (ticker, amount) => {
+  const deleteStock = (ticker: string, amount: number) => {
 
     const cookies = new Cookies();
     const token = cookies.get('token');
 
     if (!token) {
       setCredentials(null);
-      localStorage.setItem('user', null);
+      localStorage.setItem('user', "null");
       navigate("/");
       return;
     }
@@ -86,10 +95,6 @@ export default function Stocks({ stocks, setStocks, setError }) {
       })
   };
 
-  if (stocks.length === 0) {
-    return;
-  }
-
   return (
     <div 
       className="flex flex-col md:px-12 px-2 pt-14 w-10/12 md:w-6/12 m-auto"
@@ -103,18 +108,20 @@ export default function Stocks({ stocks, setStocks, setError }) {
             type="text" 
             placeholder='Search...' />
         </div>
-        {stocks.map((stock) => {
-          if (stock.ticker.includes(searchKey.toUpperCase())) {
-            return (
-                <Stock 
-                  stock={stock} 
-                  key={stock.ticker} 
-                  deleteStock={deleteStock}
-                  />
-            )
-          } 
-          return null;
-        })}
+          {stocks.map((stock: any) => {
+            if (stock.ticker.includes(searchKey.toUpperCase())) {
+              return (
+                <>
+                  <Stock 
+                    stock={stock} 
+                    key={stock.ticker} 
+                    deleteStock={deleteStock}
+                    />
+                </>
+              )
+            } 
+            return null;
+          })}
   </div>
   )
 }
