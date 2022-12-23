@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react"
 import { CurrencyContext } from '../App';
-const DeleteStockModal = require("./DeleteStockModal");
+const { DeleteStockModal } = require("./DeleteStockModal");
 
 interface Props {
   stock: any;

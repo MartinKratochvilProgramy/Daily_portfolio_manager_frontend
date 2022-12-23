@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
 
-export default function DeleteStockModal({ setShowDeleteModal, deleteStock, stock }) {
+interface Props {
+    setShowDeleteModal: (showDeleteModal: boolean) => void;
+    deleteStock: any;
+    stock: any;
+}
+
+export const DeleteStockModal: React.FC<Props> = ({ setShowDeleteModal, deleteStock, stock }) => {
     const [amountToRemove, setAmountToRemove] = useState(0);
 
     document.onkeydown = function (evt) {
@@ -12,16 +18,18 @@ export default function DeleteStockModal({ setShowDeleteModal, deleteStock, stoc
     useEffect(() => {
         // reset red border from error
         const modalAmountInput = document.getElementById('modal-amount-input');
+        if (modalAmountInput === null) return;
         modalAmountInput.classList.add('border-gray-300');
         modalAmountInput.classList.remove('border-red-400');
     }, [amountToRemove])
     
-
-    function submit(e) {
+    
+    function submit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         if (stock.amount - amountToRemove < 0 || amountToRemove < 0) {
             // display red around input and return if invalid amount
             const modalAmountInput = document.getElementById('modal-amount-input');
+            if (modalAmountInput === null) return;
             modalAmountInput.classList.remove('border-gray-300');
             modalAmountInput.classList.add('border-red-400');
             return;
@@ -55,7 +63,7 @@ export default function DeleteStockModal({ setShowDeleteModal, deleteStock, stoc
                                 placeholder='Amount...'
                                 id='modal-amount-input'
                                 autoFocus
-                                onChange={(e) => {setAmountToRemove(e.target.value)}}
+                                onChange={(e) => {setAmountToRemove(parseInt(e.target.value))}}
                             />
                         </div>
                         </div>
