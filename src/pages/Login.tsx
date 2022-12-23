@@ -59,33 +59,36 @@ export default function Login() {
         const json = await res.json();
         // set user in localStorage
         const username = json.username;
-        const password = json.password;
+
+        const cookies = new Cookies();
+        cookies.set('token', json.token, { path: '/', maxAge: 6000 });
+        
         setCredentials({
           username,
-          password,
         });
-        localStorage.setItem('user', JSON.stringify({
-          username,
-          password
-        }))
+        localStorage.setItem('user', JSON.stringify("sbeve"))
         
+        console.log("here1 ", username);
         // handle theme settings on load -> set global variable and save in localStorage
         if (json.settings.theme === 'dark') {
           setTheme('dark');
           document.documentElement.classList.add('dark');
           localStorage.setItem('color-theme', 'dark');
         } else {
-            setTheme('light');
-            document.documentElement.classList.remove('dark');
-            localStorage.setItem('color-theme', 'light');
+          setTheme('light');
+          document.documentElement.classList.remove('dark');
+          localStorage.setItem('color-theme', 'light');
         }
+
+        console.log("here2");
 
         // handle currency settings on load -> set global variable and save in localStorage
         setCurrency(json.settings.currency);
         localStorage.setItem('currency', json.settings.currency);
 
-        const cookies = new Cookies();
-        cookies.set('token', json.token, { path: '/', maxAge: 6000 });
+
+        console.log(json.settings.currency);
+        
 
         navigate("/stocks");
       })
