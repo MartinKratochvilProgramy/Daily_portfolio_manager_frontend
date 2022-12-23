@@ -2,7 +2,21 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 const { LoadingSpinner } = require('./LoadingSpinner');
 
-export function RegisterForm({ validateUser, setUsername, setPassword, error, userIsBeingValidated }) {
+interface Props {
+  validateUser: (e: React.FormEvent<HTMLFormElement>) => void;
+  setUsername: (username: string) => void;
+  setPassword: (password: string) => void;
+  error: string;
+  userIsBeingValidated: boolean;
+}
+
+export const RegisterForm: React.FC<Props> = ({
+  validateUser,
+  setUsername,
+  setPassword,
+  error,
+  userIsBeingValidated
+}) => {
   
   return (
         <div>

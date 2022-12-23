@@ -1,6 +1,10 @@
 import React from 'react'
 
-export function LoadingSpinner ({ size }) {
+interface Props {
+  size: number;
+}
+
+export const LoadingSpinner: React.FC<Props> = ({ size }) => {
 
   return (
     <div style={{width: `${size}px`, height: `${size}px`}}>

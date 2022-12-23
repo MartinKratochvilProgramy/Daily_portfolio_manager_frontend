@@ -22,7 +22,7 @@ export default function Register() {
 
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState("");
-  const [userCurrency, userSetCurrency] = useState("USD");
+  const [userCurrency, setUserCurrency] = useState("USD");
   const [pickCurrency, setPickCurrency] = useState<boolean>(false);
   const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
   const [error, setError] = useState<boolean | string>(false); 
@@ -113,7 +113,7 @@ export default function Register() {
         {!pickCurrency ?
           <RegisterForm validateUser={validateUser} setUsername={setUsername} setPassword={setPassword} error={error} userIsBeingValidated={userIsBeingValidated} />
           :
-          <PickCurrencyForm register={register} userSetCurrency={userSetCurrency} />
+          <PickCurrencyForm register={register} setUserCurrency={setUserCurrency} />
         }
       </>
     )
