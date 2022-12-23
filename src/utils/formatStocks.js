@@ -1,4 +1,4 @@
-const formatStocks = (stocks) => {
+export const formatStocks = (stocks) => {
     // adds average percent change to each stock
 
     for (const stock of stocks) {
@@ -20,5 +20,3 @@ const formatStocks = (stocks) => {
         stock.avgPercentageChange = (relativeChanges / amounts).toFixed(1);
     }
 }
-
-export default formatStocks;

@@ -42,6 +42,8 @@ export default function Stocks() {
       .then(handleErrors)
       .then((response ) => response.json())
       .then((stocks) => {
+        console.log(stocks);
+        
         formatStocks(stocks);
 
         setStocks(stocks);

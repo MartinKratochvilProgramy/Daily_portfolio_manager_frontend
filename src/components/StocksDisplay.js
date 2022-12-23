@@ -5,7 +5,7 @@ import Stock from './Stock';
 import { CredentialsContext } from '../App';
 import { serverRoute } from '../serverRoute';
 import OrderDropDown from './OrderDropDown';
-import formatStocks from '../utils/formatStocks';
+const formatStocks = require('../utils/formatStocks');
 
 export default function Stocks({ stocks, setStocks, setError }) {
 
