@@ -1,3 +1,3 @@
-export const serverRoute = "//localhost:4000";
+export const serverRoute = "ttps://daily-portfolio-management.cyclic.app";
 
 // https://daily-portfolio-management.cyclic.app
