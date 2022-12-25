@@ -12,6 +12,7 @@ import Charts from './pages/Charts';
 import Investments from './pages/Investments';
 import About from './pages/About';
 import More from './pages/More';
+import Demo from './pages/Demo';
 
 interface CredentialsInterface {
   username: string | null,
@@ -56,6 +57,7 @@ function App() {
                 <Route path='/investments' element={<Investments />}></Route>
                 <Route path='/about' element={<About />}></Route>
                 <Route path='/more' element={<More />}></Route>
+                <Route path='/demo' element={<Demo />}></Route>
               </Routes>
             </Router>
           </CurrencyContext.Provider>
