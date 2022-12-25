@@ -30,7 +30,7 @@ export default function Demo() {
                 const json = await res.json();
                 // set user in localStorage
                 const username = json.username;
-                const password = json.password;
+
                 setCredentials(username);
                 localStorage.setItem('user', JSON.stringify(username))
 

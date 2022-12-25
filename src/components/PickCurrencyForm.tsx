@@ -1,11 +1,18 @@
 import React from 'react';
 
 interface Props {
-  setUserCurrency: (currency: string) => void;
+  setUserCurrency: (currency: "USD" | "EUR" | "CZK") => void;
   register: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
 export const PickCurrencyForm: React.FC<Props> = ({ setUserCurrency, register }) => {
+
+  function handleChange(val: string): void {
+    if (val === "USD" || val === "EUR" || val === "CZK") {
+      setUserCurrency(val);
+    }
+  }
+
   return (
     <form onSubmit={(e) => register(e)}>
       <div className='flex justify-center flex-col items-center'>
@@ -18,7 +25,7 @@ export const PickCurrencyForm: React.FC<Props> = ({ setUserCurrency, register })
         </label>
 
         <select
-          onChange={(event) => setUserCurrency(event.target.value)}
+          onChange={(event) => handleChange(event.target.value)}
           id="currency"
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm max-w-[250px] rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
           <option defaultValue="USD">USD</option>

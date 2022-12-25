@@ -9,13 +9,14 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 import { handleErrors } from './Login';
 import { serverRoute } from '../serverRoute';
 import { formatStocks } from '../utils/formatStocks';
+import { StockInterface } from '../types/stock';
 
 export default function Stocks() {
 
-  const [stocks, setStocks] = useState([])
-  const { credentials, setCredentials } = useContext(CredentialsContext);
+  const [stocks, setStocks] = useState<StockInterface[]>([]);
   const [stocksLoaded, setStocksLoaded] = useState(false);
   const [error, setError] = useState<string | boolean>(false)
+  const { credentials, setCredentials } = useContext(CredentialsContext);
 
   const navigate = useNavigate();
 
@@ -44,6 +45,8 @@ export default function Stocks() {
       .then((stocks) => {
 
         formatStocks(stocks);
+
+        console.log(stocks);
 
         setStocks(stocks);
         setStocksLoaded(true);

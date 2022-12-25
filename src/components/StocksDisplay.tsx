@@ -19,8 +19,8 @@ export const StocksDisplay: React.FC<Props> = ({
   setError
 }) => {
 
-  const { credentials, setCredentials } = useContext(CredentialsContext);
   const [searchKey, setSearchKey] = useState("");
+  const { credentials, setCredentials } = useContext(CredentialsContext);
 
   const sortStocks = (value: string) => {
     const newStocks = [...stocks];

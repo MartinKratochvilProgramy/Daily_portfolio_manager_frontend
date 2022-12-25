@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react"
 import { CurrencyContext } from '../App';
 import { DeleteStockModal } from "./DeleteStockModal";
+import { PurchaseInterface } from "../types/stock";
 
 interface Props {
   stock: any;
@@ -54,11 +55,11 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
             :
             null}
           <div className="">
-            {expanded ? stock.purchaseHistory.map((purchase: any) => {
+            {expanded ? stock.purchaseHistory.map((purchase: PurchaseInterface) => {
               return (
                 <div key={purchase._id} className="flex flex-row">
                   <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start">
-                    {purchase.date.substring(2, purchase.date.lenght)}
+                    {purchase.date.substring(2, purchase.date.length)}
                   </div>
                   <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
                     {purchase.amount}

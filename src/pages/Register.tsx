@@ -20,10 +20,10 @@ export function registerInputError(
 
 export default function Register() {
 
-  const [username, setUsername] = useState<string>("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [userCurrency, setUserCurrency] = useState("USD");
-  const [pickCurrency, setPickCurrency] = useState<boolean>(false);
+  const [userCurrency, setUserCurrency] = useState<"USD" | "EUR" | "CZK">("USD");
+  const [pickCurrency, setPickCurrency] = useState(false);
   const [userIsBeingValidated, setUserIsBeingValidated] = useState(false);
   const [error, setError] = useState<boolean | string>(false);
   const { setCredentials } = useContext(CredentialsContext);
