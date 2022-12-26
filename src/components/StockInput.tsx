@@ -4,9 +4,10 @@ import { handleErrors } from '../pages/Login';
 import Cookies from 'universal-cookie';
 import { formatStocks } from '../utils/formatStocks';
 import { serverRoute } from '../serverRoute';
+import { StockInterface } from '../types/stock';
 
 interface Props {
-  setStocks: any;
+  setStocks: (stocks: StockInterface[]) => void;
   error: string | boolean;
   setError: (error: string | boolean) => void;
 }

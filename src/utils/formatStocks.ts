@@ -1,4 +1,6 @@
-export const formatStocks = (stocks: any) => {
+import { StockInterface } from "../types/stock";
+
+export const formatStocks = (stocks: StockInterface[]) => {
     // adds average percent change to each stock
 
     for (const stock of stocks) {
@@ -17,6 +19,6 @@ export const formatStocks = (stocks: any) => {
             purchase.relativeChange = relativeChange;
         }
 
-        stock.avgPercentageChange = (relativeChanges / amounts).toFixed(1);
+        stock.avgPercentageChange = parseFloat((relativeChanges / amounts).toFixed(1));
     }
 }

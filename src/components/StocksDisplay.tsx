@@ -6,10 +6,11 @@ import { serverRoute } from '../serverRoute';
 import { Stock } from './Stock';
 import { OrderDropDown } from './OrderDropDown';
 import { formatStocks } from '../utils/formatStocks';
+import { StockInterface } from '../types/stock';
 
 interface Props {
-  stocks: any;
-  setStocks: any;
+  stocks: StockInterface[];
+  setStocks: (stocks: StockInterface[]) => void;
   setError: (error: string | boolean) => void;
 }
 
@@ -60,7 +61,7 @@ export const StocksDisplay: React.FC<Props> = ({
 
   const navigate = useNavigate();
 
-  const deleteStock = (ticker: string, amount: number) => {
+  const deleteStock = (ticker: string, amount: number): void => {
 
     const cookies = new Cookies();
     const token = cookies.get('token');
@@ -90,6 +91,7 @@ export const StocksDisplay: React.FC<Props> = ({
     })
       .then((response) => response.json())
       .then((stocks) => {
+
         formatStocks(stocks);
         setStocks(stocks);
       })
@@ -108,7 +110,7 @@ export const StocksDisplay: React.FC<Props> = ({
           type="text"
           placeholder='Search...' />
       </div>
-      {stocks.map((stock: any) => {
+      {stocks.map((stock: StockInterface) => {
         if (stock.ticker.includes(searchKey.toUpperCase())) {
           return (
             <Stock

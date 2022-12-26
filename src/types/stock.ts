@@ -9,7 +9,7 @@ export interface PurchaseInterface {
 
 export interface StockInterface {
     amount: number;
-    avgPercentageChange: string;
+    avgPercentageChange: number;
     firstPurchase: string;
     lastPurchase: string;
     prevClose: number;

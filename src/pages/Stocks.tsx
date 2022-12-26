@@ -46,8 +46,6 @@ export default function Stocks() {
 
         formatStocks(stocks);
 
-        console.log(stocks);
-
         setStocks(stocks);
         setStocksLoaded(true);
       })

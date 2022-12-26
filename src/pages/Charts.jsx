@@ -150,8 +150,8 @@ export default function Charts() {
             {
                 x: netWorthHistory_x,
                 y: netWorthHistory_y,
-                type: 'scatter',
-                mode: 'lines+markers',
+                mode: 'lines',
+                line: { shape: 'spline' },
                 marker: { color: 'rgb(37, 99, 235)' },
             },
         ]
@@ -207,9 +207,12 @@ export default function Charts() {
             {
                 x: relativeChange_x,
                 y: relativeChange_y,
-                type: 'scatter',
-                mode: 'lines+markers',
+                line: { shape: 'spline' },
+                mode: 'lines',
                 marker: { color: '#13a829' },
+                // type: 'scatter',
+                // mode: 'lines+markers',
+                // marker: { color: '#13a829' },
             },
         ]
         return { relativeChangeData, relativeChangeLayout }

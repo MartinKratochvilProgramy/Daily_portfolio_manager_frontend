@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react"
 import { CurrencyContext } from '../App';
 import { DeleteStockModal } from "./DeleteStockModal";
 import { PurchaseInterface } from "../types/stock";
+import { StockInterface } from "../types/stock";
 
 interface Props {
-  stock: any;
-  deleteStock: any;
+  stock: StockInterface;
+  deleteStock: (ticker: string, amount: number) => void;
 }
 
 export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
