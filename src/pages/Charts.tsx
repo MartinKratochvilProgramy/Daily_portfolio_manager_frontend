@@ -9,12 +9,23 @@ import { chartThemeDark } from './themes/chartThemeDark.js';
 import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
 import { LoadingSpinner } from '../components/LoadingSpinner';
+import { StockInterface } from '../types/stock';
+
+interface StocksHistoryInterface {
+    date: string;
+    netWorth: number;
+}
+
+interface RelativeChangeInterface {
+    date: string;
+    relativeChange: number;
+}
 
 export default function Charts() {
-    const [stocks, setStocks] = useState([]);
-    const [stocksHistory, setStocksHistory] = useState([]);
+    const [stocks, setStocks] = useState<StockInterface[]>([]);
+    const [stocksHistory, setStocksHistory] = useState<StocksHistoryInterface[]>([]);
     const [stocksLoaded, setStocksLoaded] = useState(false);
-    const [chartTheme, setChartTheme] = useState({});
+    const [chartTheme, setChartTheme] = useState(chartThemeLight);
     const [currentNetWorth, setCurrentNetWorth] = useState(0);
     const [relativeChangeHistory, setRelativeChangeHistory] = useState([]);
     const [currentRelativeChange, setCurrentRelativeChange] = useState(0);
@@ -56,10 +67,12 @@ export default function Charts() {
             .then((response) => response.json())
             .then((history) => {
                 setStocksHistory(history);
+
                 setCurrentNetWorth(history[history.length - 1].netWorth);
             })
             .catch((error) => {
                 console.log(error);
+                setStocksLoaded(true);
             })
 
         // get stocks on load
@@ -72,9 +85,12 @@ export default function Charts() {
         })
             .then(handleErrors)
             .then((response) => response.json())
-            .then((stocks) => setStocks(stocks))
+            .then((stocks) => {
+                setStocks(stocks)
+            })
             .catch((error) => {
                 console.log(error);
+                setStocksLoaded(true);
             })
 
         // get relative change on load
@@ -89,14 +105,16 @@ export default function Charts() {
             .then((response) => response.json())
             .then((relativeChange) => {
                 relativeChange.forEach(
-                    item => item.relativeChange = ((item.relativeChange - 1) * 100).toFixed(2)
+                    (item: RelativeChangeInterface) => item.relativeChange = parseFloat(((item.relativeChange - 1) * 100).toFixed(2))
                 )
                 setRelativeChangeHistory(relativeChange);
+
                 setCurrentRelativeChange(relativeChange[relativeChange.length - 1].relativeChange);
                 setStocksLoaded(true);
             })
             .catch((error) => {
                 console.log(error);
+                setStocksLoaded(true);
             })
 
     }, [credentials, setCredentials, navigate]);
@@ -134,14 +152,14 @@ export default function Charts() {
                 t: 20,
                 pad: 5
             },
-            title: false,
             autosize: true,
             plot_bgcolor: chartTheme.plot_bgcolor,
             paper_bgcolor: chartTheme.paper_bgcolor
         };
-        const netWorthHistory_x = [];
-        const netWorthHistory_y = [];
-        stocksHistory.forEach(stock => {
+        const netWorthHistory_x: string[] = [];
+        const netWorthHistory_y: number[] = [];
+
+        stocksHistory.forEach((stock: StocksHistoryInterface) => {
             netWorthHistory_x.push(stock.date)
             netWorthHistory_y.push(stock.netWorth)
         });
@@ -151,8 +169,11 @@ export default function Charts() {
                 x: netWorthHistory_x,
                 y: netWorthHistory_y,
                 mode: 'lines',
-                line: { shape: 'spline' },
-                marker: { color: 'rgb(37, 99, 235)' },
+                line: {
+                    shape: 'spline',
+                    color: 'rgb(37, 99, 235)',
+                },
+                name: 'Total net-worth history'
             },
         ]
         return { historyData, historyLayout }
@@ -191,14 +212,13 @@ export default function Charts() {
                 t: 20,
                 pad: 5
             },
-            title: false,
             autosize: true,
             plot_bgcolor: chartTheme.plot_bgcolor,
             paper_bgcolor: chartTheme.paper_bgcolor
         };
-        const relativeChange_x = [];
-        const relativeChange_y = [];
-        relativeChangeHistory.forEach(time => {
+        const relativeChange_x: string[] = [];
+        const relativeChange_y: number[] = [];
+        relativeChangeHistory.forEach((time: RelativeChangeInterface) => {
             relativeChange_y.push(time.relativeChange)
             relativeChange_x.push(time.date)
         });
@@ -207,9 +227,12 @@ export default function Charts() {
             {
                 x: relativeChange_x,
                 y: relativeChange_y,
-                line: { shape: 'spline' },
+                line: {
+                    shape: 'spline',
+                    color: '#13a829',
+                },
                 mode: 'lines',
-                marker: { color: '#13a829' },
+                name: 'Relative change history'
                 // type: 'scatter',
                 // mode: 'lines+markers',
                 // marker: { color: '#13a829' },
@@ -227,19 +250,18 @@ export default function Charts() {
                 t: 20,
                 pad: 5
             },
-            title: false,
             plot_bgcolor: chartTheme.plot_bgcolor,
             paper_bgcolor: chartTheme.paper_bgcolor,
             font: {
                 color: chartTheme.color
             }
         };
-        const stockTickers = [];
-        const stockFractions = [];
-        stocks.forEach(stock => {
+        const stockTickers: string[] = [];
+        const stockFractions: number[] = [];
+        stocks.forEach((stock: StockInterface) => {
             stockTickers.push(stock.ticker)
         });
-        stocks.forEach(stock => {
+        stocks.forEach((stock: StockInterface) => {
             stockFractions.push(stock.prevClose * stock.amount)
         });
 
@@ -247,15 +269,14 @@ export default function Charts() {
             {
                 values: stockFractions,
                 labels: stockTickers,
-                type: 'pie',
-                mode: 'lines+markers',
-                marker: { color: '#1C64F2' },
+                type: "pie",
+                name: "Pie chart"
             },
         ]
         return { pieData, pieLayout }
     }
 
-    function numberWithSpaces(x) {
+    function numberWithSpaces(x: number) {
         // returns number as string with spaces between thousands
         var parts = x.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
