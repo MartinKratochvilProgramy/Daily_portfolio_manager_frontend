@@ -9,21 +9,10 @@ import { chartThemeDark } from './themes/chartThemeDark.js';
 import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
 import { LoadingSpinner } from '../components/LoadingSpinner';
-import { StockInterface } from '../types/stock';
-
-interface StocksHistoryInterface {
-    date: string;
-    netWorth: number;
-}
-
-interface RelativeChangeInterface {
-    date: string;
-    relativeChange: number;
-}
 
 export default function Charts() {
-    const [stocks, setStocks] = useState<StockInterface[]>([]);
-    const [stocksHistory, setStocksHistory] = useState<StocksHistoryInterface[]>([]);
+    const [stocks, setStocks] = useState([]);
+    const [stocksHistory, setStocksHistory] = useState([]);
     const [stocksLoaded, setStocksLoaded] = useState(false);
     const [chartTheme, setChartTheme] = useState(chartThemeLight);
     const [currentNetWorth, setCurrentNetWorth] = useState(0);
@@ -105,7 +94,7 @@ export default function Charts() {
             .then((response) => response.json())
             .then((relativeChange) => {
                 relativeChange.forEach(
-                    (item: RelativeChangeInterface) => item.relativeChange = parseFloat(((item.relativeChange - 1) * 100).toFixed(2))
+                    (item) => item.relativeChange = parseFloat(((item.relativeChange - 1) * 100).toFixed(2))
                 )
                 setRelativeChangeHistory(relativeChange);
 
@@ -156,10 +145,10 @@ export default function Charts() {
             plot_bgcolor: chartTheme.plot_bgcolor,
             paper_bgcolor: chartTheme.paper_bgcolor
         };
-        const netWorthHistory_x: string[] = [];
-        const netWorthHistory_y: number[] = [];
+        const netWorthHistory_x = [];
+        const netWorthHistory_y = [];
 
-        stocksHistory.forEach((stock: StocksHistoryInterface) => {
+        stocksHistory.forEach((stock) => {
             netWorthHistory_x.push(stock.date)
             netWorthHistory_y.push(stock.netWorth)
         });
@@ -216,9 +205,9 @@ export default function Charts() {
             plot_bgcolor: chartTheme.plot_bgcolor,
             paper_bgcolor: chartTheme.paper_bgcolor
         };
-        const relativeChange_x: string[] = [];
-        const relativeChange_y: number[] = [];
-        relativeChangeHistory.forEach((time: RelativeChangeInterface) => {
+        const relativeChange_x = [];
+        const relativeChange_y = [];
+        relativeChangeHistory.forEach((time) => {
             relativeChange_y.push(time.relativeChange)
             relativeChange_x.push(time.date)
         });
@@ -256,12 +245,12 @@ export default function Charts() {
                 color: chartTheme.color
             }
         };
-        const stockTickers: string[] = [];
-        const stockFractions: number[] = [];
-        stocks.forEach((stock: StockInterface) => {
+        const stockTickers = [];
+        const stockFractions = [];
+        stocks.forEach((stock) => {
             stockTickers.push(stock.ticker)
         });
-        stocks.forEach((stock: StockInterface) => {
+        stocks.forEach((stock) => {
             stockFractions.push(stock.prevClose * stock.amount)
         });
 
@@ -276,7 +265,7 @@ export default function Charts() {
         return { pieData, pieLayout }
     }
 
-    function numberWithSpaces(x: number) {
+    function numberWithSpaces(x) {
         // returns number as string with spaces between thousands
         var parts = x.toString().split(".");
         parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");

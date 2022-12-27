@@ -10,11 +10,6 @@ import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 
-interface InvestmentsInterface {
-  date: string,
-  total: number
-}
-
 export default function Investments() {
   const [chartTheme, setChartTheme] = useState(chartThemeLight);
   const [investmentsHistory, setInvestmentsHistory] = useState([]);
@@ -101,9 +96,9 @@ export default function Investments() {
       plot_bgcolor: chartTheme.plot_bgcolor,
       paper_bgcolor: chartTheme.paper_bgcolor
     };
-    const totalInvestedAmounts: number[] = [];
-    const changesHistory: string[] = [];
-    investmentsHistory.forEach((investments: InvestmentsInterface) => {
+    const totalInvestedAmounts = [];
+    const changesHistory = [];
+    investmentsHistory.forEach((investments) => {
       totalInvestedAmounts.push(investments.total)
       changesHistory.push(investments.date)
     });
