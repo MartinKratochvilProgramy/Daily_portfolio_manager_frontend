@@ -10,8 +10,13 @@ import { serverRoute } from '../serverRoute';
 import Cookies from 'universal-cookie';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 
+interface InvestmentsInterface {
+  date: string,
+  total: number
+}
+
 export default function Investments() {
-  const [chartTheme, setChartTheme] = useState({});
+  const [chartTheme, setChartTheme] = useState(chartThemeLight);
   const [investmentsHistory, setInvestmentsHistory] = useState([]);
   const [investmentsLoaded, setInvestmentsLoaded] = useState(false);
   const { credentials, setCredentials } = useContext(CredentialsContext);
@@ -92,13 +97,13 @@ export default function Investments() {
         t: 20,
         pad: 5
       },
-      title: false,
+      autosize: true,
       plot_bgcolor: chartTheme.plot_bgcolor,
       paper_bgcolor: chartTheme.paper_bgcolor
     };
-    const totalInvestedAmounts = [];
-    const changesHistory = [];
-    investmentsHistory.forEach(investments => {
+    const totalInvestedAmounts: number[] = [];
+    const changesHistory: string[] = [];
+    investmentsHistory.forEach((investments: InvestmentsInterface) => {
       totalInvestedAmounts.push(investments.total)
       changesHistory.push(investments.date)
     });
@@ -110,6 +115,7 @@ export default function Investments() {
         type: 'bar',
         mode: 'lines+markers',
         marker: { color: '#1C64F2' },
+        name: "Investments history"
       },
     ]
     return { investmentsData, investmentsLayout }
