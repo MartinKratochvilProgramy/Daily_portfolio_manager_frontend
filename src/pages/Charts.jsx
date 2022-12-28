@@ -13,6 +13,8 @@ import { LoadingSpinner } from '../components/LoadingSpinner';
 export default function Charts() {
     const [stocks, setStocks] = useState([]);
     const [stocksHistory, setStocksHistory] = useState([]);
+    const [stocksHistoryLoaded, setStocksHistoryLoaded] = useState(false);
+    const [reltiveChangeLoaded, setReltiveChangeLoaded] = useState(false);
     const [stocksLoaded, setStocksLoaded] = useState(false);
     const [chartTheme, setChartTheme] = useState(chartThemeLight);
     const [currentNetWorth, setCurrentNetWorth] = useState(0);
@@ -56,30 +58,13 @@ export default function Charts() {
             .then((response) => response.json())
             .then((history) => {
                 setStocksHistory(history);
+                setStocksHistoryLoaded(true);
 
                 setCurrentNetWorth(history[history.length - 1].netWorth);
             })
             .catch((error) => {
                 console.log(error);
-                setStocksLoaded(true);
-            })
-
-        // get stocks on load
-        fetch(serverRoute + '/stocks', {
-            method: 'GET',
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Basic ${credentials}:${token}`,
-            },
-        })
-            .then(handleErrors)
-            .then((response) => response.json())
-            .then((stocks) => {
-                setStocks(stocks)
-            })
-            .catch((error) => {
-                console.log(error);
-                setStocksLoaded(true);
+                setStocksHistoryLoaded(true);
             })
 
         // get relative change on load
@@ -99,6 +84,25 @@ export default function Charts() {
                 setRelativeChangeHistory(relativeChange);
 
                 setCurrentRelativeChange(relativeChange[relativeChange.length - 1].relativeChange);
+                setReltiveChangeLoaded(true);
+            })
+            .catch((error) => {
+                console.log(error);
+                setReltiveChangeLoaded(true);
+            })
+
+        // get stocks on load
+        fetch(serverRoute + '/stocks', {
+            method: 'GET',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Basic ${credentials}:${token}`,
+            },
+        })
+            .then(handleErrors)
+            .then((response) => response.json())
+            .then((stocks) => {
+                setStocks(stocks);
                 setStocksLoaded(true);
             })
             .catch((error) => {
@@ -286,7 +290,7 @@ export default function Charts() {
                 Total: <span className='text-blue-600'>{numberWithSpaces(currentNetWorth)}</span> {currency}
             </div>
             <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
-                {stocksLoaded ?
+                {stocksHistoryLoaded ?
                     <Plot
                         data={historyData}
                         layout={historyLayout}
@@ -304,7 +308,7 @@ export default function Charts() {
                 Since its creation, your portfolio is {currentRelativeChange >= 0 ? 'UP' : 'DOWN'} <span className='text-blue-600'>{currentRelativeChange} %</span>
             </div>
             <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
-                {stocksLoaded ?
+                {reltiveChangeLoaded ?
                     <Plot
                         data={relativeChangeData}
                         layout={relativeChangeLayout}
