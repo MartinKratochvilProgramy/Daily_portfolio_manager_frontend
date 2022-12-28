@@ -57,10 +57,13 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
             null}
           <div className="">
             {expanded ? stock.purchaseHistory.map((purchase: PurchaseInterface) => {
+
+              const [year, month, day] = purchase.date.split("-");
+
               return (
                 <div key={purchase._id} className="flex flex-row">
-                  <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start">
-                    {purchase.date.substring(2, purchase.date.length)}
+                  <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start tabular-nums">
+                    {day}-{month}-{year.substring(2, 4)}
                   </div>
                   <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
                     {purchase.amount}
