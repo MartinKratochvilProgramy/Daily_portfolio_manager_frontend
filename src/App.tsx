@@ -14,26 +14,13 @@ import About from './pages/About';
 import More from './pages/More';
 import Demo from './pages/Demo';
 
-interface CredentialsInterface {
-  credentials: string | null;
-  setCredentials: (credentials: string | null) => void;
-}
-interface ThemeInterface {
-  theme: 'light' | 'dark'
-}
-interface ThemeStateInterface {
-  theme: 'light' | 'dark';
-  setTheme: (theme: 'light' | 'dark') => void | null;
-}
-
 export const CredentialsContext = React.createContext<any>(null);
 export const ThemeContext = React.createContext<any>('light');
 export const CurrencyContext = React.createContext<any>('USD');
 
-
 function App() {
-  const user: string | null = JSON.parse(localStorage.getItem('user') || "null");
 
+  const user: string | null = JSON.parse(localStorage.getItem('user') || "null");
   const [credentialsState, setCredentialsState] = useState(user);
 
   const theme = localStorage.getItem('color-theme') || 'light';
