@@ -15,10 +15,15 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
   const [expanded, setExpanded] = useState(false);
   const { currency } = useContext(CurrencyContext);
 
+  function handleChartDisplay(e: React.MouseEvent) {
+    e.stopPropagation();
+    console.log("Click");
+  }
+
   return (
     <>
-      <button
-        className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-2 sm:px-6 md:px-8 py-3 my-2 text-black font-medium text-xs sm:text-sm leading-snug uppercase hover:shadow-xl transition duration-150 ease-in-out"
+      <div
+        className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-3 sm:px-6 md:px-8 py-3 my-2 text-black font-medium text-xs sm:text-sm leading-snug uppercase hover:shadow-xl transition duration-150 ease-in-out"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex flex-row items-center">
@@ -42,49 +47,55 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
           </div>
         </div>
 
-        <div className="flex flex-col items-start justify-start space-y-2">
-          {expanded ?
-            <>
-              <hr className="bg-gray-300 w-full h-[1px] mt-1 border-0" />
-              <div className="flex flex-row mt-4">
-                <div className="w-[52px] xsm:w-24 md:w-[81px] font-bold text-justify">DATE</div>
-                <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">AMOUNT</div>
-                <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">PRICE</div>
-                <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">CHANGE</div>
-              </div>
-            </>
-            :
-            null}
-          <div className="">
-            {expanded ? stock.purchaseHistory.map((purchase: PurchaseInterface) => {
-
-              const [year, month, day] = purchase.date.split("-");
-
-              return (
-                <div key={purchase._id} className="flex flex-row">
-                  <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start tabular-nums">
-                    {day}-{month}-{year.substring(2, 4)}
-                  </div>
-                  <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
-                    {purchase.amount}
-                  </div>
-                  <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
-                    {purchase.currentPrice}
-                  </div>
-                  <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
-                    {purchase.relativeChange >= 0 ?
-                      <div className="text-green-600">{"+" + purchase.relativeChange.toFixed(1) + "%"}</div>
-                      :
-                      <div className="text-red-600">{purchase.relativeChange.toFixed(1) + "%"}</div>
-                    }
-                  </div>
+        <div>
+          {expanded &&
+            <div className="flex flex-col items-start justify-start space-y-2">
+              <div>
+                <hr className="bg-gray-300 w-full h-[1px] mt-1 border-0" />
+                <div className="flex flex-row mt-4">
+                  <div className="w-[52px] xsm:w-24 md:w-[81px] font-bold text-justify">DATE</div>
+                  <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">AMOUNT</div>
+                  <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">PRICE</div>
+                  <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center font-bold">CHANGE</div>
                 </div>
-              )
-            })
-              : null}
-          </div>
+              </div>
+
+              <div>
+                {stock.purchaseHistory.map((purchase: PurchaseInterface) => {
+
+                  const [year, month, day] = purchase.date.split("-");
+
+                  return (
+                    <div key={purchase._id} className="flex flex-row">
+                      <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start tabular-nums">
+                        {day}-{month}-{year.substring(2, 4)}
+                      </div>
+                      <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
+                        {purchase.amount}
+                      </div>
+                      <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
+                        {purchase.currentPrice}
+                      </div>
+                      <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
+                        {purchase.relativeChange >= 0 ?
+                          <div className="text-green-600">{"+" + purchase.relativeChange.toFixed(1) + "%"}</div>
+                          :
+                          <div className="text-red-600">{purchase.relativeChange.toFixed(1) + "%"}</div>
+                        }
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+
+
+
+            </div>
+          }
+
         </div>
-      </button>
+
+      </div>
       {showDeleteModal ? <DeleteStockModal setShowDeleteModal={setShowDeleteModal} deleteStock={deleteStock} stock={stock} /> : null}
     </>
   )

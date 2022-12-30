@@ -99,7 +99,7 @@ export const StocksDisplay: React.FC<Props> = ({
 
   return (
     <div
-      className="flex flex-col md:px-12 px-2 pt-14 w-10/12 md:w-6/12 m-auto"
+      className="flex flex-col md:px-12 px-2 pt-14 w-11/12 md:w-6/12 m-auto"
       id='stocks-output'
     >
       <div className='flex justify-between mb-2'>
