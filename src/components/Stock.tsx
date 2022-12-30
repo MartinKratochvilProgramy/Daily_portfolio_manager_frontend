@@ -87,9 +87,6 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
                   )
                 })}
               </div>
-
-
-
             </div>
           }
 
