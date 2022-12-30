@@ -128,7 +128,7 @@ export default function Charts() {
             },
             yaxis: {
                 title: {
-                    text: 'Net worth [${currency}]',
+                    text: `Net worth [${currency}]`,
                     font: {
                         size: 18,
                         color: chartTheme.color
@@ -163,7 +163,7 @@ export default function Charts() {
                 y: netWorthHistory_y,
                 mode: 'lines',
                 line: {
-                    shape: 'spline',
+                    shape: 'line',
                     color: 'rgb(37, 99, 235)',
                 },
                 name: 'Total net-worth history'
@@ -188,7 +188,7 @@ export default function Charts() {
             },
             yaxis: {
                 title: {
-                    text: 'Relative change [${currency}]',
+                    text: `Relative change [${currency}]`,
                     font: {
                         size: 18,
                         color: chartTheme.color
@@ -221,7 +221,7 @@ export default function Charts() {
                 x: relativeChange_x,
                 y: relativeChange_y,
                 line: {
-                    shape: 'spline',
+                    shape: 'line',
                     color: '#13a829',
                 },
                 mode: 'lines',
