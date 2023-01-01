@@ -26,7 +26,7 @@ export const RegisterForm: React.FC<Props> = ({
             <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
               <form onSubmit={validateUser}>
 
-                <h1 className='text-black dark:text-white text-3xl font-semibold mt-2 pt-8 md:pt-16 mb-6'>
+                <h1 className='text-black text-3xl font-semibold mt-2 pt-8 md:pt-16 mb-6'>
                   CREATE A <span className='text-blue-600'>NEW</span> ACCOUNT
                 </h1>
 
@@ -59,7 +59,7 @@ export const RegisterForm: React.FC<Props> = ({
                         {(userIsBeingValidated && !error) && <LoadingSpinner size={32} />}
                       </div>
                     </button>
-                    <p className="text-m text-black dark:text-white font-semibold pt-3 mb-2">
+                    <p className="text-m text-black font-semibold pt-3 mb-2">
                       Already have an account? <Link
                         to="/"
                         className="text-red-600 hover:text-red-700 focus:text-red-700 transition duration-200 ease-in-out">
