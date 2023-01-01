@@ -25,11 +25,9 @@ export const RegisterForm: React.FC<Props> = ({
           <div className="flex xl:justify-center lg:justify-center justify-center items-center flex-wrap h-full g-6">
             <div className="w-10/12 xsm:w-5/12 md:w-4/12 mb-12 md:mb-0 h-full">
               <form onSubmit={validateUser}>
-
                 <h1 className='text-black text-3xl font-semibold mt-2 pt-8 md:pt-16 mb-6'>
                   CREATE A <span className='text-blue-600'>NEW</span> ACCOUNT
                 </h1>
-
                 <div className="flex flex-col justify-center items center xl:w-8/12 lg:w-10/12 md:w-10/12 mb-12 md:mb-0 mx-auto h-full">
                   <div className="mb-6">
                     <input
@@ -40,7 +38,6 @@ export const RegisterForm: React.FC<Props> = ({
                       autoFocus
                     />
                   </div>
-
                   <div className="mb-6">
                     <input
                       type="password"

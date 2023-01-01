@@ -96,7 +96,6 @@ export default function Login() {
   const navigate = useNavigate();
 
   return (
-    // src: https://tailwind-elements.com/docs/standard/components/login-form/
     <>
       <section className="h-screen">
         <div className="px-6 h-full text-gray-800">
