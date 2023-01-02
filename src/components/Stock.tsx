@@ -23,7 +23,7 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
   return (
     <>
       <div
-        className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-3 sm:px-6 md:px-8 py-3 my-2 text-black font-medium text-xs sm:text-sm leading-snug uppercase hover:shadow-xl transition duration-150 ease-in-out"
+        className="bg-white dark:border-none border-blue-600 border-solid border-[1px] rounded px-3 sm:px-6 md:px-8 py-3 my-2 text-black font-medium text-xs sm:text-sm leading-snug cursor-pointer uppercase hover:shadow-xl transition duration-150 ease-in-out"
         onClick={() => setExpanded(!expanded)}
       >
         <div className="flex flex-row items-center">
