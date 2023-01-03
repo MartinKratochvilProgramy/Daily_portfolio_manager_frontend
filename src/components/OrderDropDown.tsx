@@ -12,7 +12,18 @@ export const OrderDropDown: React.FC<Props> = ({ sortStocks }) => {
   let displayStyle;
   display ? displayStyle = { display: "block" } : displayStyle = { display: "none" }
 
-  function handleClick(value: string) {
+  function handleDropdownClick (e: React.MouseEvent) {
+    if (!display) {
+      document.addEventListener('click', () => setDisplay(false));
+      e.stopPropagation();
+    } else {
+      document.removeEventListener('click', () => setDisplay(false));
+      e.stopPropagation();
+    }
+    setDisplay(!display);
+  }
+
+  function handleMenuClick (value: string) {
     sortStocks(value);
     setDropdownValue(value);
   }
@@ -21,7 +32,7 @@ export const OrderDropDown: React.FC<Props> = ({ sortStocks }) => {
     <>
       <button
         id="dropdownDefault"
-        onClick={() => setDisplay(!display)}
+        onClick={(e) => handleDropdownClick(e)}
         data-dropdown-toggle="dropdown"
         className="relative flex flex-row min-w-[105px] xsm:min-w-[124px] justify-center items-center py-1 text-white bg-blue-600 font-medium text-[12px] xsm:text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
         type="button">
@@ -49,56 +60,56 @@ export const OrderDropDown: React.FC<Props> = ({ sortStocks }) => {
           <ul className="text-[12px] xsm:text-xs text-gray-700" aria-labelledby="dropdownDefault">
             <li>
               <div
-                onClick={() => handleClick("Newest")}
+                onClick={() => handleMenuClick("Newest")}
                 className="border-b block py-2 hover:bg-gray-100">
                 Newest
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("Oldest")}
+                onClick={() => handleMenuClick("Oldest")}
                 className="border-b block py-2 hover:bg-gray-100">
                 Oldest
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("Value high")}
+                onClick={() => handleMenuClick("Value high")}
                 className="border-b block py-2 hover:bg-gray-100">
                 Value high
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("Value low")}
+                onClick={() => handleMenuClick("Value low")}
                 className="border-b block py-2 hover:bg-gray-100">
                 Value low
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("Change high")}
+                onClick={() => handleMenuClick("Change high")}
                 className="border-b block py-2 hover:bg-gray-100">
                 Change high
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("Change low")}
+                onClick={() => handleMenuClick("Change low")}
                 className="border-b block py-2 hover:bg-gray-100">
                 Change low
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("A-Z")}
+                onClick={() => handleMenuClick("A-Z")}
                 className="border-b block py-2 hover:bg-gray-100">
                 A-Z
               </div>
             </li>
             <li>
               <div
-                onClick={() => handleClick("Z-A")}
+                onClick={() => handleMenuClick("Z-A")}
                 className="block py-2 hover:bg-gray-100">
                 Z-A
               </div>
