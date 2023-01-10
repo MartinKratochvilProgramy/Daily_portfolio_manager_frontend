@@ -103,7 +103,7 @@ export const StocksDisplay: React.FC<Props> = ({
       id='stocks-output'
     >
       <div className='flex justify-between mb-2'>
-        <OrderDropDown sortStocks={sortStocks} />
+        <OrderDropDown values={["Newest", "Oldest", "Value high", "Value low", "Change high", "Change low", "A-Z", "Z-A"]} handleClick={sortStocks} />
         <input
           onChange={(e) => setSearchKey(e.target.value)}
           className='w-[105px] xsm:w-[124px] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
