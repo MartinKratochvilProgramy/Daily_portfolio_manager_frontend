@@ -11,7 +11,7 @@ export const Stock = ({ stock, deleteStock }) => {
   const [expanded, setExpanded] = useState(false);
   const [period, setPeriod] = useState("6m");
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [stockHistory, setstockHistory] = useState([]);
+  const [stockHistory, setStockHistory] = useState([]);
   const { currency } = useContext(CurrencyContext);
 
   const chartTheme = chartThemeLight;
