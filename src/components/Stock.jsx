@@ -1,25 +1,92 @@
 import React, { useState, useContext } from "react"
 import { CurrencyContext } from '../App';
 import { DeleteStockModal } from "./DeleteStockModal";
-import { PurchaseInterface } from "../types/stock";
-import { StockInterface } from "../types/stock";
 import { OrderDropDown } from "./OrderDropDown";
+import { chartThemeLight } from '../themes/chartThemeLight';
+import Plot from 'react-plotly.js';
 
-interface Props {
-  stock: StockInterface;
-  deleteStock: (ticker: string, amount: number) => void;
-}
-
-export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
+export const Stock = ({ stock, deleteStock }) => {
 
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [expanded, setExpanded] = useState(false);
+  const [period, setPeriod] = useState("6m");
+  const [dataLoaded, setDataLoaded] = useState(false);
+  const [stockHistory, setstockHistory] = useState([]);
   const { currency } = useContext(CurrencyContext);
 
-  function handleChartDisplay(e: React.MouseEvent) {
+  const chartTheme = chartThemeLight;
+
+  function handleChartDisplay(e) {
     e.stopPropagation();
-    console.log("Click");
+    console.log("Fetch ", period);
+    setDataLoaded(true)
   }
+
+  function handleDropdownClick(value) {
+    setPeriod(value);
+  }
+
+  function initChart() {
+    const historyLayout = {
+        xaxis: {
+            title: {
+                text: 'Time',
+                font: {
+                    size: 18,
+                    color: chartTheme.color
+                }
+            },
+            color: chartTheme.color,
+            tickcolor: chartTheme.tickcolor,
+            gridcolor: chartTheme.gridcolor
+        },
+        yaxis: {
+            title: {
+                text: ``,
+                font: {
+                    size: 18,
+                    color: chartTheme.color
+                }
+            },
+            color: chartTheme.color,
+            tickcolor: chartTheme.tickcolor,
+            gridcolor: chartTheme.gridcolor
+        },
+        margin: {
+            l: 100,
+            r: 20,
+            b: 80,
+            t: 20,
+            pad: 5
+        },
+        autosize: true,
+        plot_bgcolor: chartTheme.plot_bgcolor,
+        paper_bgcolor: chartTheme.paper_bgcolor
+    };
+    const netWorthHistory_x = [];
+    const netWorthHistory_y = [];
+
+    stockHistory.forEach((stock) => {
+        netWorthHistory_x.push(stock.date)
+        netWorthHistory_y.push(stock.netWorth)
+    });
+
+    const historyData = [
+        {
+            x: netWorthHistory_x,
+            y: netWorthHistory_y,
+            mode: 'lines',
+            line: {
+                shape: 'line',
+                color: 'rgb(37, 99, 235)',
+            },
+            name: 'Total net-worth history'
+        },
+    ]
+    return { historyData, historyLayout }
+  }
+
+  const { historyData, historyLayout } = initChart();
 
   return (
     <>
@@ -62,7 +129,7 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
               </div>
 
               <div>
-                {stock.purchaseHistory.map((purchase: PurchaseInterface) => {
+                {stock.purchaseHistory.map((purchase) => {
 
                   const [year, month, day] = purchase.date.split("-");
 
@@ -90,13 +157,23 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
               </div>
 
               <div className="flex w-full justify-center items-center gap-2">
-                <OrderDropDown values={["6m", "1y", "2y", "5y", "10y"]} handleClick={() => {}} theme={"light"} />
+                <OrderDropDown values={["6m", "1y", "2y", "5y"]} handleClick={handleDropdownClick} theme={"light"} />
                 <button
                   onClick={(e) => handleChartDisplay(e)}
                   className="z-10 relative flex flex-row min-w-[105px] xsm:min-w-[124px] justify-center items-center py-1 text-white bg-blue-600 font-medium text-[12px] xsm:text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                 >
                   Display chart
                 </button>
+              </div>
+
+              <div>
+                {dataLoaded &&                     
+                <Plot
+                        data={historyData}
+                        layout={historyLayout}
+                        useResizeHandler
+                        className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+                    />}                
               </div>
 
             </div>

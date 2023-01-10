@@ -16,3 +16,5 @@ export interface StockInterface {
     purchaseHistory: PurchaseInterface[];
     ticker: string;
 }
+
+export type TimePeriod = "6m" | "1y" | "2y" | "5y";
