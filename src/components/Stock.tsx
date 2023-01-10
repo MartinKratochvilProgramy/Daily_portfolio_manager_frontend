@@ -15,11 +15,6 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
   const [expanded, setExpanded] = useState(false);
   const { currency } = useContext(CurrencyContext);
 
-  function handleChartDisplay(e: React.MouseEvent) {
-    e.stopPropagation();
-    console.log("Click");
-  }
-
   return (
     <>
       <div
@@ -63,7 +58,10 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
               <div>
                 {stock.purchaseHistory.map((purchase: PurchaseInterface) => {
 
-                  const [year, month, day] = purchase.date.split("-");
+                  let [year, month, day] = purchase.date.split("-");
+
+                  if (month.length === 1) month = "0" + month;
+                  if (day.length === 1) day = "0" + day;
 
                   return (
                     <div key={purchase._id} className="flex flex-row">
