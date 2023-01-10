@@ -3,6 +3,7 @@ import { CurrencyContext } from '../App';
 import { DeleteStockModal } from "./DeleteStockModal";
 import { OrderDropDown } from "./OrderDropDown";
 import { chartThemeLight } from '../themes/chartThemeLight';
+import { LoadingSpinner } from "./LoadingSpinner";
 import Plot from 'react-plotly.js';
 
 export const Stock = ({ stock, deleteStock }) => {
@@ -10,6 +11,7 @@ export const Stock = ({ stock, deleteStock }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [expanded, setExpanded] = useState(false);
   const [period, setPeriod] = useState("6m");
+  const [loadingData, setLoadingData] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
   const [stockHistory, setStockHistory] = useState([]);
   const { currency } = useContext(CurrencyContext);
@@ -19,7 +21,7 @@ export const Stock = ({ stock, deleteStock }) => {
   function handleChartDisplay(e) {
     e.stopPropagation();
     console.log("Fetch ", period);
-    setDataLoaded(true)
+    setLoadingData(true);
   }
 
   function handleDropdownClick(value) {
@@ -166,15 +168,21 @@ export const Stock = ({ stock, deleteStock }) => {
                 </button>
               </div>
 
-              <div>
-                {dataLoaded &&                     
-                <Plot
-                        data={historyData}
-                        layout={historyLayout}
-                        useResizeHandler
-                        className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
-                    />}                
-              </div>
+              {(loadingData || dataLoaded) &&
+                <div className="flex justify-center items-center w-full min-h-[320px]">
+                  {loadingData &&
+                    <LoadingSpinner size={86} />                
+                  }
+                  {dataLoaded &&                     
+                    <Plot
+                      data={historyData}
+                      layout={historyLayout}
+                      useResizeHandler
+                      className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+                    />
+                  }                
+                </div>
+              }
 
             </div>
           }
