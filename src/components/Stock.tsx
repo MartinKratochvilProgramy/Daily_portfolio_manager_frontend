@@ -3,6 +3,7 @@ import { CurrencyContext } from '../App';
 import { DeleteStockModal } from "./DeleteStockModal";
 import { PurchaseInterface } from "../types/stock";
 import { StockInterface } from "../types/stock";
+import { OrderDropDown } from "./OrderDropDown";
 
 interface Props {
   stock: StockInterface;
@@ -88,10 +89,8 @@ export const Stock: React.FC<Props> = ({ stock, deleteStock }) => {
                 })}
               </div>
 
-              <div className="flex w-full justify-center items-center">
-                <div>
-                  dropdown
-                </div>
+              <div className="flex w-full justify-center items-center gap-2">
+                <OrderDropDown values={["6m", "1y", "2y", "5y", "10y"]} handleClick={() => {}} theme={"light"} />
                 <button
                   onClick={(e) => handleChartDisplay(e)}
                   className="z-10 relative flex flex-row min-w-[105px] xsm:min-w-[124px] justify-center items-center py-1 text-white bg-blue-600 font-medium text-[12px] xsm:text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"

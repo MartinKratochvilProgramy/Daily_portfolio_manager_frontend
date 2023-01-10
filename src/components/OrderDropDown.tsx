@@ -3,16 +3,15 @@ import React, { useState } from 'react'
 interface Props {
   values: string[];
   handleClick: (value: string) => void;
+  theme: "light" | "dark";
 }
 
-export const OrderDropDown: React.FC<Props> = ({ values, handleClick }) => {
+export const OrderDropDown: React.FC<Props> = ({ values, handleClick, theme }) => {
 
   const [display, setDisplay] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState("Newest")
+  const [dropdownValue, setDropdownValue] = useState(values[0])
 
-  let displayStyle;
-  display ? displayStyle = { display: "block" } : displayStyle = { display: "none" }
-
+  
   function handleDropdownClick (e: React.MouseEvent) {
     if (!display) {
       document.addEventListener('click', () => setDisplay(false));
@@ -23,11 +22,22 @@ export const OrderDropDown: React.FC<Props> = ({ values, handleClick }) => {
     }
     setDisplay(!display);
   }
-
+  
   function handleMenuClick (value: string) {
     handleClick(value);
     setDropdownValue(value);
   }
+  
+  const displayStyle = display ? { display: "block" } : { display: "none" };
+  const themeStyles = theme === "light" ? "text-black bg-white bg-gray-100" : "text-white bg-blue-600 hover:bg-blue-700 hover:text-white focus:bg-blue-700 active:bg-blue-800";
+
+  var longestValue = [...values].sort(
+    function (a, b) {
+        return b.length - a.length;
+    }
+  )[0];
+
+  const minW = longestValue.length > 5 ? 120 : 60;
 
   return (
     <>
@@ -35,7 +45,7 @@ export const OrderDropDown: React.FC<Props> = ({ values, handleClick }) => {
         id="dropdownDefault"
         onClick={(e) => handleDropdownClick(e)}
         data-dropdown-toggle="dropdown"
-        className="relative flex flex-row min-w-[105px] xsm:min-w-[124px] justify-center items-center py-1 text-white bg-blue-600 font-medium text-[12px] xsm:text-xs leading-snug uppercase rounded whitespace-nowrap shadow-md hover:bg-blue-700 hover:text-white hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+        className={`relative flex flex-row w-[${minW}px] justify-center items-center py-1 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out ${themeStyles}`}
         type="button">
         {dropdownValue}
         <svg
