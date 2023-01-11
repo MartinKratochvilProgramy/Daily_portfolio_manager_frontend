@@ -45,7 +45,7 @@ export const OrderDropDown: React.FC<Props> = ({ values, handleClick, theme }) =
         id="dropdownDefault"
         onClick={(e) => handleDropdownClick(e)}
         data-dropdown-toggle="dropdown"
-        className={`relative flex flex-row w-[${minW}px] justify-center items-center py-1 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out ${themeStyles}`}
+        className={`relative flex flex-row min-w-[${minW}px] justify-center items-center py-1 px-3 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out ${themeStyles}`}
         type="button">
         {dropdownValue}
         <svg
