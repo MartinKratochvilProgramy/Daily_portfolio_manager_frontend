@@ -7,6 +7,7 @@ import { LoadingSpinner } from "./LoadingSpinner";
 import Cookies from 'universal-cookie';
 import Plot from 'react-plotly.js';
 import { serverRoute } from "../serverRoute";
+import getPricesInCurrency from "../utils/getPricesInCurrency";
 
 export const Stock = ({ stock, deleteStock }) => {
 
@@ -100,23 +101,21 @@ export const Stock = ({ stock, deleteStock }) => {
             pad: 5
         },
         autosize: true,
+        showlegend: false,
         plot_bgcolor: chartTheme.plot_bgcolor,
         paper_bgcolor: chartTheme.paper_bgcolor
     };
-    const netWorthHistory_x = [];
-    const netWorthHistory_y = [];
 
-    stockHistory.dates.forEach((date) => {
-      netWorthHistory_x.push(date);
+    const purchases_x = [];
+    stock.purchaseHistory.forEach((purchase) => {
+      purchases_x.push(purchase.date);
     });
-    stockHistory.values.forEach((value) => {
-      netWorthHistory_y.push(value)
-    });
+    const purchases_y = getPricesInCurrency(stockHistory.dates, stockHistory.values, purchases_x);
 
     const historyData = [
         {
-            x: netWorthHistory_x,
-            y: netWorthHistory_y,
+            x: stockHistory.dates,
+            y: stockHistory.values,
             mode: 'lines',
             line: {
                 shape: 'line',
@@ -124,10 +123,18 @@ export const Stock = ({ stock, deleteStock }) => {
             },
             name: 'Total net-worth history'
         },
+        {
+          x: purchases_x,
+          y: purchases_y,
+          type: 'scatter',
+          mode: 'markers',
+          marker: {color: 'red'},
+          name: 'Total net-worth history'
+      }
     ]
     return { historyData, historyLayout }
   }
-
+  
   const { historyData, historyLayout } = initChart();
 
   return (
