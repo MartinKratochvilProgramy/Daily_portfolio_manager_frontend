@@ -32,22 +32,22 @@ export const StocksDisplay: React.FC<Props> = ({
     } else if (value === "Z-A") {
       newStocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
       setStocks(newStocks);
-    } else if (value === "Newest") {
+    } else if (value === "NEWEST") {
       newStocks.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
       setStocks(newStocks);
-    } else if (value === "Oldest") {
+    } else if (value === "OLDEST") {
       newStocks.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
       setStocks(newStocks);
-    } else if (value === "Value high") {
+    } else if (value === "VALUE HIGH") {
       newStocks.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
       setStocks(newStocks);
-    } else if (value === "Value low") {
+    } else if (value === "VALUE LOW") {
       newStocks.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
       setStocks(newStocks);
-    } else if (value === "Change high") {
+    } else if (value === "CHANGE HIGH") {
       newStocks.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
       setStocks(newStocks);
-    } else if (value === "Change low") {
+    } else if (value === "CHANGE LOW") {
       newStocks.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
       setStocks(newStocks);
     }
@@ -103,7 +103,7 @@ export const StocksDisplay: React.FC<Props> = ({
       id='stocks-output'
     >
       <div className='flex justify-between mb-2'>
-        <OrderDropDown sortStocks={sortStocks} />
+        <OrderDropDown values={["NEWEST", "OLDEST", "VALUE HIGH", "VALUE LOW", "CHANGE HIGH", "CHANGE LOW", "A-Z", "Z-A"]} handleClick={sortStocks} theme={"dark"} />
         <input
           onChange={(e) => setSearchKey(e.target.value)}
           className='w-[105px] xsm:w-[124px] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
