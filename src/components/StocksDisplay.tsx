@@ -54,9 +54,7 @@ export const StocksDisplay: React.FC<Props> = ({
   }
 
   useEffect(() => {
-
-    sortStocks("Newest");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    sortStocks("NEWEST");
   }, []);
 
   const navigate = useNavigate();
