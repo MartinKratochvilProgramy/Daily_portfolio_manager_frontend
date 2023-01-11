@@ -1,10 +1,12 @@
-import React, { useState, useContext } from "react"
-import { CurrencyContext } from '../App';
+import React, { useState, useContext } from "react";
+import { CredentialsContext, CurrencyContext } from '../App';
 import { DeleteStockModal } from "./DeleteStockModal";
 import { OrderDropDown } from "./OrderDropDown";
 import { chartThemeLight } from '../themes/chartThemeLight';
 import { LoadingSpinner } from "./LoadingSpinner";
+import Cookies from 'universal-cookie';
 import Plot from 'react-plotly.js';
+import { serverRoute } from "../serverRoute";
 
 export const Stock = ({ stock, deleteStock }) => {
 
@@ -13,15 +15,44 @@ export const Stock = ({ stock, deleteStock }) => {
   const [period, setPeriod] = useState("6m");
   const [loadingData, setLoadingData] = useState(false);
   const [dataLoaded, setDataLoaded] = useState(false);
-  const [stockHistory, setStockHistory] = useState([]);
+  const [stockHistory, setStockHistory] = useState({ticker: "", dates: [], values: []});
+  const { credentials } = useContext(CredentialsContext);
   const { currency } = useContext(CurrencyContext);
 
   const chartTheme = chartThemeLight;
 
   function handleChartDisplay(e) {
     e.stopPropagation();
-    console.log("Fetch ", period);
     setLoadingData(true);
+    setDataLoaded(false);
+    
+    const cookies = new Cookies();
+    const token = cookies.get('token');
+
+    if (!token) {
+        setCredentials(null);
+        localStorage.setItem('user', "null");
+        navigate("/");
+        return;
+    }
+  
+    fetch(serverRoute + '/ticker_chart', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Basic ${credentials}:${token}`,
+      },
+      body: JSON.stringify({
+        period: period,
+        ticker: stock.ticker 
+      }),
+    })
+    .then((response) => response.json())
+    .then((tickerData) => {
+      setLoadingData(false);
+      setDataLoaded(true);
+      setStockHistory(tickerData);
+    })
   }
 
   function handleDropdownClick(value) {
@@ -40,7 +71,6 @@ export const Stock = ({ stock, deleteStock }) => {
     const historyLayout = {
         xaxis: {
             title: {
-                text: 'Time',
                 font: {
                     size: 18,
                     color: chartTheme.color
@@ -63,8 +93,8 @@ export const Stock = ({ stock, deleteStock }) => {
             gridcolor: chartTheme.gridcolor
         },
         margin: {
-            l: 100,
-            r: 20,
+            l: 50,
+            r: 0,
             b: 80,
             t: 20,
             pad: 5
@@ -76,9 +106,11 @@ export const Stock = ({ stock, deleteStock }) => {
     const netWorthHistory_x = [];
     const netWorthHistory_y = [];
 
-    stockHistory.forEach((stock) => {
-        netWorthHistory_x.push(stock.date)
-        netWorthHistory_y.push(stock.netWorth)
+    stockHistory.dates.forEach((date) => {
+      netWorthHistory_x.push(date);
+    });
+    stockHistory.values.forEach((value) => {
+      netWorthHistory_y.push(value)
     });
 
     const historyData = [
@@ -177,7 +209,7 @@ export const Stock = ({ stock, deleteStock }) => {
               </div>
 
               {(loadingData || dataLoaded) &&
-                <div className="flex justify-center items-center w-full min-h-[320px]">
+                <div className="flex justify-center items-center min-h-[260px] w-full">
                   {loadingData &&
                     <LoadingSpinner size={86} />                
                   }
@@ -186,7 +218,7 @@ export const Stock = ({ stock, deleteStock }) => {
                       data={historyData}
                       layout={historyLayout}
                       useResizeHandler
-                      className="w-[100%] sm:w-[80%] h-[260px] md:h-full"
+                      className="w-[100%] sm:w-[80%] md:h-full"
                     />
                   }                
                 </div>

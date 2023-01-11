@@ -37,7 +37,7 @@ export const OrderDropDown: React.FC<Props> = ({ values, handleClick, theme }) =
     }
   )[0];
 
-  const minW = longestValue.length > 5 ? 120 : 60;
+  const minW = longestValue.length > 5 ? "100" : "70";
 
   return (
     <>
