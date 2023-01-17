@@ -220,13 +220,18 @@ export const Stock = ({ stock, deleteStock }) => {
                   {loadingData &&
                     <LoadingSpinner size={86} />                
                   }
-                  {dataLoaded &&                     
-                    <Plot
-                      data={historyData}
-                      layout={historyLayout}
-                      useResizeHandler
-                      className="w-[100%] sm:w-[80%] md:h-full"
-                    />
+                  {dataLoaded &&   
+                    <div 
+                      className="flex justify-center items-center w-full" 
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      <Plot
+                        data={historyData}
+                        layout={historyLayout}
+                        useResizeHandler
+                        className="w-[100%] sm:w-[80%] md:h-full"
+                      />
+                    </div>                  
                   }                
                 </div>
               }
@@ -237,7 +242,7 @@ export const Stock = ({ stock, deleteStock }) => {
         </div>
 
       </div>
-      {showDeleteModal ? <DeleteStockModal setShowDeleteModal={setShowDeleteModal} deleteStock={deleteStock} stock={stock} /> : null}
+      {showDeleteModal && <DeleteStockModal setShowDeleteModal={setShowDeleteModal} deleteStock={deleteStock} stock={stock} />}
     </>
   )
 }
