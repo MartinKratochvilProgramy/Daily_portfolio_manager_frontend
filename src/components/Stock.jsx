@@ -180,12 +180,15 @@ export const Stock = ({ stock, deleteStock }) => {
               <div>
                 {stock.purchaseHistory.map((purchase) => {
 
-                  const [year, month, day] = purchase.date.split("-");
+                  let [year, month, day] = purchase.date.split("-");
+                  if (day.length === 1) day = "0" + day;
+                  if (month.length === 1) month = "0" + month;
+                  year = year.substring(2, 4);
 
                   return (
                     <div key={purchase._id} className="flex flex-row">
                       <div className="w-[52px] xsm:w-24 md:w-[81px] flex justify-start tabular-nums">
-                        {day}-{month}-{year.substring(2, 4)}
+                        {day}-{month}-{year}
                       </div>
                       <div className="w-14 xsm:w-[76px] md:w-24 flex justify-center">
                         {purchase.amount}
