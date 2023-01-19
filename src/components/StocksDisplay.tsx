@@ -12,7 +12,7 @@ interface Props {
   stocks: StockInterface[];
   setStocks: (stocks: StockInterface[]) => void;
   setError: (error: string | boolean) => void;
-  sortStocks: (value: string) => void;
+  sortStocks: (orderBy: string, stocks: StockInterface[]) => void;
 }
 
 export const StocksDisplay: React.FC<Props> = ({
@@ -63,13 +63,19 @@ export const StocksDisplay: React.FC<Props> = ({
       })
   };
 
+  function handleClick(value: string) {
+    const newStocks = [...stocks];
+    sortStocks(value, newStocks);
+    setStocks(newStocks);
+  }
+
   return (
     <div
       className="flex flex-col md:px-12 px-2 pt-14 w-11/12 md:w-6/12 m-auto"
       id='stocks-output'
     >
       <div className='flex justify-between mb-2'>
-        <OrderDropDown values={["NEWEST", "OLDEST", "VALUE HIGH", "VALUE LOW", "CHANGE HIGH", "CHANGE LOW", "A-Z", "Z-A"]} handleClick={sortStocks} theme={"dark"} />
+        <OrderDropDown values={["NEWEST", "OLDEST", "VALUE HIGH", "VALUE LOW", "CHANGE HIGH", "CHANGE LOW", "A-Z", "Z-A"]} handleClick={handleClick} theme={"dark"} />
         <input
           onChange={(e) => setSearchKey(e.target.value)}
           className='w-[105px] xsm:w-[124px] px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'

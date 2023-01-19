@@ -10,7 +10,6 @@ interface Props {
   setStocks: (stocks: StockInterface[]) => void;
   error: string | boolean;
   setError: (error: string | boolean) => void;
-  sortStocks: (value: string) => void;
 }
 
 interface Stock {
@@ -22,7 +21,6 @@ export const StockInput: React.FC<Props> = ({
   setStocks,
   error,
   setError,
-  sortStocks
 }) => {
   const [stockTicker, setStockTicker] = useState('');
   const [stockAmount, setStockAmount] = useState(0);
@@ -54,7 +52,6 @@ export const StockInput: React.FC<Props> = ({
       .then((returnedStocks) => {
         formatStocks(returnedStocks);
         setStocks(returnedStocks);
-        sortStocks("NEWEST");
       })
       .catch((error) => {
         setError(error.message)

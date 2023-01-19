@@ -43,9 +43,8 @@ export default function Stocks() {
       .then(handleErrors)
       .then((response) => response.json())
       .then((stocks) => {
-
         formatStocks(stocks);
-
+        sortStocks("NEWEST", stocks);
         setStocks(stocks);
         setStocksLoaded(true);
       })
@@ -54,41 +53,28 @@ export default function Stocks() {
         setStocksLoaded(true);
       })
 
+
   }, []);
 
-  const sortStocks = (value: string) => {
-    const newStocks = [...stocks];
-
-    if (value === "A-Z") {
-      newStocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
-      setStocks(newStocks);
-    } else if (value === "Z-A") {
-      newStocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
-      setStocks(newStocks);
-    } else if (value === "NEWEST") {
-      newStocks.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
-      setStocks(newStocks);
-    } else if (value === "OLDEST") {
-      newStocks.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
-      setStocks(newStocks);
-    } else if (value === "VALUE HIGH") {
-      newStocks.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
-      setStocks(newStocks);
-    } else if (value === "VALUE LOW") {
-      newStocks.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
-      setStocks(newStocks);
-    } else if (value === "CHANGE HIGH") {
-      newStocks.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
-      setStocks(newStocks);
-    } else if (value === "CHANGE LOW") {
-      newStocks.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
-      setStocks(newStocks);
+  const sortStocks = (orderBy: string, stocks: StockInterface[]) => {
+    if (orderBy === "A-Z") {
+      stocks = stocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
+    } else if (orderBy === "Z-A") {
+      stocks = stocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
+    } else if (orderBy === "NEWEST") {
+      stocks = stocks.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
+    } else if (orderBy === "OLDEST") {
+      stocks = stocks.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
+    } else if (orderBy === "VALUE HIGH") {
+      stocks = stocks.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
+    } else if (orderBy === "VALUE LOW") {
+      stocks = stocks.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
+    } else if (orderBy === "CHANGE HIGH") {
+      stocks = stocks.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
+    } else if (orderBy === "CHANGE LOW") {
+      stocks = stocks.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
     }
   }
-
-  useEffect(() => {
-    sortStocks("NEWEST");
-  }, []);
 
   return (
     <div className='bg-white dark:bg-gray-800 pb-8 min-h-screen'>
@@ -97,7 +83,6 @@ export default function Stocks() {
         setStocks={setStocks} 
         error={error} 
         setError={setError} 
-        sortStocks={sortStocks}
       />
       {stocksLoaded ?
         stocks.length > 0 ? <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError} sortStocks={sortStocks} /> : null
