@@ -2,15 +2,21 @@ import React, { useState } from 'react'
 
 interface Props {
   values: string[];
-  handleClick: (value: string) => void;
+  orderDropdownValue: string;
+  setOrderDropdownValue: (orderDropdownValue: string) => void;
+  sortStocks: (value: string) => void;
   theme: "light" | "dark";
 }
 
-export const OrderDropDown: React.FC<Props> = ({ values, handleClick, theme }) => {
+export const OrderDropDown: React.FC<Props> = ({ 
+  values, 
+  orderDropdownValue,
+  setOrderDropdownValue,
+  sortStocks, 
+  theme 
+}) => {
 
   const [display, setDisplay] = useState(false);
-  const [dropdownValue, setDropdownValue] = useState(values[0])
-
   
   function handleDropdownClick (e: React.MouseEvent) {
     if (!display) {
@@ -24,8 +30,8 @@ export const OrderDropDown: React.FC<Props> = ({ values, handleClick, theme }) =
   }
   
   function handleMenuClick (value: string) {
-    handleClick(value);
-    setDropdownValue(value);
+    sortStocks(value);
+    setOrderDropdownValue(value);
   }
   
   const displayStyle = display ? { display: "block" } : { display: "none" };
@@ -39,7 +45,7 @@ export const OrderDropDown: React.FC<Props> = ({ values, handleClick, theme }) =
         data-dropdown-toggle="dropdown"
         className={`relative flex flex-row min-w-[100px] justify-center items-center py-1 px-3 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out ${themeStyles}`}
         type="button">
-        {dropdownValue}
+        {orderDropdownValue}
         <svg
           className="ml-2 w-4 h-4"
           aria-hidden="true"

@@ -15,7 +15,8 @@ export default function Stocks() {
 
   const [stocks, setStocks] = useState<StockInterface[]>([]);
   const [stocksLoaded, setStocksLoaded] = useState(false);
-  const [error, setError] = useState<string | boolean>(false)
+  const [error, setError] = useState<string | boolean>(false);
+  const [orderDropdownValue, setOrderDropdownValue] = useState("NEWEST");
   const { credentials, setCredentials } = useContext(CredentialsContext);
 
   const navigate = useNavigate();
@@ -44,7 +45,8 @@ export default function Stocks() {
       .then((response) => response.json())
       .then((stocks) => {
         formatStocks(stocks);
-        sortStocks("NEWEST", stocks);
+        sortStocks("NEWEST");
+        setOrderDropdownValue("NEWEST");
         setStocks(stocks);
         setStocksLoaded(true);
       })
@@ -56,24 +58,26 @@ export default function Stocks() {
 
   }, []);
 
-  const sortStocks = (orderBy: string, stocks: StockInterface[]) => {
+  const sortStocks = (orderBy: string) => {
+    let newStocks = [...stocks];
     if (orderBy === "A-Z") {
-      stocks = stocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
+      newStocks = newStocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
     } else if (orderBy === "Z-A") {
-      stocks = stocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
+      newStocks = newStocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
     } else if (orderBy === "NEWEST") {
-      stocks = stocks.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
+      newStocks = newStocks.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
     } else if (orderBy === "OLDEST") {
-      stocks = stocks.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
+      newStocks = newStocks.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
     } else if (orderBy === "VALUE HIGH") {
-      stocks = stocks.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
+      newStocks = newStocks.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
     } else if (orderBy === "VALUE LOW") {
-      stocks = stocks.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
+      newStocks = newStocks.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
     } else if (orderBy === "CHANGE HIGH") {
-      stocks = stocks.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
+      newStocks = newStocks.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
     } else if (orderBy === "CHANGE LOW") {
-      stocks = stocks.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
+      newStocks = newStocks.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
     }
+    setStocks(newStocks);
   }
 
   return (
@@ -85,7 +89,14 @@ export default function Stocks() {
         setError={setError} 
       />
       {stocksLoaded ?
-        stocks.length > 0 ? <StocksDisplay stocks={stocks} setStocks={setStocks} setError={setError} sortStocks={sortStocks} /> : null
+        stocks.length > 0 && <StocksDisplay 
+                              stocks={stocks} 
+                              orderDropdownValue={orderDropdownValue}
+                              setOrderDropdownValue={setOrderDropdownValue}  
+                              setStocks={setStocks} 
+                              setError={setError} 
+                              sortStocks={sortStocks} 
+                            />
         :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
           <LoadingSpinner size={70} />
