@@ -4,20 +4,20 @@ interface Props {
   values: string[];
   orderDropdownValue: string;
   setOrderDropdownValue: (orderDropdownValue: string) => void;
-  sortStocks: (value: string) => void;
+  handleClick: (value: string) => void;
   theme: "light" | "dark";
 }
 
 export const OrderDropDown: React.FC<Props> = ({ 
   values, 
   orderDropdownValue,
-  setOrderDropdownValue,
-  sortStocks, 
+  handleClick, 
   theme 
 }) => {
 
   const [display, setDisplay] = useState(false);
-  
+  const [dropdownState, setDropdownState] = useState(orderDropdownValue || values[0]);
+
   function handleDropdownClick (e: React.MouseEvent) {
     if (!display) {
       document.addEventListener('click', () => setDisplay(false));
@@ -27,11 +27,6 @@ export const OrderDropDown: React.FC<Props> = ({
       e.stopPropagation();
     }
     setDisplay(!display);
-  }
-  
-  function handleMenuClick (value: string) {
-    sortStocks(value);
-    setOrderDropdownValue(value);
   }
   
   const displayStyle = display ? { display: "block" } : { display: "none" };
@@ -45,7 +40,7 @@ export const OrderDropDown: React.FC<Props> = ({
         data-dropdown-toggle="dropdown"
         className={`relative flex flex-row min-w-[100px] justify-center items-center py-1 px-3 font-medium text-[12px] xsm:text-xs leading-snug rounded whitespace-nowrap shadow-md hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out ${themeStyles}`}
         type="button">
-        {orderDropdownValue}
+        {dropdownState}
         <svg
           className="ml-2 w-4 h-4"
           aria-hidden="true"
@@ -69,12 +64,15 @@ export const OrderDropDown: React.FC<Props> = ({
           <ul className="text-[12px] xsm:text-xs text-gray-700" aria-labelledby="dropdownDefault">
             {values.map((value: string) => {
               return (
-                <li key={value}>
-                  <div
-                    onClick={() => handleMenuClick(value)}
-                    className="border-b block py-2 hover:bg-gray-100">
+                <li 
+                  key={value}
+                  onClick={() => {
+                    handleClick(value)
+                    setDropdownState(value)
+                  }}
+                  className="border-b block py-2 hover:bg-gray-100"
+                  >
                     {value}
-                  </div>
                 </li>
               )
             })}

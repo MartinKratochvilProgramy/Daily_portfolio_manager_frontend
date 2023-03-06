@@ -45,9 +45,8 @@ export default function Stocks() {
       .then((response) => response.json())
       .then((stocks) => {
         formatStocks(stocks);
-        sortStocks("NEWEST");
         setOrderDropdownValue("NEWEST");
-        setStocks(stocks);
+        sortStocks("NEWEST", stocks);
         setStocksLoaded(true);
       })
       .catch((error) => {
@@ -58,8 +57,8 @@ export default function Stocks() {
 
   }, []);
 
-  const sortStocks = (orderBy: string) => {
-    let newStocks = [...stocks];
+  const sortStocks = (orderBy: string, stocksInput: StockInterface[]) => {
+    let newStocks = [...stocksInput];
     if (orderBy === "A-Z") {
       newStocks = newStocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
     } else if (orderBy === "Z-A") {

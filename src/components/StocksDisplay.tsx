@@ -14,7 +14,7 @@ interface Props {
   setOrderDropdownValue: (orderDropdownValue: string) => void;
   setStocks: (stocks: StockInterface[]) => void;
   setError: (error: string | boolean) => void;
-  sortStocks: (orderBy: string) => void;
+  sortStocks: (orderBy: string, stocks: StockInterface[]) => void;
 }
 
 export const StocksDisplay: React.FC<Props> = ({
@@ -67,6 +67,11 @@ export const StocksDisplay: React.FC<Props> = ({
       })
   };
 
+  function handleDropdownClick (value: string) {
+    sortStocks(value, stocks);
+    setOrderDropdownValue(value);
+  }
+
   return (
     <div
       className="flex flex-col md:px-12 px-2 pt-14 w-11/12 md:w-6/12 m-auto"
@@ -75,7 +80,7 @@ export const StocksDisplay: React.FC<Props> = ({
       <div className='flex justify-between mb-2'>
         <OrderDropDown 
           values={["NEWEST", "OLDEST", "VALUE HIGH", "VALUE LOW", "CHANGE HIGH", "CHANGE LOW", "A-Z", "Z-A"]} 
-          sortStocks={sortStocks} 
+          handleClick={handleDropdownClick} 
           theme={"dark"} 
           orderDropdownValue={orderDropdownValue}
           setOrderDropdownValue={setOrderDropdownValue}
