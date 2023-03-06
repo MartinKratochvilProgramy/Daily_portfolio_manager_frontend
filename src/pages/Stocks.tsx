@@ -96,7 +96,7 @@ export default function Stocks() {
                               setError={setError} 
                               sortStocks={sortStocks} 
                             />
-        :
+      :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
           <LoadingSpinner size={70} />
         </div>
