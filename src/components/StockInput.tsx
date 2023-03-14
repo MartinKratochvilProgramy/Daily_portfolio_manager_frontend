@@ -5,11 +5,14 @@ import Cookies from 'universal-cookie';
 import { formatStocks } from '../utils/formatStocks';
 import { serverRoute } from '../serverRoute';
 import { StockInterface } from '../types/stock';
+import { sortStocks } from '../pages/Stocks';
 
 interface Props {
   setStocks: (stocks: StockInterface[]) => void;
   error: string | boolean;
   setError: (error: string | boolean) => void;
+  setOrderDropdownValue: (orderDropdownValue: string) => void;
+  setStocksLoaded: (stocksLoaded: boolean) => void;
 }
 
 interface Stock {
@@ -21,6 +24,8 @@ export const StockInput: React.FC<Props> = ({
   setStocks,
   error,
   setError,
+  setOrderDropdownValue,
+  setStocksLoaded
 }) => {
   const [stockTicker, setStockTicker] = useState('');
   const [stockAmount, setStockAmount] = useState(0);
@@ -35,6 +40,9 @@ export const StockInput: React.FC<Props> = ({
       setError("Cannot edit in demo mode")
       return;
     }
+
+    setStocksLoaded(false);
+
     // hit the endpoint and write to db
     // returns the new stocks array
     fetch(serverRoute + '/stock_add', {
@@ -51,7 +59,12 @@ export const StockInput: React.FC<Props> = ({
       .then((response) => response.json())
       .then((returnedStocks) => {
         formatStocks(returnedStocks);
-        setStocks(returnedStocks);
+
+        setOrderDropdownValue("NEWEST");
+        sortStocks("NEWEST", returnedStocks);
+
+        setStocks(returnedStocks)
+        setStocksLoaded(true);
       })
       .catch((error) => {
         setError(error.message)

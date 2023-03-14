@@ -11,6 +11,26 @@ import { serverRoute } from '../serverRoute';
 import { formatStocks } from '../utils/formatStocks';
 import { StockInterface } from '../types/stock';
 
+export const sortStocks = (orderBy: string, stocksInput: StockInterface[]) => {
+  if (orderBy === "A-Z") {
+    stocksInput.sort((a, b) => a.ticker.localeCompare(b.ticker))
+  } else if (orderBy === "Z-A") {
+    stocksInput.sort((a, b) => b.ticker.localeCompare(a.ticker))
+  } else if (orderBy === "NEWEST") {
+    stocksInput.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
+  } else if (orderBy === "OLDEST") {
+    stocksInput.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
+  } else if (orderBy === "VALUE HIGH") {
+    stocksInput.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
+  } else if (orderBy === "VALUE LOW") {
+    stocksInput.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
+  } else if (orderBy === "CHANGE HIGH") {
+    stocksInput.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
+  } else if (orderBy === "CHANGE LOW") {
+    stocksInput.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
+  }
+}
+
 export default function Stocks() {
 
   const [stocks, setStocks] = useState<StockInterface[]>([]);
@@ -43,10 +63,13 @@ export default function Stocks() {
     })
       .then(handleErrors)
       .then((response) => response.json())
-      .then((stocks) => {
-        formatStocks(stocks);
+      .then((returnedStocks) => {
+        formatStocks(returnedStocks);
+
         setOrderDropdownValue("NEWEST");
-        sortStocks("NEWEST", stocks);
+        sortStocks("NEWEST", returnedStocks);
+
+        setStocks(returnedStocks)
         setStocksLoaded(true);
       })
       .catch((error) => {
@@ -57,46 +80,26 @@ export default function Stocks() {
 
   }, []);
 
-  const sortStocks = (orderBy: string, stocksInput: StockInterface[]) => {
-    let newStocks = [...stocksInput];
-    if (orderBy === "A-Z") {
-      newStocks = newStocks.sort((a, b) => a.ticker.localeCompare(b.ticker))
-    } else if (orderBy === "Z-A") {
-      newStocks = newStocks.sort((a, b) => b.ticker.localeCompare(a.ticker))
-    } else if (orderBy === "NEWEST") {
-      newStocks = newStocks.sort(function (a, b) { return new Date(b.lastPurchase).getTime() - new Date(a.lastPurchase).getTime() });
-    } else if (orderBy === "OLDEST") {
-      newStocks = newStocks.sort(function (a, b) { return new Date(a.firstPurchase).getTime() - new Date(b.firstPurchase).getTime() });
-    } else if (orderBy === "VALUE HIGH") {
-      newStocks = newStocks.sort(function (a, b) { return b.prevClose * b.amount - a.prevClose * a.amount });
-    } else if (orderBy === "VALUE LOW") {
-      newStocks = newStocks.sort(function (a, b) { return a.prevClose * a.amount - b.prevClose * b.amount });
-    } else if (orderBy === "CHANGE HIGH") {
-      newStocks = newStocks.sort(function (a, b) { return b.avgPercentageChange - a.avgPercentageChange });
-    } else if (orderBy === "CHANGE LOW") {
-      newStocks = newStocks.sort(function (a, b) { return a.avgPercentageChange - b.avgPercentageChange });
-    }
-    setStocks(newStocks);
-  }
-
   return (
     <div className='bg-white dark:bg-gray-800 pb-8 min-h-screen'>
       <Navbar active="stocks" />
-      <StockInput 
-        setStocks={setStocks} 
-        error={error} 
-        setError={setError} 
+      <StockInput
+        setStocks={setStocks}
+        error={error}
+        setError={setError}
+        setOrderDropdownValue={setOrderDropdownValue}
+        setStocksLoaded={setStocksLoaded}
       />
       {stocksLoaded ?
-        stocks.length > 0 && <StocksDisplay 
-                              stocks={stocks} 
-                              orderDropdownValue={orderDropdownValue}
-                              setOrderDropdownValue={setOrderDropdownValue}  
-                              setStocks={setStocks} 
-                              setError={setError} 
-                              sortStocks={sortStocks} 
-                            />
-      :
+        stocks.length > 0 && <StocksDisplay
+          stocks={stocks}
+          orderDropdownValue={orderDropdownValue}
+          setOrderDropdownValue={setOrderDropdownValue}
+          setStocks={setStocks}
+          setError={setError}
+          sortStocks={sortStocks}
+        />
+        :
         <div className='flex justify-center items-center min-h-[260px] md:min-h-[450px]'>
           <LoadingSpinner size={70} />
         </div>
