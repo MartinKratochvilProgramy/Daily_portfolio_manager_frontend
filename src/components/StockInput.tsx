@@ -127,7 +127,6 @@ export const StockInput: React.FC<Props> = ({
             id="ticker-input"
             className="bg-gray-100 border w-full border-gray-300 text-gray-900 text-sm focus:outline-none block pl-4 p-2.5"
             placeholder="Ticker ('AAPL', 'MSFT', ... )"
-            autoFocus
             onChange={onTickerInputChange}
             value={stockTicker}
           />
